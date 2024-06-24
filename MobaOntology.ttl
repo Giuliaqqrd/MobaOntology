@@ -12,27 +12,10 @@
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#hasCollectionOf
-:hasCollectionOf rdf:type owl:ObjectProperty .
-
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#isBuildOf
-:isBuildOf rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf owl:topObjectProperty ;
-           owl:inverseOf :isBuilded ;
-           rdfs:domain :Build ;
-           rdfs:range :Champion .
-
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#isBuilded
-:isBuilded rdf:type owl:ObjectProperty ;
-           rdfs:domain :Champion ;
-           rdfs:range :Build .
-
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#partOfBuild
-:partOfBuild rdf:type owl:ObjectProperty ;
-             owl:inverseOf :includes .
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#componentItem
+:componentItem rdf:type owl:ObjectProperty ;
+               rdfs:domain :ItemComponent ;
+               rdfs:range :BasicItem .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/characterOf
@@ -51,6 +34,10 @@
               owl:inverseOf :isCharacterOf ;
               rdfs:domain :Game ;
               rdfs:range :Character .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasCollectionOf
+:hasCollectionOf rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasComponent
@@ -126,6 +113,7 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includes
 :includes rdf:type owl:ObjectProperty ;
+          owl:inverseOf :isIncluded ;
           rdfs:comment "Generic inclusion relationship"@en .
 
 
@@ -141,6 +129,20 @@
 :isBasicItem rdf:type owl:ObjectProperty .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBuildOf
+:isBuildOf rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           owl:inverseOf :isBuilded ;
+           rdfs:domain :Build ;
+           rdfs:range :Champion .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBuilded
+:isBuilded rdf:type owl:ObjectProperty ;
+           rdfs:domain :Champion ;
+           rdfs:range :Build .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCharacterOf
 :isCharacterOf rdf:type owl:ObjectProperty ;
                rdfs:domain :Character ;
@@ -149,8 +151,12 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isComponentOf
 :isComponentOf rdf:type owl:ObjectProperty ;
-               rdfs:domain :Item ;
-               rdfs:range :Item .
+               rdfs:domain :ItemComponent ;
+               rdfs:range :CompositeItem .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isIncluded
+:isIncluded rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isMemberOf
@@ -226,6 +232,11 @@
 #    Data properties
 #################################################################
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#itemCost
+:itemCost rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:integer .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/buffDuration
 :buffDuration rdf:type owl:DatatypeProperty ;
               rdfs:comment "Specifies the duration for which a bonus or effect remains active on an entity, like a character or object."@en ;
@@ -270,6 +281,12 @@
              rdfs:label "isDestroyed"@en .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity
+:quantity rdf:type owl:DatatypeProperty ;
+          rdfs:domain :ItemComponent ;
+          rdfs:range xsd:integer .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/rankPoints
 :rankPoints rdf:type owl:DatatypeProperty ;
             rdfs:domain :Match ;
@@ -291,10 +308,6 @@
 #################################################################
 #    Classes
 #################################################################
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#ItemComponent
-:ItemComponent rdf:type owl:Class .
-
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ability
 :Ability rdf:type owl:Class .
@@ -375,8 +388,7 @@
 :CompositeItem rdf:type owl:Class ;
                owl:equivalentClass [ rdf:type owl:Restriction ;
                                      owl:onProperty :hasComponent ;
-                                     owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onClass :BasicItem
+                                     owl:someValuesFrom :ItemComponent
                                    ] ;
                rdfs:subClassOf :NonConsumable .
 
@@ -493,6 +505,29 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Item
 :Item rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ItemComponent
+:ItemComponent rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Class ;
+                                                            owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                            owl:onProperty :componentItem ;
+                                                                            owl:someValuesFrom :BasicItem
+                                                                          ]
+                                                                          [ rdf:type owl:Restriction ;
+                                                                            owl:onProperty :componentItem ;
+                                                                            owl:someValuesFrom :CompositeItem
+                                                                          ]
+                                                                        )
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :quantity ;
+                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onDataRange xsd:integer
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Jungle
@@ -839,8 +874,33 @@
 #    Individuals
 #################################################################
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Build1
-:Build1 rdf:type owl:NamedIndividual .
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#CaulfieldsWarhammer_Shojin_Component
+:CaulfieldsWarhammer_Shojin_Component rdf:type owl:NamedIndividual ;
+                                      :componentItem :CaulfieldsWarhammer ;
+                                      :quantity 1 .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#GlowingMote_CaulfieldsWarhammer_Component
+:GlowingMote_CaulfieldsWarhammer_Component rdf:type owl:NamedIndividual ;
+                                           :componentItem :GlowingMote ;
+                                           :quantity 1 .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Pickaxe
+:Pickaxe rdf:type owl:NamedIndividual ;
+         :isBasicItem :LeagueOfLegends .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Pickaxe_Shojin_Component
+:Pickaxe_Shojin_Component rdf:type owl:NamedIndividual ;
+                          :componentItem :Pickaxe ;
+                          :quantity 1 .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Shojin
+:Shojin rdf:type owl:NamedIndividual ;
+        :hasComponent :CaulfieldsWarhammer_Shojin_Component ,
+                      :Pickaxe_Shojin_Component .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Summoner'sRift
@@ -852,8 +912,8 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ahri
 :Ahri rdf:type owl:NamedIndividual ;
-      :isBuilded :Build1 ;
       :hasRole :Assassin ;
+      :isBuilded :Build1 ;
       :isCharacterOf :LeagueOfLegends .
 
 
@@ -871,10 +931,14 @@
 :Bruiser rdf:type owl:NamedIndividual .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Build1
+:Build1 rdf:type owl:NamedIndividual .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CaulfieldsWarhammer
 :CaulfieldsWarhammer rdf:type owl:NamedIndividual ;
-                     :partOfBuild :Build1 ;
-                     :hasComponent :LongSword .
+                     :hasComponent :GlowingMote_CaulfieldsWarhammer_Component ,
+                                   :LongSword_CaulfieldWarhammer_Component .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DiamondRank
@@ -895,7 +959,8 @@
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/GlowingMote
-:GlowingMote rdf:type owl:NamedIndividual .
+:GlowingMote rdf:type owl:NamedIndividual ;
+             :isBasicItem :LeagueOfLegends .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends
@@ -909,7 +974,13 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LongSword
 :LongSword rdf:type owl:NamedIndividual ;
-           :partOfBuild :Build1 .
+           :isBasicItem :LeagueOfLegends .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LongSword_CaulfieldWarhammer_Component
+:LongSword_CaulfieldWarhammer_Component rdf:type owl:NamedIndividual ;
+                                        :componentItem :LongSword ;
+                                        :quantity 2 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mage
