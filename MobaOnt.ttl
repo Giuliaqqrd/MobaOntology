@@ -1,0 +1,256 @@
+@prefix : <http://www.semanticweb.org/MobaOntology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix vgo: <http://purl.org/net/videogameontology#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix inno: <http://purl.org/innovation/ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dbpedia-owl: <http://dbpedia.org/ontology/> .
+@base <http://www.semanticweb.org/MobaOntology#> .
+
+<http://www.semanticweb.org/MobaOntology> rdf:type owl:Ontology ;
+                                           dc:creator "Giulia Coucourde"@en ,
+                                                      "Laurentiu Jr Marius Zaharia"@en ;
+                                           dc:date "2024-06-18"@en ;
+                                           dc:description "An ontology for representing concepts and entities in Multiplayer Online Battle Arena (MOBA) games."@en ;
+                                           dc:title "MOBA Game Ontology"@en ;
+                                           vann:preferredNamespacePrefix "moba" ;
+                                           vann:preferredNamespaceUri "http://www.semanticweb.org/MobaOntology#" ;
+                                           rdfs:label "MOBA Ontology"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespacePrefix
+vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespaceUri
+vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.org/innovation/ns#hasDeveloped
+inno:hasDeveloped rdf:type owl:ObjectProperty ;
+                  owl:inverseOf :hasDeveloper ;
+                  rdfs:domain :Developer ;
+                  rdfs:range vgo:Game ;
+                  rdfs:comment "Relates innovator to the innovations they have developed. Innovators can be groups, organisations or people."@en ;
+                  rdfs:label "hasDeveloped"@en .
+
+
+###  http://purl.org/net/videogameontology#ownsCharacter
+vgo:ownsCharacter rdf:type owl:ObjectProperty ;
+                  owl:equivalentProperty :ownsChampion ;
+                  rdfs:comment "The vgo:ownsCharacter property asserts which characters are owned by a specific player. A player can have multiple characters in one game and this connection is used to define all the different characters a player could be playing. Even though a player deletes, trades or loses his/her character in any way, the connection can be kept to contain the player's history of owned characters."@en ;
+                  rdfs:label "vgo:ownsCharacter"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasDeveloper
+:hasDeveloper rdf:type owl:ObjectProperty ;
+              rdfs:domain vgo:Game ;
+              rdfs:range :Developer ;
+              rdfs:comment "Specifies the developer or development team responsible for creating a game in the context of MOBA games. Is the inverse property of hasDeveloped."@en ;
+              rdfs:label "hasDeveloper"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#isOwnedByPlayer
+:isOwnedByPlayer rdf:type owl:ObjectProperty ;
+                 owl:inverseOf :ownsChampion ;
+                 rdfs:domain :Champion ;
+                 rdfs:range vgo:Player ;
+                 rdfs:comment "Indicates that a champion in MOBA games is owned or possessed by a player. This property represents the reverse relationship of ownsChampion."@en ;
+                 rdfs:label "isOwnedByPlayer"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#ownsChampion
+:ownsChampion rdf:type owl:ObjectProperty ;
+              rdfs:domain vgo:Player ;
+              rdfs:range :Champion ;
+              rdfs:comment "Indicates ownership or possession of a playable champion by a player in MOBA games. A champion referred to by this property is actively played by the owner, distinguishing it from non-playable characters."@en ;
+              rdfs:label "ownsChampion"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/MobaOntology#hasFoundationDate
+:hasFoundationDate rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasIndividualName
+:hasIndividualName rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasNickname
+:hasNickname rdf:type owl:DatatypeProperty ;
+             rdfs:domain vgo:Player .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.org/net/videogameontology#Character
+vgo:Character rdf:type owl:Class ;
+              rdfs:comment "A vgo:Character is any actor that can exists in a game. A character can be a human-like creature as seen traditionally in video games. However, a character could also be a car, a paddle in game of Pong or spaceship of a space shooter game. This is often contextually related to the gameplay of a certain game. A character can be either controller by a player or by a computer."@en ;
+              rdfs:label "Character"@en .
+
+
+###  http://purl.org/net/videogameontology#Game
+vgo:Game rdf:type owl:Class ;
+         rdfs:comment "The vgo:Game class describes a Game Product that can be played by a player."@en ;
+         rdfs:label "Game"@en .
+
+
+###  http://purl.org/net/videogameontology#Player
+vgo:Player rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty :ownsChampion ;
+                                 owl:someValuesFrom :Champion
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasNickname ;
+                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onDataRange xsd:string
+                               ] ;
+           rdfs:subClassOf foaf:Agent ;
+           rdfs:comment "A player is an agent participating in a MOBA game, controlling champions and making strategic decisions."@en ;
+           rdfs:label "Player"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Ability
+:Ability rdf:type owl:Class ;
+         rdfs:comment "An ability in a MOBA game is a special action or skill a champion can perform. These abilities can deal damage, provide buffs or debuffs, or offer utility."@en ;
+         rdfs:label "Ability"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Champion
+:Champion rdf:type owl:Class ;
+          rdfs:subClassOf :Playable ;
+          rdfs:comment "Represents a specific type of playable character in MOBA games, typically possessing unique abilities and characteristics."@en ;
+          rdfs:label "Champion"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Developer
+:Developer rdf:type owl:Class ;
+           rdfs:subClassOf foaf:Agent ;
+           rdfs:comment "The class representing developers involved in the creation and maintenance of MOBA (Multiplayer Online Battle Arena) games."@en ;
+           rdfs:label "Developer"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#NonPlayable
+:NonPlayable rdf:type owl:Class ;
+             rdfs:subClassOf vgo:Character ;
+             rdfs:comment "Represents characters in MOBA games that are controlled by the game's artificial intelligence (AI) and are not directly controlled by human players."@en ;
+             rdfs:label "NonPlayable"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Playable
+:Playable rdf:type owl:Class ;
+          rdfs:subClassOf vgo:Character ;
+          rdfs:comment "Represents characters in MOBA games that can be controlled and played by human players."@en ;
+          rdfs:label "Playable"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Single
+:Single rdf:type owl:Class ;
+        owl:equivalentClass foaf:Person ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasIndividualName ;
+                              owl:someValuesFrom xsd:string
+                            ] ;
+        rdfs:subClassOf :Developer ;
+        owl:disjointWith :SoftwareHouse ;
+        rdfs:comment "Represents individual developers who independently create and maintain MOBA games."@en ;
+        rdfs:label "Single"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#SoftwareHouse
+:SoftwareHouse rdf:type owl:Class ;
+               owl:equivalentClass foaf:Organization ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasFoundationDate ;
+                                     owl:someValuesFrom xsd:integer
+                                   ] ;
+               rdfs:subClassOf :Developer ;
+               rdfs:comment "Represents software development companies that create and maintain MOBA games."@en ;
+               rdfs:label "SoftwareHouse"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+foaf:Agent rdf:type owl:Class ;
+           rdfs:comment "An agent, such as a person, group, or software agent."@en ;
+           rdfs:label "Agent"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Organization
+foaf:Organization rdf:type owl:Class ;
+                  rdfs:subClassOf :Developer ;
+                  owl:disjointWith foaf:Person .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class ;
+            rdfs:subClassOf :Developer .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/MobaOntology#Ahri
+:Ahri rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Developer1
+:Developer1 rdf:type owl:NamedIndividual ;
+            :hasIndividualName "Mario Rossi" .
+
+
+###  http://www.semanticweb.org/MobaOntology#LeagueOfLegends
+:LeagueOfLegends rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player1
+:Player1 rdf:type owl:NamedIndividual ;
+         :hasNickname "Faker" .
+
+
+###  http://www.semanticweb.org/MobaOntology#RiotGames
+:RiotGames rdf:type owl:NamedIndividual ;
+           inno:hasDeveloped :LeagueOfLegends ;
+           :hasFoundationDate 2008 .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
