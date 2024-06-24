@@ -12,14 +12,21 @@
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#componentItem
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/characterOf
+:characterOf rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/componentItem
 :componentItem rdf:type owl:ObjectProperty ;
                rdfs:domain :ItemComponent ;
                rdfs:range :BasicItem .
 
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/characterOf
-:characterOf rdf:type owl:ObjectProperty .
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasAbility
+:hasAbility rdf:type owl:ObjectProperty ;
+            owl:inverseOf :isAbilityOf ;
+            rdfs:domain :Champion ;
+            rdfs:range :Ability .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasChampion
@@ -123,6 +130,13 @@
               owl:inverseOf :isTeamOf ;
               rdfs:domain :Match ;
               rdfs:range :Team .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isAbilityOf
+:isAbilityOf rdf:type owl:ObjectProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:domain :Ability ;
+             rdfs:range :Champion .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBasicItem
@@ -232,9 +246,10 @@
 #    Data properties
 #################################################################
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#itemCost
-:itemCost rdf:type owl:DatatypeProperty ;
-          rdfs:range xsd:integer .
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/abilityType
+:abilityType rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Ability ;
+             rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/buffDuration
@@ -281,6 +296,11 @@
              rdfs:label "isDestroyed"@en .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/itemCost
+:itemCost rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:integer .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity
 :quantity rdf:type owl:DatatypeProperty ;
           rdfs:domain :ItemComponent ;
@@ -310,7 +330,11 @@
 #################################################################
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ability
-:Ability rdf:type owl:Class .
+:Ability rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :isAbilityOf ;
+                               owl:someValuesFrom :Champion
+                             ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Agent
@@ -331,11 +355,6 @@
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Base
 :Base rdf:type owl:Class ;
       rdfs:subClassOf :MapArea .
-
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Basic
-:Basic rdf:type owl:Class ;
-       rdfs:subClassOf :Ability .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/BasicItem
@@ -655,11 +674,6 @@
 :POV rdf:type owl:Class .
 
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Passive
-:Passive rdf:type owl:Class ;
-         rdfs:subClassOf :Ability .
-
-
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PayToPlay
 :PayToPlay rdf:type owl:Class ;
            owl:equivalentClass [ owl:intersectionOf ( :Game
@@ -828,11 +842,6 @@
             rdfs:subClassOf :MapElement .
 
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Supreme
-:Supreme rdf:type owl:Class ;
-         rdfs:subClassOf :Ability .
-
-
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team
 :Team rdf:type owl:Class ;
       owl:equivalentClass [ rdf:type owl:Restriction ;
@@ -874,35 +883,6 @@
 #    Individuals
 #################################################################
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#CaulfieldsWarhammer_Shojin_Component
-:CaulfieldsWarhammer_Shojin_Component rdf:type owl:NamedIndividual ;
-                                      :componentItem :CaulfieldsWarhammer ;
-                                      :quantity 1 .
-
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#GlowingMote_CaulfieldsWarhammer_Component
-:GlowingMote_CaulfieldsWarhammer_Component rdf:type owl:NamedIndividual ;
-                                           :componentItem :GlowingMote ;
-                                           :quantity 1 .
-
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Pickaxe
-:Pickaxe rdf:type owl:NamedIndividual ;
-         :isBasicItem :LeagueOfLegends .
-
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Pickaxe_Shojin_Component
-:Pickaxe_Shojin_Component rdf:type owl:NamedIndividual ;
-                          :componentItem :Pickaxe ;
-                          :quantity 1 .
-
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Shojin
-:Shojin rdf:type owl:NamedIndividual ;
-        :hasComponent :CaulfieldsWarhammer_Shojin_Component ,
-                      :Pickaxe_Shojin_Component .
-
-
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Summoner'sRift
 <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Summoner'sRift> rdf:type owl:NamedIndividual ,
                                                                                               :Map ;
@@ -912,6 +892,7 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ahri
 :Ahri rdf:type owl:NamedIndividual ;
+      owl:differentFrom :Garen ;
       :hasRole :Assassin ;
       :isBuilded :Build1 ;
       :isCharacterOf :LeagueOfLegends .
@@ -941,6 +922,27 @@
                                    :LongSword_CaulfieldWarhammer_Component .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CaulfieldsWarhammer_Shojin_Component
+:CaulfieldsWarhammer_Shojin_Component rdf:type owl:NamedIndividual ;
+                                      :componentItem :CaulfieldsWarhammer ;
+                                      :quantity 1 .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Courage
+:Courage rdf:type owl:NamedIndividual ;
+         :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DecisiveStrike
+:DecisiveStrike rdf:type owl:NamedIndividual ;
+                :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DemacianJustice
+:DemacianJustice rdf:type owl:NamedIndividual ;
+                 :abilityType "ultimate" .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DiamondRank
 :DiamondRank rdf:type owl:NamedIndividual ;
              :elo 4 .
@@ -955,12 +957,28 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Garen
 :Garen rdf:type owl:NamedIndividual ;
+       :hasAbility :Courage ,
+                   :DecisiveStrike ,
+                   :DemacianJustice ,
+                   :Judgment ,
+                   :Perseverance ;
        :hasRole :Tank .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/GlowingMote
 :GlowingMote rdf:type owl:NamedIndividual ;
              :isBasicItem :LeagueOfLegends .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/GlowingMote_CaulfieldsWarhammer_Component
+:GlowingMote_CaulfieldsWarhammer_Component rdf:type owl:NamedIndividual ;
+                                           :componentItem :GlowingMote ;
+                                           :quantity 1 .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Judgment
+:Judgment rdf:type owl:NamedIndividual ;
+          :abilityType "basic" .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends
@@ -1009,6 +1027,22 @@
 :PC rdf:type owl:NamedIndividual ,
              :Platform ;
     owl:differentFrom :XBOX .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Perseverance
+:Perseverance rdf:type owl:NamedIndividual ;
+              :abilityType "passive" .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Pickaxe
+:Pickaxe rdf:type owl:NamedIndividual ;
+         :isBasicItem :LeagueOfLegends .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Pickaxe_Shojin_Component
+:Pickaxe_Shojin_Component rdf:type owl:NamedIndividual ;
+                          :componentItem :Pickaxe ;
+                          :quantity 1 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player1
@@ -1082,6 +1116,12 @@
 :RiotGames rdf:type owl:NamedIndividual .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Shojin
+:Shojin rdf:type owl:NamedIndividual ;
+        :hasComponent :CaulfieldsWarhammer_Shojin_Component ,
+                      :Pickaxe_Shojin_Component .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/StandardIsometric
 :StandardIsometric rdf:type owl:NamedIndividual .
 
@@ -1150,6 +1190,16 @@
 
 
 [ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Courage
+                        :DecisiveStrike
+                        :DemacianJustice
+                        :Judgment
+                        :Perseverance
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
   owl:distinctMembers ( :Mobile
                         :PC
                         :Playstation
@@ -1172,4 +1222,4 @@
 ] .
 
 
-###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
