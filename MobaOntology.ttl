@@ -12,6 +12,12 @@
 #    Object Properties
 #################################################################
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#isSpecialEventOf
+:isSpecialEventOf rdf:type owl:ObjectProperty ;
+                  rdfs:domain :SpecialEvents ;
+                  rdfs:range :Game .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/characterOf
 :characterOf rdf:type owl:ObjectProperty .
 
@@ -61,6 +67,13 @@
               rdfs:range :Developer .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasEnrolled
+:hasEnrolled rdf:type owl:ObjectProperty ;
+             owl:inverseOf :isEnrolled ;
+             rdfs:domain :Competition ;
+             rdfs:range :Team .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapArea
 :hasMapArea rdf:type owl:ObjectProperty ;
             owl:inverseOf :mapAreaOf ;
@@ -107,10 +120,6 @@
          rdfs:range :Role .
 
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasType
-:hasType rdf:type owl:ObjectProperty .
-
-
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hostMatch
 :hostMatch rdf:type owl:ObjectProperty ;
            owl:inverseOf :takePlace ;
@@ -139,6 +148,10 @@
              rdfs:range :Champion .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isAmateurOf
+:isAmateurOf rdf:type owl:ObjectProperty .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBasicItem
 :isBasicItem rdf:type owl:ObjectProperty .
 
@@ -163,10 +176,21 @@
                rdfs:range :Game .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCompetitionOf
+:isCompetitionOf rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain :Competition ;
+                 rdfs:range :Game .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isComponentOf
 :isComponentOf rdf:type owl:ObjectProperty ;
                rdfs:domain :ItemComponent ;
                rdfs:range :CompositeItem .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isEnrolled
+:isEnrolled rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isIncluded
@@ -177,6 +201,12 @@
 :isMemberOf rdf:type owl:ObjectProperty ;
             rdfs:domain :Player ;
             rdfs:range :Team .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isOfficialOf
+:isOfficialOf rdf:type owl:ObjectProperty ;
+              rdfs:domain :OfficialTournaments ;
+              rdfs:range :Game .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPartOf
@@ -246,6 +276,14 @@
 #    Data properties
 #################################################################
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#mapType
+:mapType rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#matchType
+:matchType rdf:type owl:DatatypeProperty .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/abilityType
 :abilityType rdf:type owl:DatatypeProperty ;
              rdfs:domain :Ability ;
@@ -301,6 +339,11 @@
           rdfs:range xsd:integer .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/location
+:location rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Competition .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity
 :quantity rdf:type owl:DatatypeProperty ;
           rdfs:domain :ItemComponent ;
@@ -343,6 +386,10 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Amateur
 :Amateur rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :isAmateurOf ;
+                               owl:someValuesFrom :Game
+                             ] ;
          rdfs:subClassOf :Competition ;
          owl:disjointWith :OfficialTournaments .
 
@@ -390,6 +437,10 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Championship
 :Championship rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                    owl:onProperty :location ;
+                                    owl:someValuesFrom xsd:string
+                                  ] ;
               rdfs:subClassOf :OfficialTournaments .
 
 
@@ -400,7 +451,15 @@
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Competition
-:Competition rdf:type owl:Class .
+:Competition rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasEnrolled ;
+                               owl:someValuesFrom :Team
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :isCompetitionOf ;
+                               owl:someValuesFrom :Game
+                             ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CompositeItem
@@ -425,11 +484,19 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Custom
 :Custom rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Restriction ;
+                              owl:onProperty :matchType ;
+                              owl:hasValue "customized"@en
+                            ] ;
         rdfs:subClassOf :SpecialEvents .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CustomEventMaps
 :CustomEventMaps rdf:type owl:Class ;
+                 owl:equivalentClass [ rdf:type owl:Restriction ;
+                                       owl:onProperty :mapType ;
+                                       owl:hasValue "customized"@en
+                                     ] ;
                  rdfs:subClassOf :Custom .
 
 
@@ -489,10 +556,6 @@
       rdfs:subClassOf [ rdf:type owl:Restriction ;
                         owl:onProperty :hasDeveloper ;
                         owl:someValuesFrom :Developer
-                      ] ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty :hasMatch ;
-                        owl:someValuesFrom :Match
                       ] ,
                       [ rdf:type owl:Restriction ;
                         owl:onProperty :hasPOV ;
@@ -607,6 +670,10 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mondial
 :Mondial rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :location ;
+                               owl:hasValue "world"
+                             ] ;
          rdfs:subClassOf :Championship .
 
 
@@ -667,6 +734,18 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/OfficialTournaments
 :OfficialTournaments rdf:type owl:Class ;
+                     owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :isOfficialOf ;
+                                                                  owl:someValuesFrom :Game
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :hasEnrolled ;
+                                                                  owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :Team
+                                                                ]
+                                                              ) ;
+                                           rdf:type owl:Class
+                                         ] ;
                      rdfs:subClassOf :Competition .
 
 
@@ -761,6 +840,10 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Regional
 :Regional rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                owl:onProperty :location ;
+                                owl:hasValue "region"
+                              ] ;
           rdfs:subClassOf :Championship .
 
 
@@ -789,11 +872,6 @@
             rdfs:subClassOf :SpecialEvents .
 
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Seasonal
-:Seasonal rdf:type owl:Class ;
-          rdfs:subClassOf :Championship .
-
-
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Single
 :Single rdf:type owl:Class ;
         rdfs:subClassOf :Developer .
@@ -818,7 +896,7 @@
                 owl:equivalentClass [ owl:intersectionOf ( :Game
                                                            [ rdf:type owl:Restriction ;
                                                              owl:onProperty :hasPlatform ;
-                                                             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                              owl:onClass :Platform
                                                            ]
                                                          ) ;
@@ -834,6 +912,10 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SpecialEvents
 :SpecialEvents rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                     owl:onProperty :isSpecialEventOf ;
+                                     owl:someValuesFrom :Game
+                                   ] ;
                rdfs:subClassOf :OfficialTournaments .
 
 
@@ -847,7 +929,11 @@
       owl:equivalentClass [ rdf:type owl:Restriction ;
                             owl:onProperty :isTeamOf ;
                             owl:someValuesFrom :Match
-                          ] .
+                          ] ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :isEnrolled ;
+                        owl:someValuesFrom :Competition
+                      ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ThreeLaneMap
@@ -985,8 +1071,7 @@
 :LeagueOfLegends rdf:type owl:NamedIndividual ;
                  :hasDeveloper :RiotGames ;
                  :hasPOV :StandardIsometric ;
-                 :hasPlatform :PC ,
-                              :XBOX ;
+                 :hasPlatform :PC ;
                  :hasPrice 0 .
 
 
@@ -1155,9 +1240,22 @@
                   :Player9 .
 
 
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team3
+:Team3 rdf:type owl:NamedIndividual .
+
+
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Turret
 :Turret rdf:type owl:NamedIndividual ,
                  :Structural .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/TwitchCompetition
+:TwitchCompetition rdf:type owl:NamedIndividual ;
+                   :hasEnrolled :Team1 ,
+                                :Team2 ,
+                                :Team3 ;
+                   :isCompetitionOf :LeagueOfLegends ;
+                   :location "italy" .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/XBOX
@@ -1222,4 +1320,12 @@
 ] .
 
 
-###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Team1
+                        :Team2
+                        :Team3
+                      )
+] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
