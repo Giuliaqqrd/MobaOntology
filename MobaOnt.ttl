@@ -10,6 +10,10 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix sport: <https://www.bbc.co.uk/ontologies/sport/> .
+@prefix dctype: <http://purl.org/dc/dcmitype/> .
+@prefix schema: <https://schema.org/> .
 @prefix dbpedia-owl: <http://dbpedia.org/ontology/> .
 @base <http://www.semanticweb.org/MobaOntology#> .
 
@@ -26,6 +30,10 @@
 #################################################################
 #    Annotation properties
 #################################################################
+
+###  http://purl.org/NET/c4dm/event.owl#term_status
+event:term_status rdf:type owl:AnnotationProperty .
+
 
 ###  http://purl.org/dc/elements/1.1/creator
 dc:creator rdf:type owl:AnnotationProperty .
@@ -68,11 +76,93 @@ inno:hasDeveloped rdf:type owl:ObjectProperty ;
                   rdfs:label "hasDeveloped"@en .
 
 
+###  http://purl.org/net/videogameontology#hasPlayingArea
+vgo:hasPlayingArea rdf:type owl:ObjectProperty ;
+                   owl:equivalentProperty :hasMapArea ;
+                   rdfs:label "vgo:hasPlayingArea"@en .
+
+
+###  http://purl.org/net/videogameontology#isItemInGame
+vgo:isItemInGame rdf:type owl:ObjectProperty ;
+                 rdfs:domain vgo:Item ;
+                 rdfs:range vgo:Game ;
+                 rdfs:comment "The vgo:isItemInGame is used to specify which item belongs to a particular game. An item cannot exist alone and thus should always be associated to a certain game."@en ;
+                 rdfs:label "isItemInGame"@en .
+
+
+###  http://purl.org/net/videogameontology#isSessionInGame
+vgo:isSessionInGame rdf:type owl:ObjectProperty ;
+                    owl:equivalentProperty :isMatchInGame ;
+                    rdfs:comment "The vgo:isSessionInGame property links a vgo:Session to a certain vgo:Game. Each gameplay session must belong to a certain game."@en ;
+                    rdfs:label "vgo:isSessionInGame"@en .
+
+
 ###  http://purl.org/net/videogameontology#ownsCharacter
 vgo:ownsCharacter rdf:type owl:ObjectProperty ;
                   owl:equivalentProperty :ownsChampion ;
                   rdfs:comment "The vgo:ownsCharacter property asserts which characters are owned by a specific player. A player can have multiple characters in one game and this connection is used to define all the different characters a player could be playing. Even though a player deletes, trades or loses his/her character in any way, the connection can be kept to contain the player's history of owned characters."@en ;
                   rdfs:label "vgo:ownsCharacter"@en .
+
+
+###  http://purl.org/net/videogameontology#ownsItem
+vgo:ownsItem rdf:type owl:ObjectProperty ;
+             owl:equivalentProperty :suitableItem ;
+             rdfs:label "vgo:ownsItem"@en .
+
+
+###  http://purl.org/net/videogameontology#purchasesGameOffering
+vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
+                          rdfs:domain vgo:InAppPurchaseEvent ;
+                          rdfs:range vgo:GameProduct .
+
+
+###  http://www.semanticweb.org/MobaOntology#availableOnPlatform
+:availableOnPlatform rdf:type owl:ObjectProperty ;
+                     owl:inverseOf :isPlatformOf ;
+                     rdfs:domain vgo:Game ;
+                     rdfs:range :Platform ;
+                     rdfs:comment "Specifies the gaming platform(s) on which a MOBA game is available. This property links a game to one or more platforms."@en ;
+                     rdfs:label "availableOnPlatform"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#containBase
+:containBase rdf:type owl:ObjectProperty ;
+             owl:propertyChainAxiom ( :hasMapSide
+                                      :hasBase
+                                    ) .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasAbilitySet
+:hasAbilitySet rdf:type owl:ObjectProperty ;
+               owl:inverseOf :isAbilitySetOf ;
+               rdf:type owl:FunctionalProperty ;
+               rdfs:domain :Champion ;
+               rdfs:range :Abilities .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasBase
+:hasBase rdf:type owl:ObjectProperty ;
+         owl:inverseOf :isBaseOf ;
+         rdfs:domain :MapSide ;
+         rdfs:range :Base .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasBuild
+:hasBuild rdf:type owl:ObjectProperty ;
+          rdfs:domain :Champion ;
+          rdfs:range :Build .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasCompetitor
+:hasCompetitor rdf:type owl:ObjectProperty ;
+               owl:inverseOf :isCompetitorOf .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasComponent
+:hasComponent rdf:type owl:ObjectProperty ;
+              owl:inverseOf :isComponentOf ;
+              rdfs:domain :CompositeItem ;
+              rdfs:range vgo:Item .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasDeveloper
@@ -81,6 +171,154 @@ vgo:ownsCharacter rdf:type owl:ObjectProperty ;
               rdfs:range :Developer ;
               rdfs:comment "Specifies the developer or development team responsible for creating a game in the context of MOBA games. Is the inverse property of hasDeveloped."@en ;
               rdfs:label "hasDeveloper"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasItemSet
+:hasItemSet rdf:type owl:ObjectProperty ;
+            owl:inverseOf :isItemSetOf ;
+            rdfs:domain :Build ;
+            rdfs:range vgo:Item .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasLocation
+:hasLocation rdf:type owl:ObjectProperty ;
+             owl:inverseOf :isLocationOf .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMapArea
+:hasMapArea rdf:type owl:ObjectProperty ;
+            rdfs:domain :Map ;
+            rdfs:range :MapArea .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMapElement
+:hasMapElement rdf:type owl:ObjectProperty ;
+               rdfs:domain :MapArea ;
+               rdfs:range :MapElement .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMapSide
+:hasMapSide rdf:type owl:ObjectProperty ;
+            rdfs:domain :Map ;
+            rdfs:range :MapSide .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMatch
+:hasMatch rdf:type owl:ObjectProperty ;
+          owl:inverseOf :isMatchInGame ;
+          rdfs:domain vgo:Game ;
+          rdfs:range :Match .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMember
+:hasMember rdf:type owl:ObjectProperty ;
+           owl:inverseOf :isMemberOf ;
+           rdfs:domain :Team ;
+           rdfs:range vgo:Player .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMonetization
+:hasMonetization rdf:type owl:ObjectProperty ;
+                 owl:inverseOf :isMonetizationOf ;
+                 rdfs:domain vgo:Game ;
+                 rdfs:comment "Specifies the monetization model used by a MOBA game. This property links a game to its monetization model, such as PayToPlay or FreeToPlay."@en ;
+                 rdfs:label "hasMonetization"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasOfficialTournaments
+:hasOfficialTournaments rdf:type owl:ObjectProperty ;
+                        rdfs:domain vgo:Game ;
+                        rdfs:range :OfficialCompetition .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasOutcome
+:hasOutcome rdf:type owl:ObjectProperty ;
+            owl:inverseOf :isOutcomeOf ;
+            rdfs:range :GameOutcome .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasRank
+:hasRank rdf:type owl:ObjectProperty ;
+         rdfs:range :Rank .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasRole
+:hasRole rdf:type owl:ObjectProperty ;
+         owl:inverseOf :isRoleOf ;
+         rdfs:domain :Champion ;
+         rdfs:range :Role .
+
+
+###  http://www.semanticweb.org/MobaOntology#includes
+:includes rdf:type owl:ObjectProperty ,
+                   owl:TransitiveProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#includesTeam
+:includesTeam rdf:type owl:ObjectProperty ;
+              rdfs:domain :Match ;
+              rdfs:range :Team .
+
+
+###  http://www.semanticweb.org/MobaOntology#isAbilitySetOf
+:isAbilitySetOf rdf:type owl:ObjectProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain :Abilities ;
+                rdfs:range :Champion .
+
+
+###  http://www.semanticweb.org/MobaOntology#isBaseOf
+:isBaseOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Base ;
+          rdfs:range :MapSide .
+
+
+###  http://www.semanticweb.org/MobaOntology#isCompetitorOf
+:isCompetitorOf rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#isComponentOf
+:isComponentOf rdf:type owl:ObjectProperty ,
+                        owl:TransitiveProperty ;
+               rdfs:domain vgo:Item ;
+               rdfs:range :CompositeItem .
+
+
+###  http://www.semanticweb.org/MobaOntology#isItemSetOf
+:isItemSetOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain vgo:Item ;
+             rdfs:range :Build .
+
+
+###  http://www.semanticweb.org/MobaOntology#isLocationOf
+:isLocationOf rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#isMatchInGame
+:isMatchInGame rdf:type owl:ObjectProperty ;
+               rdfs:domain :Match ;
+               rdfs:range vgo:Game .
+
+
+###  http://www.semanticweb.org/MobaOntology#isMemberOf
+:isMemberOf rdf:type owl:ObjectProperty ;
+            rdfs:domain vgo:Player ;
+            rdfs:range :Team .
+
+
+###  http://www.semanticweb.org/MobaOntology#isMonetizationOf
+:isMonetizationOf rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#isNonPlayableOf
+:isNonPlayableOf rdf:type owl:ObjectProperty ;
+                 rdfs:comment "Indicates a non-playable entity within a game. This property links a non-playable entity to the game in which it appears but cannot be played."@en ;
+                 rdfs:label "isNonPlayableOf"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#isOutcomeOf
+:isOutcomeOf rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isOwnedByPlayer
@@ -92,6 +330,31 @@ vgo:ownsCharacter rdf:type owl:ObjectProperty ;
                  rdfs:label "isOwnedByPlayer"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#isPlatformOf
+:isPlatformOf rdf:type owl:ObjectProperty ;
+              rdfs:domain :Platform ;
+              rdfs:range vgo:Game .
+
+
+###  http://www.semanticweb.org/MobaOntology#isPlayableOf
+:isPlayableOf rdf:type owl:ObjectProperty ;
+              rdfs:comment "Indicates an entity that is a playable within a game. This property links a playable character to the game in which it can be played."@en ;
+              rdfs:label "isPlayableOf"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#isPlayedByTeam
+:isPlayedByTeam rdf:type owl:ObjectProperty ;
+                owl:propertyChainAxiom ( :hasMatch
+                                         :includesTeam
+                                       ) .
+
+
+###  http://www.semanticweb.org/MobaOntology#isRoleOf
+:isRoleOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Role ;
+          rdfs:range :Champion .
+
+
 ###  http://www.semanticweb.org/MobaOntology#ownsChampion
 :ownsChampion rdf:type owl:ObjectProperty ;
               rdfs:domain vgo:Player ;
@@ -100,26 +363,188 @@ vgo:ownsCharacter rdf:type owl:ObjectProperty ;
               rdfs:label "ownsChampion"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#suitableItem
+:suitableItem rdf:type owl:ObjectProperty ;
+              owl:propertyChainAxiom ( :hasBuild
+                                       :hasItemSet
+                                     ) .
+
+
 #################################################################
 #    Data properties
 #################################################################
 
+###  http://purl.org/net/videogameontology#username
+vgo:username rdf:type owl:DatatypeProperty ;
+             owl:equivalentProperty :hasNickname ;
+             rdfs:comment "The username connects player to a text string which describes the username a player has."@en ;
+             rdfs:label "username"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityName
+:abilityName rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#componentQuantity
+:componentQuantity rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasArmor
+:hasArmor rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :hasBaseStat ;
+          rdf:type owl:FunctionalProperty ;
+          rdfs:domain :Champion ;
+          rdfs:range xsd:integer ;
+          rdfs:comment "Specifies the base armor of the champion."@en ;
+          rdfs:label "hasArmor"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasAttackDamage
+:hasAttackDamage rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :hasBaseStat ;
+                 rdf:type owl:FunctionalProperty ;
+                 rdfs:domain :Champion ;
+                 rdfs:range xsd:integer ;
+                 rdfs:comment "Specifies the base attack damage of the champion."@en ;
+                 rdfs:label "hasAttackDamage"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasBaseStat
+:hasBaseStat rdf:type owl:DatatypeProperty ;
+             rdfs:comment "Represents the basic properties and attributes of a champion in a MOBA game."@en ;
+             rdfs:label "hasBaseStat"@en .
+
+
 ###  http://www.semanticweb.org/MobaOntology#hasFoundationDate
-:hasFoundationDate rdf:type owl:DatatypeProperty .
+:hasFoundationDate rdf:type owl:DatatypeProperty ,
+                            owl:FunctionalProperty ;
+                   rdfs:comment "Specifies the date when a software development company (SoftwareHouse) was founded. This property records the foundation date of the company."@en ;
+                   rdfs:label "hasFoundationDate"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasHealth
+:hasHealth rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :hasBaseStat ;
+           rdf:type owl:FunctionalProperty ;
+           rdfs:domain :Champion ;
+           rdfs:range xsd:integer ;
+           rdfs:comment "Specifies the base health points of the champion."@en ;
+           rdfs:label "hasHealth"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasIndividualName
-:hasIndividualName rdf:type owl:DatatypeProperty .
+:hasIndividualName rdf:type owl:DatatypeProperty ,
+                            owl:FunctionalProperty ;
+                   rdfs:comment "Specifies the real name of an individual developer. This property records the personal name of the developer."@en ;
+                   rdfs:label "hasIndividualName"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMagicResist
+:hasMagicResist rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :hasBaseStat ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain :Champion ;
+                rdfs:range xsd:integer ;
+                rdfs:comment "Specifies the base magic resist of the champion."@en ;
+                rdfs:label "hasMagicResist"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMana
+:hasMana rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :hasBaseStat ;
+         rdf:type owl:FunctionalProperty ;
+         rdfs:domain :Champion ;
+         rdfs:range xsd:integer ;
+         rdfs:comment "Specifies the base mana pool of the champion. Mana is a resource used to cast spells and abilities."@en ;
+         rdfs:label "hasMana"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMovementSpeed
+:hasMovementSpeed rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :hasBaseStat ;
+                  rdf:type owl:FunctionalProperty ;
+                  rdfs:domain :Champion ;
+                  rdfs:range xsd:integer ;
+                  rdfs:comment "Specifies the base movement speed of the champion."@en ;
+                  rdfs:label "hasMovementSpeed"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasName
+:hasName rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:domain :Champion ;
+         rdfs:range xsd:string ;
+         rdfs:comment "Specifies the name of the champion."@en ;
+         rdfs:label "hasName"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasNickname
-:hasNickname rdf:type owl:DatatypeProperty ;
-             rdfs:domain vgo:Player .
+:hasNickname rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:domain vgo:Player ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Specifies the nickname or in-game alias of a player in MOBA games. This property is used to identify players by their chosen game names."@en ;
+             rdfs:label "hasNickname"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasRange
+:hasRange rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :hasBaseStat ;
+          rdf:type owl:FunctionalProperty ;
+          rdfs:domain :Champion ;
+          rdfs:range xsd:string ;
+          rdfs:comment "Specifies the attack range of the champion, indicating whether the champion is melee or ranged."@en ;
+          rdfs:label "hasRange"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#isOfficialCompetition
+:isOfficialCompetition rdf:type owl:DatatypeProperty ;
+                       rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/MobaOntology#itemCost
+:itemCost rdf:type owl:DatatypeProperty ;
+          rdfs:domain vgo:Item ;
+          rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/MobaOntology#itemEffect
+:itemEffect rdf:type owl:DatatypeProperty ;
+            rdfs:domain vgo:Item ;
+            rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#itemName
+:itemName rdf:type owl:DatatypeProperty ;
+          rdfs:domain vgo:Item ;
+          rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#priceToPlay
+:priceToPlay rdf:type owl:DatatypeProperty ;
+             rdfs:domain :MonetizationModel ;
+             rdfs:range xsd:integer ;
+             rdfs:comment "Represents the price required to play a MOBA videogame."@en ;
+             rdfs:label "priceToPlay"@en .
 
 
 #################################################################
 #    Classes
 #################################################################
+
+###  http://purl.org/NET/c4dm/event.owl#Event
+event:Event rdf:type owl:Class ;
+            rdfs:comment """An arbitrary classification of a space/time region, by a
+cognitive agent. An event may have actively participating agents,
+passive factors, products, and a location in space/time."""@en ;
+            rdfs:label "Event"@en .
+
+
+###  http://purl.org/dc/dcmitype/Collection
+dctype:Collection rdf:type owl:Class ;
+                  rdfs:comment "A collection is described as a group; its parts may also be separately described."@en ;
+                  rdfs:label "Collection"@en .
+
 
 ###  http://purl.org/net/videogameontology#Character
 vgo:Character rdf:type owl:Class ;
@@ -127,10 +552,69 @@ vgo:Character rdf:type owl:Class ;
               rdfs:label "Character"@en .
 
 
+###  http://purl.org/net/videogameontology#GainEvent
+vgo:GainEvent rdf:type owl:Class ;
+              rdfs:subClassOf vgo:GameEvent ;
+              rdfs:comment "The vgo:GainEvent describes an event that is related to character/player gaining something in a game. This is a subclass of vgo:GameEvent as gaining something is related to a specific game. For example, a player can gain a new character, achievement or item."@en ;
+              rdfs:label "GainEvent"@en .
+
+
 ###  http://purl.org/net/videogameontology#Game
 vgo:Game rdf:type owl:Class ;
          rdfs:comment "The vgo:Game class describes a Game Product that can be played by a player."@en ;
          rdfs:label "Game"@en .
+
+
+###  http://purl.org/net/videogameontology#GameEvent
+vgo:GameEvent rdf:type owl:Class ;
+              rdfs:subClassOf vgo:InstantaneousEvent ;
+              rdfs:comment "The vgo:GameEvent describes an event that takes place in a game without straight player interaction. GameEvents are often very specific for each game. Examples of vgo:GameEvent could be an enemy dying, connecting to a multiplayer server, loading a new level or playing an animation."@en ;
+              rdfs:label "GameEvent"@en .
+
+
+###  http://purl.org/net/videogameontology#GameProduct
+vgo:GameProduct rdf:type owl:Class ;
+                rdfs:comment """A vgo:GameProduct is anything that is for sale inside a game. These can be either normal game items purchased with in-game currency or with real world money. An example of vgo:GameProduct could be a consumable health potion bought with real money, a better weapon or some visual improvement (e.g. Hats in Steam). Basically a Game Product can be anything, a character, an item or an achievement.
+
+GameProduct is a subclass of Good Relations: ProductOrService & schema:Product. Since vgo:GameProduct is a type of buyable product, it reuses the properties available in the schema and Good Relations, such as currency price, validity of the offer and so on."""@en ;
+                rdfs:label "GameProduct"@en .
+
+
+###  http://purl.org/net/videogameontology#InAppPurchaseEvent
+vgo:InAppPurchaseEvent rdf:type owl:Class ;
+                       owl:equivalentClass [ rdf:type owl:Restriction ;
+                                             owl:onProperty vgo:purchasesGameOffering ;
+                                             owl:someValuesFrom vgo:GameProduct
+                                           ] ;
+                       rdfs:subClassOf vgo:InstantaneousEvent ;
+                       rdfs:comment "The vgo:InAppPurchaseEvent describes an event that is related to making a purchase with real money inside a game. This is a subclass of InstantaneousEvent because it happens at certain moment in time. An example of vgo:InAppPurchaseEvent would be unlocking secret levels with real money or purchasing better equipment with real money."@en ;
+                       rdfs:label "InAppPurchaseEvent"@en .
+
+
+###  http://purl.org/net/videogameontology#InstantaneousEvent
+vgo:InstantaneousEvent rdf:type owl:Class ;
+                       rdfs:comment "The vgo:InstantaneousEvent class describes an event that happens during the gameplay at a certain moment in time. This can be a player gaining an achievement, killing an enemy or making an In-app purchase."@en ;
+                       rdfs:label "InstantaneousEvent"@en .
+
+
+###  http://purl.org/net/videogameontology#Item
+vgo:Item rdf:type owl:Class ;
+         rdfs:comment "A vgo:Item portrays any item that exists in a game. The item can either be just visual part of the game or a concrete usable item. As an example an item could be a drinkable potion, a magical sword or just a flower pot."@en ;
+         rdfs:label "Item"@en .
+
+
+###  http://purl.org/net/videogameontology#LoseEvent
+vgo:LoseEvent rdf:type owl:Class ;
+              rdfs:subClassOf vgo:GameEvent ;
+              rdfs:comment "vgo:LoseEvent describes an event that is related to character/player losing something in a game. This is a subclass of GameEvent as gaining something is related to a specific game. For example, a player can lose a character due to trade with another player. Another example would be a character losing item due to consuming it."@en ;
+              rdfs:label "LoseEvent"@en .
+
+
+###  http://purl.org/net/videogameontology#MenuEvent
+vgo:MenuEvent rdf:type owl:Class ;
+              rdfs:subClassOf vgo:InstantaneousEvent ;
+              rdfs:comment "The vgo:MenuEvent describes an event that is related to interacting with the ingame menu. An example of Menu event is muting sounds, changing graphic settings, changing gameplay difficulty or remapping game controls."@en ;
+              rdfs:label "MenuEvent"@en .
 
 
 ###  http://purl.org/net/videogameontology#Player
@@ -149,17 +633,110 @@ vgo:Player rdf:type owl:Class ;
            rdfs:label "Player"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#Ability
-:Ability rdf:type owl:Class ;
-         rdfs:comment "An ability in a MOBA game is a special action or skill a champion can perform. These abilities can deal damage, provide buffs or debuffs, or offer utility."@en ;
-         rdfs:label "Ability"@en .
+###  http://purl.org/net/videogameontology#PlayerEvent
+vgo:PlayerEvent rdf:type owl:Class ;
+                rdfs:subClassOf vgo:InstantaneousEvent ;
+                rdfs:comment "The vgo:PlayerEvent describes a vgo:InstantaneousEvent that is caused by the player. For example jumping in the game, throwing an item or pressing a joystick button."@en ;
+                rdfs:label "PlayerEvent"@en .
+
+
+###  http://purl.org/net/videogameontology#PlayingArea
+vgo:PlayingArea rdf:type owl:Class ;
+                rdfs:label "vgo:PlayingArea"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Abilities
+:Abilities rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty :abilityName ;
+                                 owl:someValuesFrom xsd:string
+                               ] ;
+           rdfs:subClassOf dctype:Collection .
+
+
+###  http://www.semanticweb.org/MobaOntology#AmateurCompetition
+:AmateurCompetition rdf:type owl:Class ;
+                    owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty :hasCompetitor ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onClass :Competitors
+                                                               ]
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty :isOfficialCompetition ;
+                                                                 owl:hasValue "false"^^xsd:boolean
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] ;
+                    rdfs:subClassOf sport:Competition ;
+                    owl:disjointWith :OfficialCompetition ;
+                    rdfs:comment "Amateur is a subclass of Competition within the MOBA genre, referring to tournaments or events aimed at amateur or non-professional players. These competitions provide opportunities for aspiring players to gain experience, improve skills, and potentially transition to higher-level competitive play."@en ;
+                    rdfs:label "AmateurCompetition"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Base
+:Base rdf:type owl:Class ;
+      rdfs:subClassOf :MapArea .
+
+
+###  http://www.semanticweb.org/MobaOntology#Build
+:Build rdf:type owl:Class ;
+       owl:equivalentClass [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasItemSet ;
+                             owl:someValuesFrom vgo:Item
+                           ] ;
+       rdfs:subClassOf dctype:Collection ;
+       rdfs:comment "Build is a subclass of Collection representing a set or collection of item combinations created by players in a game. These builds are typically optimized for specific roles or playstyles, such as offensive, defensive, or support."@en ;
+       rdfs:label "Build"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Champion
 :Champion rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Playable
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasRole ;
+                                                       owl:someValuesFrom :Role
+                                                     ]
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasAbilitySet ;
+                                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :Abilities
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] ;
           rdfs:subClassOf :Playable ;
           rdfs:comment "Represents a specific type of playable character in MOBA games, typically possessing unique abilities and characteristics."@en ;
           rdfs:label "Champion"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Championship
+:Championship rdf:type owl:Class ;
+              rdfs:subClassOf :OfficialCompetition ;
+              rdfs:comment "Championship is a subclass of officialTournaments representing prestigious tournaments that determine the top team or player in a particular season or period. Championships often have qualifiers and culminate in a grand final event."@en ;
+              rdfs:label "Championship"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Competitors
+:Competitors rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasCompetitor ;
+                                   owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Team
+                                 ] ;
+             rdfs:subClassOf dctype:Collection ;
+             rdfs:comment "Specifiy a collection of teams."@en ;
+             rdfs:label "Competitors"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#CompositeItem
+:CompositeItem rdf:type owl:Class ;
+               rdfs:subClassOf :NonConsumableItem .
+
+
+###  http://www.semanticweb.org/MobaOntology#ConsumableItem
+:ConsumableItem rdf:type owl:Class ;
+                rdfs:subClassOf vgo:Item .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Developer
@@ -169,31 +746,411 @@ vgo:Player rdf:type owl:Class ;
            rdfs:label "Developer"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#Draft
+:Draft rdf:type owl:Class ;
+       rdfs:subClassOf :Mechanic .
+
+
+###  http://www.semanticweb.org/MobaOntology#Elite
+:Elite rdf:type owl:Class ;
+       rdfs:subClassOf :Rank .
+
+
+###  http://www.semanticweb.org/MobaOntology#FirstPerson
+:FirstPerson rdf:type owl:Class ;
+             rdfs:subClassOf :PersonPOV .
+
+
+###  http://www.semanticweb.org/MobaOntology#FreeToPlay
+:FreeToPlay rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( vgo:Game
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :hasMonetization ;
+                                                         owl:someValuesFrom :FreeToPlayModel
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] ;
+            rdfs:subClassOf vgo:Game ;
+            owl:disjointWith :PayToPlay ;
+            rdfs:comment "Represents games in the MOBA genre that are free to play, typically monetized through in-game purchases, advertisements, or other methods."@en ;
+            rdfs:label "FreeToPlay"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#FreeToPlayModel
+:FreeToPlayModel rdf:type owl:Class ;
+                 owl:equivalentClass [ rdf:type owl:Restriction ;
+                                       owl:onProperty :priceToPlay ;
+                                       owl:hasValue 0
+                                     ] ;
+                 rdfs:subClassOf :MonetizationModel ;
+                 owl:disjointWith :PayToPlayModel ;
+                 rdfs:comment "Represents a monetization model where the game is free to play, but revenue is generated through in-game purchases, advertisements, or other methods."@en ;
+                 rdfs:label "FreeToPlayModel"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#GameOutcome
+:GameOutcome rdf:type owl:Class ;
+             rdfs:subClassOf vgo:GameEvent ;
+             rdfs:comment "Game Outcome represents the result of a MOBA match, indicating whether a player or team has achieved victory, suffered defeat, or any other end state."@en ;
+             rdfs:label "GameOutcome"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#High
+:High rdf:type owl:Class ;
+      rdfs:subClassOf :Rank .
+
+
+###  http://www.semanticweb.org/MobaOntology#Inventory
+:Inventory rdf:type owl:Class ;
+           rdfs:subClassOf :Mechanic .
+
+
+###  http://www.semanticweb.org/MobaOntology#Isometric
+:Isometric rdf:type owl:Class ;
+           rdfs:subClassOf :PointOfView .
+
+
+###  http://www.semanticweb.org/MobaOntology#Jungle
+:Jungle rdf:type owl:Class ;
+        rdfs:subClassOf :MapArea .
+
+
+###  http://www.semanticweb.org/MobaOntology#Lane
+:Lane rdf:type owl:Class ;
+      rdfs:subClassOf :MapArea .
+
+
+###  http://www.semanticweb.org/MobaOntology#Location
+:Location rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:oneOf ( :America
+                                            :Asia
+                                            :Europa
+                                            :World
+                                          )
+                              ] .
+
+
+###  http://www.semanticweb.org/MobaOntology#Low
+:Low rdf:type owl:Class ;
+     rdfs:subClassOf :Rank .
+
+
+###  http://www.semanticweb.org/MobaOntology#Map
+:Map rdf:type owl:Class ;
+     owl:equivalentClass [ owl:intersectionOf ( vgo:PlayingArea
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :hasMapArea ;
+                                                  owl:someValuesFrom :MapArea
+                                                ]
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :hasMapSide ;
+                                                  owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :MapSide
+                                                ]
+                                              ) ;
+                           rdf:type owl:Class
+                         ] .
+
+
+###  http://www.semanticweb.org/MobaOntology#MapArea
+:MapArea rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :hasMapElement ;
+                               owl:someValuesFrom :MapElement
+                             ] .
+
+
+###  http://www.semanticweb.org/MobaOntology#MapElement
+:MapElement rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Class ;
+                                  owl:oneOf ( :Control
+                                              :Neutral
+                                              :Structural
+                                            )
+                                ] .
+
+
+###  http://www.semanticweb.org/MobaOntology#MapSide
+:MapSide rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/MobaOntology#Match
+:Match rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :hasOutcome ;
+                                                    owl:someValuesFrom :GameOutcome
+                                                  ]
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :includesTeam ;
+                                                    owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :Team
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+       owl:disjointUnionOf ( :NormalMatch
+                             :RankedMatch
+                           ) ;
+       rdfs:comment "A team match refers to a competitive gameplay mode in which teams of players compete against each other. It typically involves coordinated efforts between team members to achieve objectives and outperform the opposing team in various game scenarios."@en ;
+       rdfs:label "Match"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Mechanic
+:Mechanic rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/MobaOntology#Medium
+:Medium rdf:type owl:Class ;
+        rdfs:subClassOf :Rank .
+
+
+###  http://www.semanticweb.org/MobaOntology#MondialChampionship
+:MondialChampionship rdf:type owl:Class ;
+                     owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :hasLocation ;
+                                                                  owl:hasValue :World
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :hasCompetitor ;
+                                                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :Competitors
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :isOfficialCompetition ;
+                                                                  owl:hasValue "true"^^xsd:boolean
+                                                                ]
+                                                              ) ;
+                                           rdf:type owl:Class
+                                         ] ;
+                     rdfs:subClassOf :Championship ;
+                     owl:disjointWith :RegionalChampionship ;
+                     rdfs:comment "Mondial is a subclass of Championship within the MOBA genre, representing global-scale tournaments that gather top teams or players from around the world. These tournaments showcase the highest level of competition and attract a global audience."@en ;
+                     rdfs:label "MondialChampionship"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#MonetizationModel
+:MonetizationModel rdf:type owl:Class ;
+                   rdfs:comment "Represents the different types of monetization models used in MOBA games. This includes different purchasing models."@en ;
+                   rdfs:label "MonetizationModel"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Multiplatform
+:Multiplatform rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( vgo:Game
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :availableOnPlatform ;
+                                                            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :Platform
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:subClassOf vgo:Game ;
+               rdfs:comment "Represents games in the MOBA genre that are available on multiple gaming platforms, allowing players to access the game on different devices or systems."@en ;
+               rdfs:label "Multiplatfrom"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#NonConsumableItem
+:NonConsumableItem rdf:type owl:Class ;
+                   rdfs:subClassOf vgo:Item .
+
+
 ###  http://www.semanticweb.org/MobaOntology#NonPlayable
 :NonPlayable rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty :isNonPlayableOf ;
+                                   owl:someValuesFrom vgo:Game
+                                 ] ;
              rdfs:subClassOf vgo:Character ;
+             owl:disjointWith :Playable ;
              rdfs:comment "Represents characters in MOBA games that are controlled by the game's artificial intelligence (AI) and are not directly controlled by human players."@en ;
              rdfs:label "NonPlayable"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#NormalMatch
+:NormalMatch rdf:type owl:Class ;
+             rdfs:subClassOf :Match .
+
+
+###  http://www.semanticweb.org/MobaOntology#OfficialCompetition
+:OfficialCompetition rdf:type owl:Class ;
+                     owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :hasCompetitor ;
+                                                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :Competitors
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :isOfficialCompetition ;
+                                                                  owl:hasValue "true"^^xsd:boolean
+                                                                ]
+                                                              ) ;
+                                           rdf:type owl:Class
+                                         ] ;
+                     rdfs:subClassOf sport:Competition ;
+                     rdfs:comment "officialTournaments is a class representing organized competitive events sanctioned by the game developers or official organizers. These tournaments typically involve teams competing in structured competitions to showcase skills and win prizes."@en ;
+                     rdfs:label "OfficialCompetition"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#PayToPlay
+:PayToPlay rdf:type owl:Class ;
+           owl:equivalentClass [ owl:intersectionOf ( vgo:Game
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :hasMonetization ;
+                                                        owl:someValuesFrom :PayToPlayModel
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
+           rdfs:subClassOf vgo:Game ;
+           rdfs:comment "Represents games in the MOBA genre that require a purchase or subscription fee to play, indicating a monetization model based on payment."@en ;
+           rdfs:label "PayToPlay"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#PayToPlayModel
+:PayToPlayModel rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty :priceToPlay ;
+                                      owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                           owl:onDatatype xsd:integer ;
+                                                           owl:withRestrictions ( [ xsd:minExclusive 0
+                                                                                  ]
+                                                                                )
+                                                         ]
+                                    ] ;
+                rdfs:subClassOf :MonetizationModel ;
+                rdfs:comment "Represents a monetization model in which players must pay to play the game. This can include upfront purchases, subscriptions, or other forms of payment."@en ;
+                rdfs:label "PayToPlayModel"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#PersonPOV
+:PersonPOV rdf:type owl:Class ;
+           rdfs:subClassOf :PointOfView .
+
+
+###  http://www.semanticweb.org/MobaOntology#Platform
+:Platform rdf:type owl:Class ;
+          rdfs:comment "Represents the gaming platforms on which MOBA games can be played. This includes various devices and operating systems like PC, console, and mobile."@en ;
+          rdfs:label "Platform"@en .
+
+
 ###  http://www.semanticweb.org/MobaOntology#Playable
 :Playable rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                owl:onProperty :isPlayableOf ;
+                                owl:someValuesFrom vgo:Game
+                              ] ;
           rdfs:subClassOf vgo:Character ;
           rdfs:comment "Represents characters in MOBA games that can be controlled and played by human players."@en ;
           rdfs:label "Playable"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#Single
-:Single rdf:type owl:Class ;
-        owl:equivalentClass foaf:Person ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty :hasIndividualName ;
-                              owl:someValuesFrom xsd:string
-                            ] ;
-        rdfs:subClassOf :Developer ;
-        owl:disjointWith :SoftwareHouse ;
-        rdfs:comment "Represents individual developers who independently create and maintain MOBA games."@en ;
-        rdfs:label "Single"@en .
+###  http://www.semanticweb.org/MobaOntology#PointAndClick
+:PointAndClick rdf:type owl:Class ;
+               rdfs:subClassOf :Mechanic .
+
+
+###  http://www.semanticweb.org/MobaOntology#PointOfView
+:PointOfView rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/MobaOntology#Rank
+:Rank rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/MobaOntology#RankedMatch
+:RankedMatch rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( :Match
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :hasRank ;
+                                                          owl:someValuesFrom :Rank
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+             rdfs:subClassOf :Match .
+
+
+###  http://www.semanticweb.org/MobaOntology#RegionalChampionship
+:RegionalChampionship rdf:type owl:Class ;
+                      owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Class ;
+                                                                   owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty :hasLocation ;
+                                                                                   owl:hasValue :America
+                                                                                 ]
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty :hasLocation ;
+                                                                                   owl:hasValue :Asia
+                                                                                 ]
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty :hasLocation ;
+                                                                                   owl:hasValue :Europa
+                                                                                 ]
+                                                                               )
+                                                                 ]
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty :hasCompetitor ;
+                                                                   owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                   owl:onClass :Competitors
+                                                                 ]
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty :isOfficialCompetition ;
+                                                                   owl:hasValue "true"^^xsd:boolean
+                                                                 ]
+                                                               ) ;
+                                            rdf:type owl:Class
+                                          ] ;
+                      rdfs:subClassOf :Championship ;
+                      rdfs:comment "Regional is a subclass of Championship in the context of MOBAs, referring to tournaments that focus on specific geographic regions. Regional championships feature teams or players from a particular region competing to qualify for higher-level competitions or to claim regional titles."@en ;
+                      rdfs:label "RegionalChampionship"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Resources
+:Resources rdf:type owl:Class ;
+           rdfs:subClassOf :Mechanic .
+
+
+###  http://www.semanticweb.org/MobaOntology#Role
+:Role rdf:type owl:Class ;
+      owl:equivalentClass [ rdf:type owl:Class ;
+                            owl:oneOf ( :Assassin
+                                        :Bruiser
+                                        :Mage
+                                        :Marksman
+                                        :Support
+                                        :Tank
+                                      )
+                          ] .
+
+
+###  http://www.semanticweb.org/MobaOntology#SingleDeveloper
+:SingleDeveloper rdf:type owl:Class ;
+                 owl:equivalentClass foaf:Person ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasIndividualName ;
+                                       owl:someValuesFrom xsd:string
+                                     ] ;
+                 rdfs:subClassOf :Developer ;
+                 owl:disjointWith :SoftwareHouse ;
+                 rdfs:comment "Represents individual developers who independently create and maintain MOBA games."@en ;
+                 rdfs:label "SingleDeveloper"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Singleplatform
+:Singleplatform rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( vgo:Game
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :availableOnPlatform ;
+                                                             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                             owl:onClass :Platform
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf vgo:Game ;
+                rdfs:comment "Represents games in the MOBA genre that are available on a single gaming platform, restricting access to one specific type of device or system."@en ;
+                rdfs:label "Singleplatform"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SoftwareHouse
@@ -206,6 +1163,30 @@ vgo:Player rdf:type owl:Class ;
                rdfs:subClassOf :Developer ;
                rdfs:comment "Represents software development companies that create and maintain MOBA games."@en ;
                rdfs:label "SoftwareHouse"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#SpecialEvents
+:SpecialEvents rdf:type owl:Class ;
+               rdfs:subClassOf :OfficialCompetition ;
+               rdfs:comment "SpecialEvents refers to official tournaments that are held periodically or for specific occasions. These events may feature unique rules, formats, or themes compared to regular tournaments."@en ;
+               rdfs:label "SpecialEvents"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Team
+:Team rdf:type owl:Class ;
+      owl:equivalentClass [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasMember ;
+                            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                            owl:onClass vgo:Player
+                          ] ;
+      rdfs:subClassOf dctype:Collection ;
+      rdfs:comment "A collection of players which play for the same team."@en ;
+      rdfs:label "Team"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#ThirdPerson
+:ThirdPerson rdf:type owl:Class ;
+             rdfs:subClassOf :PersonPOV .
 
 
 ###  http://xmlns.com/foaf/0.1/Agent
@@ -225,32 +1206,473 @@ foaf:Person rdf:type owl:Class ;
             rdfs:subClassOf :Developer .
 
 
+###  https://www.bbc.co.uk/ontologies/sport/Competition
+sport:Competition rdf:type owl:Class ;
+                  rdfs:subClassOf event:Event ;
+                  rdfs:comment "A competitive sporting event that usually appears as an occurrence of a recurring competition, for example the recurring English Football Premier League has a seasonal competition occurrence during 2012/13."@en ;
+                  rdfs:label "Competition"@en .
+
+
 #################################################################
 #    Individuals
 #################################################################
 
 ###  http://www.semanticweb.org/MobaOntology#Ahri
-:Ahri rdf:type owl:NamedIndividual .
+:Ahri rdf:type owl:NamedIndividual ;
+      :hasRole :Assassin ,
+               :Mage ;
+      :isPlayableOf :LeagueOfLegends ;
+      :hasArmor 100 ;
+      :hasAttackDamage 104 ;
+      :hasHealth 2358 ;
+      :hasMagicResist 52 ;
+      :hasMana 843 ;
+      :hasMovementSpeed 330 ;
+      :hasName "Ahri" ;
+      :hasRange "ranged" ;
+      rdfs:comment "Ahri is a champion character in the game League Of Legends, known for her high mobility and burst damage as a mage assassin."@en ;
+      rdfs:label "Ahri"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#America
+:America rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Asia
+:Asia rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Assassin
+:Assassin rdf:type owl:NamedIndividual ;
+          rdfs:comment "Represents the role of an assassin in the game, known for high burst damage and mobility."@en ;
+          rdfs:label "Assassin"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#BaseSide1
+:BaseSide1 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#BaseSide2
+:BaseSide2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#BotLane
+:BotLane rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Bruiser
+:Bruiser rdf:type owl:NamedIndividual ;
+         rdfs:comment "Represents the role of a bruiser in the game, known for a balance of damage and durability."@en ;
+         rdfs:label "Bruiser"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#CaulfieldWarhammer
+:CaulfieldWarhammer rdf:type owl:NamedIndividual ;
+                    :hasComponent :LongSword ;
+                    :itemCost 1100 ;
+                    :itemEffect "The Brutalizer's stats (old item that has been removed) has been split across two items. Its armor penetration went to Serrated Dirk Serrated Dirk and its cooldown reduction to Caulfield's Warhammer Caulfield's Warhammer." ;
+                    :itemName "Caulfield's Warhammer" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Control
+:Control rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Developer1
 :Developer1 rdf:type owl:NamedIndividual ;
-            :hasIndividualName "Mario Rossi" .
+            :hasIndividualName "Mario Rossi" ;
+            rdfs:comment "Developer1 is an individual developer involved in the creation of MOBA games."@en ;
+            rdfs:label "Developer1"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Diamond
+:Diamond rdf:type owl:NamedIndividual ,
+                  :Elite .
+
+
+###  http://www.semanticweb.org/MobaOntology#Dota2
+:Dota2 rdf:type owl:NamedIndividual ;
+       :hasMonetization :InGamePurchase ;
+       rdfs:comment "Dota 2 is a popular MOBA game developed by Valve Corporation."@en ;
+       rdfs:label "Dota2"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Europa
+:Europa rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#GameBoost
+:GameBoost rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#GameCoin
+:GameCoin rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#GameSkin
+:GameSkin rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Garen
+:Garen rdf:type owl:NamedIndividual ;
+       :hasAbilitySet :GarenAbilities ;
+       :hasBuild :GarenBuild ;
+       :hasRole :Bruiser ,
+                :Tank ;
+       :isPlayableOf :LeagueOfLegends ;
+       :hasArmor 110 ;
+       :hasAttackDamage 146 ;
+       :hasHealth 2356 ;
+       :hasMagicResist 58 ;
+       :hasMovementSpeed 340 ;
+       :hasName "Garen" ;
+       :hasRange "melee" ;
+       rdfs:comment "Garen is a champion in the game, known for his role as a durable melee bruiser."@en ;
+       rdfs:label "Garen"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#GarenAbilities
+:GarenAbilities rdf:type owl:NamedIndividual ;
+                :abilityName "Courage" ,
+                             "DecisiveStrike" ,
+                             "DemacianJustice" ,
+                             "Judgment" ,
+                             "Perseverance" .
+
+
+###  http://www.semanticweb.org/MobaOntology#GarenBuild
+:GarenBuild rdf:type owl:NamedIndividual ;
+            :hasItemSet :LongSword ,
+                        :Shojin .
+
+
+###  http://www.semanticweb.org/MobaOntology#GeneralMatch
+:GeneralMatch rdf:type owl:NamedIndividual ;
+              :hasOutcome :Victory .
+
+
+###  http://www.semanticweb.org/MobaOntology#InAppPurchaseEvent
+:InAppPurchaseEvent rdf:type owl:NamedIndividual ;
+                    vgo:purchasesGameOffering :GameBoost ,
+                                              :GameCoin ,
+                                              :GameSkin .
+
+
+###  http://www.semanticweb.org/MobaOntology#InGamePurchase
+:InGamePurchase rdf:type owl:NamedIndividual ;
+                :priceToPlay 0 ;
+                rdfs:comment "In-game Purchase represents a monetization model where players can buy virtual items or benefits within the game."@en ;
+                rdfs:label "InGamePurchase"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Jungle
+:Jungle rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/MobaOntology#LeagueOfLegends
-:LeagueOfLegends rdf:type owl:NamedIndividual .
+:LeagueOfLegends rdf:type owl:NamedIndividual ;
+                 :availableOnPlatform :PC ,
+                                      :XBOX ;
+                 :hasMonetization :InGamePurchase ;
+                 rdfs:comment "League of Legends is a popular MOBA game developed by Riot Games."@en ;
+                 rdfs:label "LeagueOfLegends"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#LeagueOfLegendsWorldChampionship
+:LeagueOfLegendsWorldChampionship rdf:type owl:NamedIndividual ;
+                                  :hasCompetitor :Round1 ;
+                                  :hasLocation :World ;
+                                  :isOfficialCompetition "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/MobaOntology#LongSword
+:LongSword rdf:type owl:NamedIndividual ;
+           vgo:isItemInGame :LeagueOfLegends ;
+           :itemCost 350 ;
+           :itemEffect "Long Sword is the basic item from which the gold value for the stat attack damage is derived (approximately 35 Gold 35 per point of attack damage)." ;
+           :itemName "LongSword" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Mage
+:Mage rdf:type owl:NamedIndividual ;
+      rdfs:comment "Represents the role of a mage in the game, known for high magical damage from a distance."@en ;
+      rdfs:label "Mage"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#MapSide1
+:MapSide1 rdf:type owl:NamedIndividual ;
+          :hasBase :BaseSide1 .
+
+
+###  http://www.semanticweb.org/MobaOntology#MapSide2
+:MapSide2 rdf:type owl:NamedIndividual ;
+          :hasBase :BaseSide2 .
+
+
+###  http://www.semanticweb.org/MobaOntology#Marksman
+:Marksman rdf:type owl:NamedIndividual ;
+          rdfs:comment "Represents the role of a marksman in the game, known for high sustained damage from a distance."@en ;
+          rdfs:label "Marksman"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#MidLane
+:MidLane rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Neutral
+:Neutral rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#NormalMatch
+:NormalMatch rdf:type owl:NamedIndividual ,
+                      [ rdf:type owl:Class ;
+                        owl:complementOf :RankedMatch
+                      ] ;
+             :hasOutcome :Team1Victory ;
+             :includesTeam :Team1 ,
+                           :Team2 ;
+             :isMatchInGame :LeagueOfLegends .
+
+
+###  http://www.semanticweb.org/MobaOntology#PC
+:PC rdf:type owl:NamedIndividual ;
+    rdfs:comment "PC represents personal computers as a gaming platform."@en ;
+    rdfs:label "PC"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player1
 :Player1 rdf:type owl:NamedIndividual ;
-         :hasNickname "Faker" .
+         :hasNickname "Faker" ;
+         rdfs:comment "Player1 is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+         rdfs:label "Player1"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player10
+:Player10 rdf:type owl:NamedIndividual ;
+          :hasNickname "Rekkles" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player2
+:Player2 rdf:type owl:NamedIndividual ;
+         :hasNickname "Terenas" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player3
+:Player3 rdf:type owl:NamedIndividual ;
+         :hasNickname "PaoloCannone" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player4
+:Player4 rdf:type owl:NamedIndividual ;
+         :hasNickname "Julieqqrd" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player5
+:Player5 rdf:type owl:NamedIndividual ;
+         :hasNickname "FragolaQT" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player6
+:Player6 rdf:type owl:NamedIndividual ;
+         :hasNickname "Apecarroramarro" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player7
+:Player7 rdf:type owl:NamedIndividual ;
+         :hasNickname "Uni" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player8
+:Player8 rdf:type owl:NamedIndividual ;
+         :hasNickname "Acefos" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player9
+:Player9 rdf:type owl:NamedIndividual ;
+         :hasNickname "Jun" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Playstation
+:Playstation rdf:type owl:NamedIndividual ;
+             rdfs:comment "Playstation represents Sony's gaming console as a gaming platform."@en ;
+             rdfs:label "Playstation"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#RankedMatch
+:RankedMatch rdf:type owl:NamedIndividual ;
+             :hasOutcome :Team1Victory ;
+             :hasRank :Diamond ;
+             :includesTeam :Team1 ,
+                           :Team3 ;
+             :isMatchInGame :LeagueOfLegends .
 
 
 ###  http://www.semanticweb.org/MobaOntology#RiotGames
 :RiotGames rdf:type owl:NamedIndividual ;
            inno:hasDeveloped :LeagueOfLegends ;
-           :hasFoundationDate 2008 .
+           :hasFoundationDate 2008 ;
+           rdfs:comment "Riot Games is a software house known for developing the MOBA game League of Legends."@en ;
+           rdfs:label "RiotGames"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Round1
+:Round1 rdf:type owl:NamedIndividual ;
+        :hasCompetitor :Team1 ,
+                       :Team2 ,
+                       :Team3 .
+
+
+###  http://www.semanticweb.org/MobaOntology#Shojin
+:Shojin rdf:type owl:NamedIndividual ;
+        :hasComponent :CaulfieldWarhammer ;
+        :itemCost 3100 ;
+        :itemEffect "Dealing ability damage with a champion ability grants a stack for 6 seconds, stacking up to 4 times and up to 1 per cast instance per second and every second for damage over time abilities. For each stack, your ability damage and proc damage dealt by abilities gain 3% increased damage, for a total increase of 12% at maximum stacks." ;
+        :itemName "Spear of Shojin" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Structural
+:Structural rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Subscription
+:Subscription rdf:type owl:NamedIndividual ,
+                       :MonetizationModel ;
+              :priceToPlay 15 ;
+              rdfs:comment "Subscription represents a monetization model where players pay a recurring fee to access the game."@en ;
+              rdfs:label "Subscription"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#SummonerRift
+:SummonerRift rdf:type owl:NamedIndividual ;
+              :hasMapArea :BotLane ,
+                          :Jungle ,
+                          :MidLane ,
+                          :TopLane ;
+              :hasMapSide :MapSide1 ,
+                          :MapSide2 .
+
+
+###  http://www.semanticweb.org/MobaOntology#Support
+:Support rdf:type owl:NamedIndividual ;
+         rdfs:comment "Represents the role of a support in the game, known for assisting and protecting other players."@en ;
+         rdfs:label "Support"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Tank
+:Tank rdf:type owl:NamedIndividual ;
+      rdfs:comment "Represents the role of a tank in the game, known for high durability and the ability to absorb damage."@en ;
+      rdfs:label "Tank"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Team1
+:Team1 rdf:type owl:NamedIndividual ;
+       owl:differentFrom :Team2 ;
+       :hasMember :Player1 ,
+                  :Player2 ,
+                  :Player3 ,
+                  :Player4 ,
+                  :Player5 .
+
+
+###  http://www.semanticweb.org/MobaOntology#Team1Victory
+:Team1Victory rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Team2
+:Team2 rdf:type owl:NamedIndividual ;
+       :hasMember :Player10 ,
+                  :Player6 ,
+                  :Player7 ,
+                  :Player8 ,
+                  :Player9 .
+
+
+###  http://www.semanticweb.org/MobaOntology#Team3
+:Team3 rdf:type owl:NamedIndividual ;
+       :hasMember :Player1 ,
+                  :Player2 .
+
+
+###  http://www.semanticweb.org/MobaOntology#TopLane
+:TopLane rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Victory
+:Victory rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#World
+:World rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#XBOX
+:XBOX rdf:type owl:NamedIndividual ;
+      rdfs:comment "XBOX represents Microsoft's gaming console as a gaming platform."@en ;
+      rdfs:label "XBOX"@en .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :America
+                        :Asia
+                        :Europa
+                        :World
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Assassin
+                        :Bruiser
+                        :Mage
+                        :Marksman
+                        :Support
+                        :Tank
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :BotLane
+                        :Jungle
+                        :MidLane
+                        :TopLane
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :PC
+                        :Playstation
+                        :XBOX
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Player1
+                        :Player10
+                        :Player2
+                        :Player3
+                        :Player4
+                        :Player5
+                        :Player6
+                        :Player7
+                        :Player8
+                        :Player9
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Team1
+                        :Team2
+                        :Team3
+                      )
+] .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
