@@ -64,6 +64,14 @@ skos:definition rdf:type owl:AnnotationProperty .
 
 
 #################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
 #    Object Properties
 #################################################################
 
@@ -132,12 +140,10 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                                     ) .
 
 
-###  http://www.semanticweb.org/MobaOntology#hasAbilitySet
-:hasAbilitySet rdf:type owl:ObjectProperty ;
-               owl:inverseOf :isAbilitySetOf ;
-               rdf:type owl:FunctionalProperty ;
-               rdfs:domain :Champion ;
-               rdfs:range :Abilities .
+###  http://www.semanticweb.org/MobaOntology#hasAbility
+:hasAbility rdf:type owl:ObjectProperty ;
+            owl:inverseOf :isAbilityOf ;
+            rdfs:domain :Champion .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasBase
@@ -171,6 +177,10 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
               rdfs:range :Developer ;
               rdfs:comment "Specifies the developer or development team responsible for creating a game in the context of MOBA games. Is the inverse property of hasDeveloped."@en ;
               rdfs:label "hasDeveloper"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasDiscipline
+:hasDiscipline rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasItemSet
@@ -260,11 +270,10 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
               rdfs:range :Team .
 
 
-###  http://www.semanticweb.org/MobaOntology#isAbilitySetOf
-:isAbilitySetOf rdf:type owl:ObjectProperty ,
-                         owl:FunctionalProperty ;
-                rdfs:domain :Abilities ;
-                rdfs:range :Champion .
+###  http://www.semanticweb.org/MobaOntology#isAbilityOf
+:isAbilityOf rdf:type owl:ObjectProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:range :Champion .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isBaseOf
@@ -381,38 +390,156 @@ vgo:username rdf:type owl:DatatypeProperty ;
              rdfs:label "username"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#abilityCooldown
+:abilityCooldown rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Ability ;
+                 rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityDescription
+:abilityDescription rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Ability ;
+                    rdfs:range xsd:string .
+
+
 ###  http://www.semanticweb.org/MobaOntology#abilityName
-:abilityName rdf:type owl:DatatypeProperty .
+:abilityName rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Ability ;
+             rdfs:range xsd:string .
 
 
-###  http://www.semanticweb.org/MobaOntology#componentQuantity
-:componentQuantity rdf:type owl:DatatypeProperty .
+###  http://www.semanticweb.org/MobaOntology#abilityType
+:abilityType rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Ability ;
+             rdfs:range xsd:string .
 
 
-###  http://www.semanticweb.org/MobaOntology#hasArmor
-:hasArmor rdf:type owl:DatatypeProperty ;
-          rdfs:subPropertyOf :hasBaseStat ;
-          rdf:type owl:FunctionalProperty ;
-          rdfs:domain :Champion ;
-          rdfs:range xsd:integer ;
-          rdfs:comment "Specifies the base armor of the champion."@en ;
-          rdfs:label "hasArmor"@en .
+###  http://www.semanticweb.org/MobaOntology#championArmor
+:championArmor rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :Champion ;
+               rdfs:range xsd:integer ;
+               rdfs:comment "Specifies the base armor of the champion."@en ;
+               rdfs:label "championArmor"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#hasAttackDamage
-:hasAttackDamage rdf:type owl:DatatypeProperty ;
-                 rdfs:subPropertyOf :hasBaseStat ;
-                 rdf:type owl:FunctionalProperty ;
-                 rdfs:domain :Champion ;
-                 rdfs:range xsd:integer ;
-                 rdfs:comment "Specifies the base attack damage of the champion."@en ;
-                 rdfs:label "hasAttackDamage"@en .
+###  http://www.semanticweb.org/MobaOntology#championAttackDamage
+:championAttackDamage rdf:type owl:DatatypeProperty ,
+                               owl:FunctionalProperty ;
+                      rdfs:domain :Champion ;
+                      rdfs:range xsd:integer ;
+                      rdfs:comment "Specifies the base attack damage of the champion."@en ;
+                      rdfs:label "championAttackDamage"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#hasBaseStat
-:hasBaseStat rdf:type owl:DatatypeProperty ;
-             rdfs:comment "Represents the basic properties and attributes of a champion in a MOBA game."@en ;
-             rdfs:label "hasBaseStat"@en .
+###  http://www.semanticweb.org/MobaOntology#championHealth
+:championHealth rdf:type owl:DatatypeProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain :Champion ;
+                rdfs:range xsd:integer ;
+                rdfs:comment "Specifies the base health points of the champion."@en ;
+                rdfs:label "championHealth"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#championMagicResist
+:championMagicResist rdf:type owl:DatatypeProperty ,
+                              owl:FunctionalProperty ;
+                     rdfs:domain :Champion ;
+                     rdfs:range xsd:integer ;
+                     rdfs:comment "Specifies the base magic resist of the champion."@en ;
+                     rdfs:label "championMagicResist"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#championMana
+:championMana rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain :Champion ;
+              rdfs:range xsd:integer ;
+              rdfs:comment "Specifies the base mana pool of the champion. Mana is a resource used to cast spells and abilities."@en ;
+              rdfs:label "championMana"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#championMovementSpeed
+:championMovementSpeed rdf:type owl:DatatypeProperty ,
+                                owl:FunctionalProperty ;
+                       rdfs:domain :Champion ;
+                       rdfs:range xsd:integer ;
+                       rdfs:comment "Specifies the base movement speed of the champion."@en ;
+                       rdfs:label "championMovementSpeed"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#championName
+:championName rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain :Champion ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Specifies the name of the champion."@en ;
+              rdfs:label "championName"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#championRange
+:championRange rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :Champion ;
+               rdfs:range xsd:string ;
+               rdfs:comment "Specifies the attack range of the champion, indicating whether the champion is melee or ranged."@en ;
+               rdfs:label "championRange"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionCountry
+:competitionCountry rdf:type owl:DatatypeProperty ;
+                    rdfs:domain sport:Competition ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionEndDate
+:competitionEndDate rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionName
+:competitionName rdf:type owl:DatatypeProperty ;
+                 rdfs:domain sport:Competition ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionOrganizer
+:competitionOrganizer rdf:type owl:DatatypeProperty ;
+                      rdfs:domain sport:Competition ;
+                      rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionPrizePool
+:competitionPrizePool rdf:type owl:DatatypeProperty ;
+                      rdfs:domain sport:Competition ;
+                      rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionSponsor
+:competitionSponsor rdf:type owl:DatatypeProperty ;
+                    rdfs:domain sport:Competition ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionStartDate
+:competitionStartDate rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#gameDescription
+:gameDescription rdf:type owl:DatatypeProperty ;
+                 rdfs:domain vgo:Game ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#gameLaunchDate
+:gameLaunchDate rdf:type owl:DatatypeProperty ;
+                rdfs:domain vgo:Game ;
+                rdfs:range xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#gameName
+:gameName rdf:type owl:DatatypeProperty ;
+          rdfs:domain vgo:Game ;
+          rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasFoundationDate
@@ -422,60 +549,11 @@ vgo:username rdf:type owl:DatatypeProperty ;
                    rdfs:label "hasFoundationDate"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#hasHealth
-:hasHealth rdf:type owl:DatatypeProperty ;
-           rdfs:subPropertyOf :hasBaseStat ;
-           rdf:type owl:FunctionalProperty ;
-           rdfs:domain :Champion ;
-           rdfs:range xsd:integer ;
-           rdfs:comment "Specifies the base health points of the champion."@en ;
-           rdfs:label "hasHealth"@en .
-
-
 ###  http://www.semanticweb.org/MobaOntology#hasIndividualName
 :hasIndividualName rdf:type owl:DatatypeProperty ,
                             owl:FunctionalProperty ;
                    rdfs:comment "Specifies the real name of an individual developer. This property records the personal name of the developer."@en ;
                    rdfs:label "hasIndividualName"@en .
-
-
-###  http://www.semanticweb.org/MobaOntology#hasMagicResist
-:hasMagicResist rdf:type owl:DatatypeProperty ;
-                rdfs:subPropertyOf :hasBaseStat ;
-                rdf:type owl:FunctionalProperty ;
-                rdfs:domain :Champion ;
-                rdfs:range xsd:integer ;
-                rdfs:comment "Specifies the base magic resist of the champion."@en ;
-                rdfs:label "hasMagicResist"@en .
-
-
-###  http://www.semanticweb.org/MobaOntology#hasMana
-:hasMana rdf:type owl:DatatypeProperty ;
-         rdfs:subPropertyOf :hasBaseStat ;
-         rdf:type owl:FunctionalProperty ;
-         rdfs:domain :Champion ;
-         rdfs:range xsd:integer ;
-         rdfs:comment "Specifies the base mana pool of the champion. Mana is a resource used to cast spells and abilities."@en ;
-         rdfs:label "hasMana"@en .
-
-
-###  http://www.semanticweb.org/MobaOntology#hasMovementSpeed
-:hasMovementSpeed rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf :hasBaseStat ;
-                  rdf:type owl:FunctionalProperty ;
-                  rdfs:domain :Champion ;
-                  rdfs:range xsd:integer ;
-                  rdfs:comment "Specifies the base movement speed of the champion."@en ;
-                  rdfs:label "hasMovementSpeed"@en .
-
-
-###  http://www.semanticweb.org/MobaOntology#hasName
-:hasName rdf:type owl:DatatypeProperty ,
-                  owl:FunctionalProperty ;
-         rdfs:domain :Champion ;
-         rdfs:range xsd:string ;
-         rdfs:comment "Specifies the name of the champion."@en ;
-         rdfs:label "hasName"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasNickname
@@ -485,16 +563,6 @@ vgo:username rdf:type owl:DatatypeProperty ;
              rdfs:range xsd:string ;
              rdfs:comment "Specifies the nickname or in-game alias of a player in MOBA games. This property is used to identify players by their chosen game names."@en ;
              rdfs:label "hasNickname"@en .
-
-
-###  http://www.semanticweb.org/MobaOntology#hasRange
-:hasRange rdf:type owl:DatatypeProperty ;
-          rdfs:subPropertyOf :hasBaseStat ;
-          rdf:type owl:FunctionalProperty ;
-          rdfs:domain :Champion ;
-          rdfs:range xsd:string ;
-          rdfs:comment "Specifies the attack range of the champion, indicating whether the champion is melee or ranged."@en ;
-          rdfs:label "hasRange"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isOfficialCompetition
@@ -526,6 +594,24 @@ vgo:username rdf:type owl:DatatypeProperty ;
              rdfs:range xsd:integer ;
              rdfs:comment "Represents the price required to play a MOBA videogame."@en ;
              rdfs:label "priceToPlay"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#roleDescription
+:roleDescription rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Role ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamName
+:teamName rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Team ;
+          rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#winRate
+:winRate rdf:type owl:DatatypeProperty ;
+         rdfs:domain vgo:Player ;
+         rdfs:range xsd:integer .
 
 
 #################################################################
@@ -645,13 +731,8 @@ vgo:PlayingArea rdf:type owl:Class ;
                 rdfs:label "vgo:PlayingArea"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#Abilities
-:Abilities rdf:type owl:Class ;
-           owl:equivalentClass [ rdf:type owl:Restriction ;
-                                 owl:onProperty :abilityName ;
-                                 owl:someValuesFrom xsd:string
-                               ] ;
-           rdfs:subClassOf dctype:Collection .
+###  http://www.semanticweb.org/MobaOntology#Ability
+:Ability rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/MobaOntology#AmateurCompetition
@@ -692,19 +773,6 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Champion
 :Champion rdf:type owl:Class ;
-          owl:equivalentClass [ owl:intersectionOf ( :Playable
-                                                     [ rdf:type owl:Restriction ;
-                                                       owl:onProperty :hasRole ;
-                                                       owl:someValuesFrom :Role
-                                                     ]
-                                                     [ rdf:type owl:Restriction ;
-                                                       owl:onProperty :hasAbilitySet ;
-                                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                       owl:onClass :Abilities
-                                                     ]
-                                                   ) ;
-                                rdf:type owl:Class
-                              ] ;
           rdfs:subClassOf :Playable ;
           rdfs:comment "Represents a specific type of playable character in MOBA games, typically possessing unique abilities and characteristics."@en ;
           rdfs:label "Champion"@en .
@@ -1219,17 +1287,22 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Ahri
 :Ahri rdf:type owl:NamedIndividual ;
+      :hasAbility :Charm ,
+                  :EssenceTheft ,
+                  :FoxFire ,
+                  :OrbofDeception ,
+                  :SpiritRush ;
       :hasRole :Assassin ,
                :Mage ;
       :isPlayableOf :LeagueOfLegends ;
-      :hasArmor 100 ;
-      :hasAttackDamage 104 ;
-      :hasHealth 2358 ;
-      :hasMagicResist 52 ;
-      :hasMana 843 ;
-      :hasMovementSpeed 330 ;
-      :hasName "Ahri" ;
-      :hasRange "ranged" ;
+      :championArmor 100 ;
+      :championAttackDamage 104 ;
+      :championHealth 2358 ;
+      :championMagicResist 52 ;
+      :championMana 843 ;
+      :championMovementSpeed 330 ;
+      :championName "Ahri" ;
+      :championRange "ranged" ;
       rdfs:comment "Ahri is a champion character in the game League Of Legends, known for her high mobility and burst damage as a mage assassin."@en ;
       rdfs:label "Ahri"@en .
 
@@ -1244,6 +1317,7 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Assassin
 :Assassin rdf:type owl:NamedIndividual ;
+          :roleDescription "An assassin is an agile hero that specializes in killing or disabling roaming targets picking them off as they try to replenish HP. Focused on infiltration, deception, and mobility, assassins are opportunistic hunters who find favorable moments within a fight before jumping into the fray. Regardless of the size of the enemy team, assassins specializes in positioning and artful killing." ;
           rdfs:comment "Represents the role of an assassin in the game, known for high burst damage and mobility."@en ;
           rdfs:label "Assassin"@en .
 
@@ -1262,6 +1336,7 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Bruiser
 :Bruiser rdf:type owl:NamedIndividual ;
+         :roleDescription "Bruisers are a diverse group of short-ranged combatants who excel at both dealing and surviving damage. With easy access to heavy, continuous damage (or DPS) and a host of innate defenses, bruisers thrive in extended fights as they seek out enemies to take down, but their limited range puts them at constant risk of being kept at bay (or kited) by their opponents via crowd control, range and mobility." ;
          rdfs:comment "Represents the role of a bruiser in the game, known for a balance of damage and durability."@en ;
          rdfs:label "Bruiser"@en .
 
@@ -1274,8 +1349,62 @@ sport:Competition rdf:type owl:Class ;
                     :itemName "Caulfield's Warhammer" .
 
 
+###  http://www.semanticweb.org/MobaOntology#Charm
+:Charm rdf:type owl:NamedIndividual ;
+       :abilityCooldown 12 ;
+       :abilityDescription "Ahri blows forth a kiss in the target direction that deals magic damage to the first enemy hit, Knockdown icon knocking them down and Charm icon charming and Slow icon slowing them by 65% for a duration." ;
+       :abilityName "Charm" ;
+       :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#CompetitorsLoLItalianTournamentSpring2024
+:CompetitorsLoLItalianTournamentSpring2024 rdf:type owl:NamedIndividual ;
+                                           :hasCompetitor :Team1 ,
+                                                          :Team2 ,
+                                                          :Team3 .
+
+
+###  http://www.semanticweb.org/MobaOntology#CompetitorsNorthAmericanChallengersLeagueSummer2024
+:CompetitorsNorthAmericanChallengersLeagueSummer2024 rdf:type owl:NamedIndividual ;
+                                                     :hasCompetitor :Team1 ,
+                                                                    :Team2 ,
+                                                                    :Team3 .
+
+
+###  http://www.semanticweb.org/MobaOntology#CompetitorsWorldChampionship2023
+:CompetitorsWorldChampionship2023 rdf:type owl:NamedIndividual ;
+                                  :hasCompetitor :Team1 ,
+                                                 :Team2 ,
+                                                 :Team3 .
+
+
 ###  http://www.semanticweb.org/MobaOntology#Control
 :Control rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#Courage
+:Courage rdf:type owl:NamedIndividual ;
+         :abilityCooldown 23 ;
+         :abilityDescription "For each stack, Garen gains Armor icon 0.2 bonus armor and Magic resistance icon 0.2 bonus magic resistance, up to a maximum of 30 bonus resistances each. After reaching maximum stacks, Garen gains 10% bonus armor and 10% bonus magic resistance." ;
+         :abilityName "Courage" ;
+         :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#DecisiveStrike
+:DecisiveStrike rdf:type owl:NamedIndividual ;
+                :abilityCooldown 8 ;
+                :abilityDescription """Garen Remove Scurvy cleanses himself of all Slow icon slows and gains Movement speed icon 35% bonus movement speed for a duration.
+Additionally, Garen empowers his next basic attack within 4.5 seconds to have an Relentless Force 2 uncancellable windup, Bear Stance lunge at the target, deal bonus physical damage, and Silence icon silence them for 1.5 seconds.""" ;
+                :abilityName "Decisive Strike" ;
+                :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#DemacianJustice
+:DemacianJustice rdf:type owl:NamedIndividual ;
+                 :abilityCooldown 120 ;
+                 :abilityDescription "Garen calls upon the might of Demacia onto the target enemy Champion icon champion, dealing them Hybrid penetration icon true damage as well as True Sight icon revealing them for 1 second at the start of the cast time." ;
+                 :abilityName "Demacian Justice" ;
+                 :abilityType "ultimate" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Developer1
@@ -1293,12 +1422,38 @@ sport:Competition rdf:type owl:Class ;
 ###  http://www.semanticweb.org/MobaOntology#Dota2
 :Dota2 rdf:type owl:NamedIndividual ;
        :hasMonetization :InGamePurchase ;
+       :gameDescription "Dota 2 is a 2013 multiplayer online battle arena (MOBA) video game by Valve. The game is a sequel to Defense of the Ancients (DotA), a community-created mod for Blizzard Entertainment's Warcraft III: Reign of Chaos. Dota 2 is played in matches between two teams of five players, with each team occupying and defending their own separate base on the map. Each of the ten players independently controls a powerful character known as a \"hero\" that all have unique abilities and differing styles of play. During a match players collect experience points and items for their heroes to defeat the opposing team's heroes in player versus player combat. A team wins by being the first to destroy the other team's \"Ancient\", a large structure located within their base." ;
+       :gameLaunchDate "2013-07-09"^^xsd:date ;
+       :gameName "Dota 2" ;
        rdfs:comment "Dota 2 is a popular MOBA game developed by Valve Corporation."@en ;
        rdfs:label "Dota2"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#EssenceTheft
+:EssenceTheft rdf:type owl:NamedIndividual ;
+              :abilityDescription "Ahri generates a stack of Essence Fragment whenever she kills a Minion icon minion or Monster icon monster. At 9 stacks, she consumes them to Heal power icon heal herself for 35 − 95 (based on level) (+ 20% AP)." ;
+              :abilityName "Essence Theft" ;
+              :abilityType "passive" .
+
+
 ###  http://www.semanticweb.org/MobaOntology#Europa
 :Europa rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#FlameChompers
+:FlameChompers rdf:type owl:NamedIndividual ;
+               :abilityCooldown 20 ;
+               :abilityDescription "Jinx tosses out 3 Chompers centered at the target location, landing after 0.4 seconds, arming after 0.5 seconds, and exploding after 5 seconds to deal magic damage to nearby enemies." ;
+               :abilityName "Flame Chompers!" ;
+               :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#FoxFire
+:FoxFire rdf:type owl:NamedIndividual ;
+         :abilityCooldown 9 ;
+         :abilityDescription "Ahri gains Movement speed icon 40% bonus movement speed that decays over 2 seconds and conjures three flames which orbit her clockwise for up to 2.5 seconds. After 0.25 seconds of the cast, each flame targets a Sight icon visible enemy based on priority, or after 0.4 seconds, simply targets the closest visible enemy in range. Each flame deals magic damage, with subsequent flames against a target dealing 30% damage." ;
+         :abilityName "Fox-Fire" ;
+         :abilityType "basic" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GameBoost
@@ -1315,29 +1470,24 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Garen
 :Garen rdf:type owl:NamedIndividual ;
-       :hasAbilitySet :GarenAbilities ;
+       :hasAbility :Courage ,
+                   :DecisiveStrike ,
+                   :DemacianJustice ,
+                   :Judgment ,
+                   :Perseverance ;
        :hasBuild :GarenBuild ;
        :hasRole :Bruiser ,
                 :Tank ;
        :isPlayableOf :LeagueOfLegends ;
-       :hasArmor 110 ;
-       :hasAttackDamage 146 ;
-       :hasHealth 2356 ;
-       :hasMagicResist 58 ;
-       :hasMovementSpeed 340 ;
-       :hasName "Garen" ;
-       :hasRange "melee" ;
+       :championArmor 110 ;
+       :championAttackDamage 146 ;
+       :championHealth 2356 ;
+       :championMagicResist 58 ;
+       :championMovementSpeed 340 ;
+       :championName "Garen" ;
+       :championRange "melee" ;
        rdfs:comment "Garen is a champion in the game, known for his role as a durable melee bruiser."@en ;
        rdfs:label "Garen"@en .
-
-
-###  http://www.semanticweb.org/MobaOntology#GarenAbilities
-:GarenAbilities rdf:type owl:NamedIndividual ;
-                :abilityName "Courage" ,
-                             "DecisiveStrike" ,
-                             "DemacianJustice" ,
-                             "Judgment" ,
-                             "Perseverance" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GarenBuild
@@ -1349,6 +1499,13 @@ sport:Competition rdf:type owl:Class ;
 ###  http://www.semanticweb.org/MobaOntology#GeneralMatch
 :GeneralMatch rdf:type owl:NamedIndividual ;
               :hasOutcome :Victory .
+
+
+###  http://www.semanticweb.org/MobaOntology#GetExcited
+:GetExcited rdf:type owl:NamedIndividual ;
+            :abilityDescription "Whenever Jinx scores a Damage rating takedown against an enemy Champion, epic Monster, Turret, or inhibitor within 3 seconds of damaging them, she gains Movement speed icon 175% bonus movement speed decaying over 6 seconds." ;
+            :abilityName "Get Excited!" ;
+            :abilityType "passive" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#InAppPurchaseEvent
@@ -1365,6 +1522,32 @@ sport:Competition rdf:type owl:Class ;
                 rdfs:label "InGamePurchase"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#Jinx
+:Jinx rdf:type owl:NamedIndividual ;
+      :hasAbility :FlameChompers ,
+                  :GetExcited ,
+                  :SuperMegaDeathRocket ,
+                  :Switcheroo ,
+                  :Zap ;
+      :hasRole :Marksman ;
+      :isPlayableOf :LeagueOfLegends ;
+      :championArmor 106 ;
+      :championAttackDamage 118 ;
+      :championHealth 2415 ;
+      :championMagicResist 52 ;
+      :championMana 1110 ;
+      :championMovementSpeed 325 ;
+      :championRange "ranged" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Judgment
+:Judgment rdf:type owl:NamedIndividual ;
+          :abilityCooldown 9 ;
+          :abilityDescription "Garen rapidly spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times over 3 seconds, becoming Ghost ghosted and unable to basic attack and dealing physical damage to nearby enemies periodically. Judgment can be recast after 1 second for its duration, and does so automatically after it ends." ;
+          :abilityName "Judgment" ;
+          :abilityType "basic" .
+
+
 ###  http://www.semanticweb.org/MobaOntology#Jungle
 :Jungle rdf:type owl:NamedIndividual .
 
@@ -1374,15 +1557,27 @@ sport:Competition rdf:type owl:Class ;
                  :availableOnPlatform :PC ,
                                       :XBOX ;
                  :hasMonetization :InGamePurchase ;
+                 :gameDescription "League of Legends (LoL), commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre. Since its release in October 2009, League has been free-to-play and is monetized through purchasable character customization. The game is available for Microsoft Windows and macOS." ;
+                 :gameLaunchDate "2009-10-27"^^xsd:date ;
+                 :gameName "League of Legends" ;
                  rdfs:comment "League of Legends is a popular MOBA game developed by Riot Games."@en ;
                  rdfs:label "LeagueOfLegends"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#LeagueOfLegendsWorldChampionship
-:LeagueOfLegendsWorldChampionship rdf:type owl:NamedIndividual ;
-                                  :hasCompetitor :Round1 ;
-                                  :hasLocation :World ;
-                                  :isOfficialCompetition "true"^^xsd:boolean .
+###  http://www.semanticweb.org/MobaOntology#LoLItalianTournamentSpring2024
+:LoLItalianTournamentSpring2024 rdf:type owl:NamedIndividual ;
+                                :hasCompetitor :CompetitorsLoLItalianTournamentSpring2024 ;
+                                :hasDiscipline :LeagueOfLegends ;
+                                :hasLocation :Europa ;
+                                :competitionCountry "Italy" ;
+                                :competitionEndDate "2024-03-29"^^xsd:date ;
+                                :competitionName "LoL Italian Tournament Spring 2024" ;
+                                :competitionOrganizer "PG Esports" ;
+                                :competitionPrizePool 10785 ;
+                                :competitionSponsor "Intel" ,
+                                                    "Kit Kat" ;
+                                :competitionStartDate "2024-01-25"^^xsd:date ;
+                                :isOfficialCompetition "true"^^xsd:boolean .
 
 
 ###  http://www.semanticweb.org/MobaOntology#LongSword
@@ -1395,6 +1590,7 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Mage
 :Mage rdf:type owl:NamedIndividual ;
+      :roleDescription "Mages are champions who typically possess great reach, ability-based area of effect damage and crowd control, and who use all of these strengths in tandem with each other to trap and destroy enemies from a distance. Specializing in magic damage, often burst damage, and therefore investing heavily in items that allow them to cast stronger and faster spells, mages excel at chaining their abilities together in powerful combos in order to win fights, though their abilities also tend to be difficult to land and can be mitigated, if not avoided completely, by their targets if they react in time." ;
       rdfs:comment "Represents the role of a mage in the game, known for high magical damage from a distance."@en ;
       rdfs:label "Mage"@en .
 
@@ -1411,6 +1607,7 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Marksman
 :Marksman rdf:type owl:NamedIndividual ;
+          :roleDescription "Marksmen are ranged champions whose power almost exclusively revolves around their basic attacks: using their reach to land massive continuous damage from a distance, marksmen are capable of taking down even the toughest of opponents when positioned behind the safety of their team, and excel at securing map objectives." ;
           rdfs:comment "Represents the role of a marksman in the game, known for high sustained damage from a distance."@en ;
           rdfs:label "Marksman"@en .
 
@@ -1434,10 +1631,40 @@ sport:Competition rdf:type owl:Class ;
              :isMatchInGame :LeagueOfLegends .
 
 
+###  http://www.semanticweb.org/MobaOntology#NorthAmericanChallengersLeagueSummer2024
+:NorthAmericanChallengersLeagueSummer2024 rdf:type owl:NamedIndividual ;
+                                          :hasCompetitor :CompetitorsNorthAmericanChallengersLeagueSummer2024 ;
+                                          :hasDiscipline :LeagueOfLegends ;
+                                          :hasLocation :America ;
+                                          :competitionCountry "North America" ;
+                                          :competitionEndDate "2024-09-01"^^xsd:date ;
+                                          :competitionName "North American Challengers League Summer 2024" ;
+                                          :competitionOrganizer "Riot Gamers" ;
+                                          :competitionPrizePool 100000 ;
+                                          :competitionStartDate "2024-06-15"^^xsd:date ;
+                                          :isOfficialCompetition "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/MobaOntology#OrbofDeception
+:OrbofDeception rdf:type owl:NamedIndividual ;
+                :abilityCooldown 7 ;
+                :abilityDescription "Ahri sends her orb in the target direction that deals magic damage to enemies hit. At maximum range, the orb homes back to her to deal the same in Hybrid penetration icon true damage to enemies hit." ;
+                :abilityName "Orb of Deception" ;
+                :abilityType "basic" .
+
+
 ###  http://www.semanticweb.org/MobaOntology#PC
 :PC rdf:type owl:NamedIndividual ;
     rdfs:comment "PC represents personal computers as a gaming platform."@en ;
     rdfs:label "PC"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Perseverance
+:Perseverance rdf:type owl:NamedIndividual ;
+              :abilityCooldown 5 ;
+              :abilityDescription "Garen Health regeneration icon regenerates 1.5% − 10.1% (based on level) of his Health icon maximum health every 5 seconds." ;
+              :abilityName "Perseverance" ;
+              :abilityType "passive" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player1
@@ -1450,6 +1677,31 @@ sport:Competition rdf:type owl:Class ;
 ###  http://www.semanticweb.org/MobaOntology#Player10
 :Player10 rdf:type owl:NamedIndividual ;
           :hasNickname "Rekkles" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player11
+:Player11 rdf:type owl:NamedIndividual ;
+          :hasNickname "Wixxi" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player12
+:Player12 rdf:type owl:NamedIndividual ;
+          :hasNickname "Shiazuri" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player13
+:Player13 rdf:type owl:NamedIndividual ;
+          :hasNickname "Onat" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player14
+:Player14 rdf:type owl:NamedIndividual ;
+          :hasNickname "Zamudo" .
+
+
+###  http://www.semanticweb.org/MobaOntology#Player15
+:Player15 rdf:type owl:NamedIndividual ;
+          :hasNickname "Rovex" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player2
@@ -1515,19 +1767,22 @@ sport:Competition rdf:type owl:Class ;
            rdfs:label "RiotGames"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#Round1
-:Round1 rdf:type owl:NamedIndividual ;
-        :hasCompetitor :Team1 ,
-                       :Team2 ,
-                       :Team3 .
-
-
 ###  http://www.semanticweb.org/MobaOntology#Shojin
 :Shojin rdf:type owl:NamedIndividual ;
         :hasComponent :CaulfieldWarhammer ;
         :itemCost 3100 ;
         :itemEffect "Dealing ability damage with a champion ability grants a stack for 6 seconds, stacking up to 4 times and up to 1 per cast instance per second and every second for damage over time abilities. For each stack, your ability damage and proc damage dealt by abilities gain 3% increased damage, for a total increase of 12% at maximum stacks." ;
         :itemName "Spear of Shojin" .
+
+
+###  http://www.semanticweb.org/MobaOntology#SpiritRush
+:SpiritRush rdf:type owl:NamedIndividual ;
+            :abilityCooldown 130 ;
+            :abilityDescription """Ahri Dash dashes to the target location and then fires essence bolts to up to 3 nearby Sight icon visible enemies, each dealing magic damage.
+
+Spirit Rush can be recast twice more within 15 seconds of the activation at no additional cost, with a 1-second static cooldown between casts. Consuming a champion's essence with Essence Theft Essence Theft while Spirit Rush is active extends the recast duration by and up to 10 seconds, and grants an additional recast, storing up to 3 recasts at a time.""" ;
+            :abilityName "Spirit Rush" ;
+            :abilityType "ultimate" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Structural
@@ -1552,14 +1807,32 @@ sport:Competition rdf:type owl:Class ;
                           :MapSide2 .
 
 
+###  http://www.semanticweb.org/MobaOntology#SuperMegaDeathRocket
+:SuperMegaDeathRocket rdf:type owl:NamedIndividual ;
+                      :abilityCooldown 85 ;
+                      :abilityDescription "Jinx fires a massive rocket in the target direction, briefly granting Sight of its surroundings and exploding upon colliding with an enemy champion. The explosion deals physical damage to nearby enemies and grants Sight of the area for 2 seconds." ;
+                      :abilityName "Super Mega Death Rocket!" ;
+                      :abilityType "ultimate" .
+
+
 ###  http://www.semanticweb.org/MobaOntology#Support
 :Support rdf:type owl:NamedIndividual ;
+         :roleDescription "The Support role is to aid and help protect your allies in any situation. Your role is is to shield or heal them, to tanking some damage or sacrificing yourself to keep others alive. You are often giving up the glorious kills in the game to support others, but in the end its usually the support to secure the true MVP award. Support heroes usually lane with the marksman in top lane or at mid lane in order to be able to travel quickly where they are needed." ;
          rdfs:comment "Represents the role of a support in the game, known for assisting and protecting other players."@en ;
          rdfs:label "Support"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#Switcheroo
+:Switcheroo rdf:type owl:NamedIndividual ;
+            :abilityCooldown 1 ;
+            :abilityDescription "Jinx switches between Pow-Pow Pow-Pow, her minigun, and Fishbones Fishbones, her rocket launcher." ;
+            :abilityName "Switcheroo!" ;
+            :abilityType "basic" .
+
+
 ###  http://www.semanticweb.org/MobaOntology#Tank
 :Tank rdf:type owl:NamedIndividual ;
+      :roleDescription "Tanks are tough melee champions who sacrifice damage in exchange for powerful crowd control. While able to engage enemies in combat, a tank's purpose isn't usually to kill opponents; rather, tanks excel at disrupting enemies and diverting focus to themselves, allowing them to lock down specific targets (or several targets at once), as well as remove (or peel) threats from their allies." ;
       rdfs:comment "Represents the role of a tank in the game, known for high durability and the ability to absorb damage."@en ;
       rdfs:label "Tank"@en .
 
@@ -1571,7 +1844,8 @@ sport:Competition rdf:type owl:Class ;
                   :Player2 ,
                   :Player3 ,
                   :Player4 ,
-                  :Player5 .
+                  :Player5 ;
+       :teamName "SKT" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Team1Victory
@@ -1584,13 +1858,18 @@ sport:Competition rdf:type owl:Class ;
                   :Player6 ,
                   :Player7 ,
                   :Player8 ,
-                  :Player9 .
+                  :Player9 ;
+       :teamName "SSG" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Team3
 :Team3 rdf:type owl:NamedIndividual ;
-       :hasMember :Player1 ,
-                  :Player2 .
+       :hasMember :Player11 ,
+                  :Player12 ,
+                  :Player13 ,
+                  :Player14 ,
+                  :Player15 ;
+       :teamName "FNAtic" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#TopLane
@@ -1605,10 +1884,40 @@ sport:Competition rdf:type owl:Class ;
 :World rdf:type owl:NamedIndividual .
 
 
+###  http://www.semanticweb.org/MobaOntology#WorldChampionship2023
+:WorldChampionship2023 rdf:type owl:NamedIndividual ;
+                       :hasCompetitor :CompetitorsWorldChampionship2023 ;
+                       :hasDiscipline :LeagueOfLegends ;
+                       :hasLocation :World ;
+                       :competitionEndDate "2023-11-19"^^xsd:date ;
+                       :competitionName "2023 World Championship [Worlds 2023]" ;
+                       :competitionOrganizer "Riot Gamers" ;
+                       :competitionPrizePool 2225000 ;
+                       :competitionSponsor "AWS" ,
+                                           "Cisco" ,
+                                           "MasterCard" ,
+                                           "Mercedes-Benz" ,
+                                           "OPPO" ,
+                                           "Prime Gaming" ,
+                                           "Red Bull" ,
+                                           "Secretlab" ,
+                                           "Verizon" ;
+                       :competitionStartDate "2023-10-10"^^xsd:date ;
+                       :isOfficialCompetition "true"^^xsd:boolean .
+
+
 ###  http://www.semanticweb.org/MobaOntology#XBOX
 :XBOX rdf:type owl:NamedIndividual ;
       rdfs:comment "XBOX represents Microsoft's gaming console as a gaming platform."@en ;
       rdfs:label "XBOX"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#Zap
+:Zap rdf:type owl:NamedIndividual ;
+     :abilityCooldown 5 ;
+     :abilityDescription "Jinx fires a shock blast in the target direction that deals physical damage to the first enemy it hits and Reveal reveals and Slow slows them for 2 seconds." ;
+     :abilityName "Zap!" ;
+     :abilityType "basic" .
 
 
 #################################################################
@@ -1655,6 +1964,11 @@ sport:Competition rdf:type owl:Class ;
 [ rdf:type owl:AllDifferent ;
   owl:distinctMembers ( :Player1
                         :Player10
+                        :Player11
+                        :Player12
+                        :Player13
+                        :Player14
+                        :Player15
                         :Player2
                         :Player3
                         :Player4
