@@ -133,28 +133,27 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                      rdfs:label "availableOnPlatform"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#containBase
-:containBase rdf:type owl:ObjectProperty ;
-             owl:propertyChainAxiom ( :hasMapSide
-                                      :hasBase
-                                    ) .
+###  http://www.semanticweb.org/MobaOntology#containsElement
+:containsElement rdf:type owl:ObjectProperty ;
+                 owl:propertyChainAxiom ( :hasMapArea
+                                          :hasMapElement
+                                        ) .
+
+
+###  http://www.semanticweb.org/MobaOntology#follows
+:follows rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasAbility
 :hasAbility rdf:type owl:ObjectProperty ;
             owl:inverseOf :isAbilityOf ;
-            rdfs:domain :Champion .
-
-
-###  http://www.semanticweb.org/MobaOntology#hasBase
-:hasBase rdf:type owl:ObjectProperty ;
-         owl:inverseOf :isBaseOf ;
-         rdfs:domain :MapSide ;
-         rdfs:range :Base .
+            rdfs:domain :Champion ;
+            rdfs:range :Ability .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasBuild
 :hasBuild rdf:type owl:ObjectProperty ;
+          owl:inverseOf :isBuildOf ;
           rdfs:domain :Champion ;
           rdfs:range :Build .
 
@@ -180,7 +179,10 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasDiscipline
-:hasDiscipline rdf:type owl:ObjectProperty .
+:hasDiscipline rdf:type owl:ObjectProperty ;
+               owl:inverseOf :isDisciplineOf ;
+               rdfs:domain sport:Competition ;
+               rdfs:range vgo:Game .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasItemSet
@@ -192,7 +194,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#hasLocation
 :hasLocation rdf:type owl:ObjectProperty ;
-             owl:inverseOf :isLocationOf .
+             owl:inverseOf :isLocationOf ;
+             rdfs:domain sport:Competition ;
+             rdfs:range :Location .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMapArea
@@ -203,14 +207,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#hasMapElement
 :hasMapElement rdf:type owl:ObjectProperty ;
+               owl:inverseOf :isMapElementOf ;
                rdfs:domain :MapArea ;
                rdfs:range :MapElement .
-
-
-###  http://www.semanticweb.org/MobaOntology#hasMapSide
-:hasMapSide rdf:type owl:ObjectProperty ;
-            rdfs:domain :Map ;
-            rdfs:range :MapSide .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMatch
@@ -218,6 +217,10 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
           owl:inverseOf :isMatchInGame ;
           rdfs:domain vgo:Game ;
           rdfs:range :Match .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasMechanic
+:hasMechanic rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMember
@@ -231,14 +234,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 :hasMonetization rdf:type owl:ObjectProperty ;
                  owl:inverseOf :isMonetizationOf ;
                  rdfs:domain vgo:Game ;
+                 rdfs:range :MonetizationModel ;
                  rdfs:comment "Specifies the monetization model used by a MOBA game. This property links a game to its monetization model, such as PayToPlay or FreeToPlay."@en ;
                  rdfs:label "hasMonetization"@en .
-
-
-###  http://www.semanticweb.org/MobaOntology#hasOfficialTournaments
-:hasOfficialTournaments rdf:type owl:ObjectProperty ;
-                        rdfs:domain vgo:Game ;
-                        rdfs:range :OfficialCompetition .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasOutcome
@@ -259,11 +257,6 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
          rdfs:range :Role .
 
 
-###  http://www.semanticweb.org/MobaOntology#includes
-:includes rdf:type owl:ObjectProperty ,
-                   owl:TransitiveProperty .
-
-
 ###  http://www.semanticweb.org/MobaOntology#includesTeam
 :includesTeam rdf:type owl:ObjectProperty ;
               rdfs:domain :Match ;
@@ -273,13 +266,14 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/MobaOntology#isAbilityOf
 :isAbilityOf rdf:type owl:ObjectProperty ,
                       owl:FunctionalProperty ;
+             rdfs:domain :Ability ;
              rdfs:range :Champion .
 
 
-###  http://www.semanticweb.org/MobaOntology#isBaseOf
-:isBaseOf rdf:type owl:ObjectProperty ;
-          rdfs:domain :Base ;
-          rdfs:range :MapSide .
+###  http://www.semanticweb.org/MobaOntology#isBuildOf
+:isBuildOf rdf:type owl:ObjectProperty ;
+           rdfs:domain :Build ;
+           rdfs:range :Champion .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isCompetitorOf
@@ -293,15 +287,34 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                rdfs:range :CompositeItem .
 
 
+###  http://www.semanticweb.org/MobaOntology#isDisciplineOf
+:isDisciplineOf rdf:type owl:ObjectProperty ;
+                rdfs:domain vgo:Game ;
+                rdfs:range sport:Competition .
+
+
+###  http://www.semanticweb.org/MobaOntology#isHighestElo
+:isHighestElo rdf:type owl:ObjectProperty ;
+              rdfs:domain :Elite ;
+              rdfs:range :Rank .
+
+
 ###  http://www.semanticweb.org/MobaOntology#isItemSetOf
 :isItemSetOf rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf owl:topObjectProperty ;
              rdfs:domain vgo:Item ;
              rdfs:range :Build .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isLocationOf
-:isLocationOf rdf:type owl:ObjectProperty .
+:isLocationOf rdf:type owl:ObjectProperty ;
+              rdfs:domain :Location ;
+              rdfs:range sport:Competition .
+
+
+###  http://www.semanticweb.org/MobaOntology#isMapElementOf
+:isMapElementOf rdf:type owl:ObjectProperty ;
+                rdfs:domain :MapElement ;
+                rdfs:range :MapArea .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isMatchInGame
@@ -317,11 +330,15 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#isMonetizationOf
-:isMonetizationOf rdf:type owl:ObjectProperty .
+:isMonetizationOf rdf:type owl:ObjectProperty ;
+                  rdfs:domain :MonetizationModel ;
+                  rdfs:range vgo:Game .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isNonPlayableOf
 :isNonPlayableOf rdf:type owl:ObjectProperty ;
+                 rdfs:domain vgo:Character ;
+                 rdfs:range vgo:Game ;
                  rdfs:comment "Indicates a non-playable entity within a game. This property links a non-playable entity to the game in which it appears but cannot be played."@en ;
                  rdfs:label "isNonPlayableOf"@en .
 
@@ -347,6 +364,8 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#isPlayableOf
 :isPlayableOf rdf:type owl:ObjectProperty ;
+              rdfs:domain vgo:Character ;
+              rdfs:range vgo:Game ;
               rdfs:comment "Indicates an entity that is a playable within a game. This property links a playable character to the game in which it can be played."@en ;
               rdfs:label "isPlayableOf"@en .
 
@@ -364,12 +383,23 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
           rdfs:range :Champion .
 
 
+###  http://www.semanticweb.org/MobaOntology#locatedIn
+:locatedIn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Creature ;
+           rdfs:range :MapArea .
+
+
 ###  http://www.semanticweb.org/MobaOntology#ownsChampion
 :ownsChampion rdf:type owl:ObjectProperty ;
               rdfs:domain vgo:Player ;
               rdfs:range :Champion ;
               rdfs:comment "Indicates ownership or possession of a playable champion by a player in MOBA games. A champion referred to by this property is actively played by the owner, distinguishing it from non-playable characters."@en ;
               rdfs:label "ownsChampion"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#precedes
+:precedes rdf:type owl:ObjectProperty ,
+                   owl:TransitiveProperty .
 
 
 ###  http://www.semanticweb.org/MobaOntology#suitableItem
@@ -493,7 +523,9 @@ vgo:username rdf:type owl:DatatypeProperty ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#competitionEndDate
-:competitionEndDate rdf:type owl:DatatypeProperty .
+:competitionEndDate rdf:type owl:DatatypeProperty ;
+                    rdfs:domain sport:Competition ;
+                    rdfs:range xsd:date .
 
 
 ###  http://www.semanticweb.org/MobaOntology#competitionName
@@ -521,7 +553,45 @@ vgo:username rdf:type owl:DatatypeProperty ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#competitionStartDate
-:competitionStartDate rdf:type owl:DatatypeProperty .
+:competitionStartDate rdf:type owl:DatatypeProperty ;
+                      rdfs:domain sport:Competition ;
+                      rdfs:range xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#creatureDescription
+:creatureDescription rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Creature ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#creatureGivesExperience
+:creatureGivesExperience rdf:type owl:DatatypeProperty ;
+                         rdfs:domain :Creature ;
+                         rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/MobaOntology#creatureGivesGold
+:creatureGivesGold rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Creature ;
+                   rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/MobaOntology#creatureHasBuff
+:creatureHasBuff rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Creature ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#creatureName
+:creatureName rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Creature ;
+              rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#creatureRequiresGroup
+:creatureRequiresGroup rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :Creature ;
+                       rdfs:range xsd:boolean .
 
 
 ###  http://www.semanticweb.org/MobaOntology#gameDescription
@@ -586,6 +656,30 @@ vgo:username rdf:type owl:DatatypeProperty ;
 :itemName rdf:type owl:DatatypeProperty ;
           rdfs:domain vgo:Item ;
           rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#laneDescription
+:laneDescription rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Lane ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#mapDescription
+:mapDescription rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Map ;
+                rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#mapGameplay
+:mapGameplay rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Map ;
+             rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/MobaOntology#mapName
+:mapName rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Map ;
+         rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/MobaOntology#priceToPlay
@@ -773,7 +867,7 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Champion
 :Champion rdf:type owl:Class ;
-          rdfs:subClassOf :Playable ;
+          rdfs:subClassOf :PlayableCharacter ;
           rdfs:comment "Represents a specific type of playable character in MOBA games, typically possessing unique abilities and characteristics."@en ;
           rdfs:label "Champion"@en .
 
@@ -807,6 +901,16 @@ vgo:PlayingArea rdf:type owl:Class ;
                 rdfs:subClassOf vgo:Item .
 
 
+###  http://www.semanticweb.org/MobaOntology#ControlElement
+:ControlElement rdf:type owl:Class ;
+                rdfs:subClassOf :MapElement .
+
+
+###  http://www.semanticweb.org/MobaOntology#Creature
+:Creature rdf:type owl:Class ;
+          rdfs:subClassOf :NonPlayableCharacter .
+
+
 ###  http://www.semanticweb.org/MobaOntology#Developer
 :Developer rdf:type owl:Class ;
            rdfs:subClassOf foaf:Agent ;
@@ -821,7 +925,23 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Elite
 :Elite rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :follows ;
+                                                    owl:someValuesFrom :High
+                                                  ]
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :isHighestElo ;
+                                                    owl:someValuesFrom :Rank
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
        rdfs:subClassOf :Rank .
+
+
+###  http://www.semanticweb.org/MobaOntology#EpicCreature
+:EpicCreature rdf:type owl:Class ;
+              rdfs:subClassOf :Creature .
 
 
 ###  http://www.semanticweb.org/MobaOntology#FirstPerson
@@ -866,6 +986,10 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#High
 :High rdf:type owl:Class ;
+      owl:equivalentClass [ rdf:type owl:Restriction ;
+                            owl:onProperty :precedes ;
+                            owl:someValuesFrom :Elite
+                          ] ;
       rdfs:subClassOf :Rank .
 
 
@@ -882,6 +1006,11 @@ vgo:PlayingArea rdf:type owl:Class ;
 ###  http://www.semanticweb.org/MobaOntology#Jungle
 :Jungle rdf:type owl:Class ;
         rdfs:subClassOf :MapArea .
+
+
+###  http://www.semanticweb.org/MobaOntology#JungleCreature
+:JungleCreature rdf:type owl:Class ;
+                rdfs:subClassOf :NeutralCreature .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Lane
@@ -902,24 +1031,15 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Low
 :Low rdf:type owl:Class ;
+     owl:equivalentClass [ rdf:type owl:Restriction ;
+                           owl:onProperty :precedes ;
+                           owl:someValuesFrom :Medium
+                         ] ;
      rdfs:subClassOf :Rank .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Map
-:Map rdf:type owl:Class ;
-     owl:equivalentClass [ owl:intersectionOf ( vgo:PlayingArea
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty :hasMapArea ;
-                                                  owl:someValuesFrom :MapArea
-                                                ]
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty :hasMapSide ;
-                                                  owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :MapSide
-                                                ]
-                                              ) ;
-                           rdf:type owl:Class
-                         ] .
+:Map rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/MobaOntology#MapArea
@@ -931,17 +1051,12 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#MapElement
-:MapElement rdf:type owl:Class ;
-            owl:equivalentClass [ rdf:type owl:Class ;
-                                  owl:oneOf ( :Control
-                                              :Neutral
-                                              :Structural
-                                            )
-                                ] .
+:MapElement rdf:type owl:Class .
 
 
-###  http://www.semanticweb.org/MobaOntology#MapSide
-:MapSide rdf:type owl:Class .
+###  http://www.semanticweb.org/MobaOntology#MapObjectiveCreature
+:MapObjectiveCreature rdf:type owl:Class ;
+                      rdfs:subClassOf :Creature .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Match
@@ -971,7 +1086,16 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Medium
 :Medium rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Restriction ;
+                              owl:onProperty :precedes ;
+                              owl:someValuesFrom :High
+                            ] ;
         rdfs:subClassOf :Rank .
+
+
+###  http://www.semanticweb.org/MobaOntology#Minion
+:Minion rdf:type owl:Class ;
+        rdfs:subClassOf :Creature .
 
 
 ###  http://www.semanticweb.org/MobaOntology#MondialChampionship
@@ -1020,21 +1144,31 @@ vgo:PlayingArea rdf:type owl:Class ;
                rdfs:label "Multiplatfrom"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#NeutralCreature
+:NeutralCreature rdf:type owl:Class ;
+                 rdfs:subClassOf :Creature .
+
+
+###  http://www.semanticweb.org/MobaOntology#NeutralElement
+:NeutralElement rdf:type owl:Class ;
+                rdfs:subClassOf :MapElement .
+
+
 ###  http://www.semanticweb.org/MobaOntology#NonConsumableItem
 :NonConsumableItem rdf:type owl:Class ;
                    rdfs:subClassOf vgo:Item .
 
 
-###  http://www.semanticweb.org/MobaOntology#NonPlayable
-:NonPlayable rdf:type owl:Class ;
-             owl:equivalentClass [ rdf:type owl:Restriction ;
-                                   owl:onProperty :isNonPlayableOf ;
-                                   owl:someValuesFrom vgo:Game
-                                 ] ;
-             rdfs:subClassOf vgo:Character ;
-             owl:disjointWith :Playable ;
-             rdfs:comment "Represents characters in MOBA games that are controlled by the game's artificial intelligence (AI) and are not directly controlled by human players."@en ;
-             rdfs:label "NonPlayable"@en .
+###  http://www.semanticweb.org/MobaOntology#NonPlayableCharacter
+:NonPlayableCharacter rdf:type owl:Class ;
+                      owl:equivalentClass [ rdf:type owl:Restriction ;
+                                            owl:onProperty :isNonPlayableOf ;
+                                            owl:someValuesFrom vgo:Game
+                                          ] ;
+                      rdfs:subClassOf vgo:Character ;
+                      owl:disjointWith :PlayableCharacter ;
+                      rdfs:comment "Represents characters in MOBA games that are controlled by the game's artificial intelligence (AI) and are not directly controlled by human players."@en ;
+                      rdfs:label "NonPlayableCharacter"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#NormalMatch
@@ -1103,15 +1237,15 @@ vgo:PlayingArea rdf:type owl:Class ;
           rdfs:label "Platform"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#Playable
-:Playable rdf:type owl:Class ;
-          owl:equivalentClass [ rdf:type owl:Restriction ;
-                                owl:onProperty :isPlayableOf ;
-                                owl:someValuesFrom vgo:Game
-                              ] ;
-          rdfs:subClassOf vgo:Character ;
-          rdfs:comment "Represents characters in MOBA games that can be controlled and played by human players."@en ;
-          rdfs:label "Playable"@en .
+###  http://www.semanticweb.org/MobaOntology#PlayableCharacter
+:PlayableCharacter rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty :isPlayableOf ;
+                                         owl:someValuesFrom vgo:Game
+                                       ] ;
+                   rdfs:subClassOf vgo:Character ;
+                   rdfs:comment "Represents characters in MOBA games that can be controlled and played by human players."@en ;
+                   rdfs:label "PlayableCharacter"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#PointAndClick
@@ -1233,11 +1367,21 @@ vgo:PlayingArea rdf:type owl:Class ;
                rdfs:label "SoftwareHouse"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#SpecialCreature
+:SpecialCreature rdf:type owl:Class ;
+                 rdfs:subClassOf :NeutralCreature .
+
+
 ###  http://www.semanticweb.org/MobaOntology#SpecialEvents
 :SpecialEvents rdf:type owl:Class ;
                rdfs:subClassOf :OfficialCompetition ;
                rdfs:comment "SpecialEvents refers to official tournaments that are held periodically or for specific occasions. These events may feature unique rules, formats, or themes compared to regular tournaments."@en ;
                rdfs:label "SpecialEvents"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#StructuralElement
+:StructuralElement rdf:type owl:Class ;
+                   rdfs:subClassOf :MapElement .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Team
@@ -1322,16 +1466,25 @@ sport:Competition rdf:type owl:Class ;
           rdfs:label "Assassin"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#BaseSide1
-:BaseSide1 rdf:type owl:NamedIndividual .
+###  http://www.semanticweb.org/MobaOntology#Blind
+:Blind rdf:type owl:NamedIndividual ,
+                :Draft .
 
 
-###  http://www.semanticweb.org/MobaOntology#BaseSide2
-:BaseSide2 rdf:type owl:NamedIndividual .
+###  http://www.semanticweb.org/MobaOntology#BlueSentinel
+:BlueSentinel rdf:type owl:NamedIndividual ,
+                       :JungleCreature ;
+              :isNonPlayableOf :LeagueOfLegends ;
+              :creatureDescription "The Blue Sentinel, also known as Gromp, is a neutral monster residing in the blue jungle. When attacked, it deals periodic damage and increases attack speed as its health decreases. Strategically positioned to encourage advancement for champions controlling the blue jungle." ;
+              :creatureGivesExperience 200 ;
+              :creatureGivesGold 100 ;
+              :creatureHasBuff "Mana Regeneration" ;
+              :creatureName "Blue Sentinel (Gromp)" .
 
 
-###  http://www.semanticweb.org/MobaOntology#BotLane
-:BotLane rdf:type owl:NamedIndividual .
+###  http://www.semanticweb.org/MobaOntology#Bronze
+:Bronze rdf:type owl:NamedIndividual ;
+        :precedes :Silver .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Bruiser
@@ -1339,6 +1492,17 @@ sport:Competition rdf:type owl:Class ;
          :roleDescription "Bruisers are a diverse group of short-ranged combatants who excel at both dealing and surviving damage. With easy access to heavy, continuous damage (or DPS) and a host of innate defenses, bruisers thrive in extended fights as they seek out enemies to take down, but their limited range puts them at constant risk of being kept at bay (or kited) by their opponents via crowd control, range and mobility." ;
          rdfs:comment "Represents the role of a bruiser in the game, known for a balance of damage and durability."@en ;
          rdfs:label "Bruiser"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#CasterMinion
+:CasterMinion rdf:type owl:NamedIndividual ,
+                       :Minion ;
+              :isNonPlayableOf :LeagueOfLegends ;
+              :creatureDescription "The Caster Minion is one of three minion types appearing in each wave. It attacks at range with magic attacks that deal moderate but continuous damage. It has lower resilience but higher potential damage compared to the Melee Minion." ;
+              :creatureGivesExperience 29 ;
+              :creatureGivesGold 14 ;
+              :creatureName "Caster Minion" ;
+              :creatureRequiresGroup "false"^^xsd:boolean .
 
 
 ###  http://www.semanticweb.org/MobaOntology#CaulfieldWarhammer
@@ -1378,10 +1542,6 @@ sport:Competition rdf:type owl:Class ;
                                                  :Team3 .
 
 
-###  http://www.semanticweb.org/MobaOntology#Control
-:Control rdf:type owl:NamedIndividual .
-
-
 ###  http://www.semanticweb.org/MobaOntology#Courage
 :Courage rdf:type owl:NamedIndividual ;
          :abilityCooldown 23 ;
@@ -1415,8 +1575,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#Diamond
-:Diamond rdf:type owl:NamedIndividual ,
-                  :Elite .
+:Diamond rdf:type owl:NamedIndividual ;
+         :follows :Gold ;
+         :isHighestElo :Rank .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Dota2
@@ -1508,6 +1669,11 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
             :abilityType "passive" .
 
 
+###  http://www.semanticweb.org/MobaOntology#Gold
+:Gold rdf:type owl:NamedIndividual ;
+      :precedes :Diamond .
+
+
 ###  http://www.semanticweb.org/MobaOntology#InAppPurchaseEvent
 :InAppPurchaseEvent rdf:type owl:NamedIndividual ;
                     vgo:purchasesGameOffering :GameBoost ,
@@ -1520,6 +1686,18 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                 :priceToPlay 0 ;
                 rdfs:comment "In-game Purchase represents a monetization model where players can buy virtual items or benefits within the game."@en ;
                 rdfs:label "InGamePurchase"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#InfernalDrake
+:InfernalDrake rdf:type owl:NamedIndividual ,
+                        :EpicCreature ;
+               :isNonPlayableOf :LeagueOfLegends ;
+               :creatureDescription "The Infernal Drake is an epic jungle dragon that requires a group to defeat. It attacks with powerful blows that deal attack and magic damage. It is a strategic objective in the jungle, favoring aggressive and combat-oriented gameplay." ;
+               :creatureGivesExperience 150 ;
+               :creatureGivesGold 100 ;
+               :creatureHasBuff "Infernal Buff (Increased Attack Damage and Ability Power)" ;
+               :creatureName "Infernal Drake" ;
+               :creatureRequiresGroup "true"^^xsd:boolean .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Jinx
@@ -1546,10 +1724,6 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
           :abilityDescription "Garen rapidly spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times over 3 seconds, becoming Ghost ghosted and unable to basic attack and dealing physical damage to nearby enemies periodically. Judgment can be recast after 1 second for its duration, and does so automatically after it ends." ;
           :abilityName "Judgment" ;
           :abilityType "basic" .
-
-
-###  http://www.semanticweb.org/MobaOntology#Jungle
-:Jungle rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/MobaOntology#LeagueOfLegends
@@ -1595,16 +1769,6 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
       rdfs:label "Mage"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#MapSide1
-:MapSide1 rdf:type owl:NamedIndividual ;
-          :hasBase :BaseSide1 .
-
-
-###  http://www.semanticweb.org/MobaOntology#MapSide2
-:MapSide2 rdf:type owl:NamedIndividual ;
-          :hasBase :BaseSide2 .
-
-
 ###  http://www.semanticweb.org/MobaOntology#Marksman
 :Marksman rdf:type owl:NamedIndividual ;
           :roleDescription "Marksmen are ranged champions whose power almost exclusively revolves around their basic attacks: using their reach to land massive continuous damage from a distance, marksmen are capable of taking down even the toughest of opponents when positioned behind the safety of their team, and excel at securing map objectives." ;
@@ -1612,12 +1776,15 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
           rdfs:label "Marksman"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#MidLane
-:MidLane rdf:type owl:NamedIndividual .
-
-
-###  http://www.semanticweb.org/MobaOntology#Neutral
-:Neutral rdf:type owl:NamedIndividual .
+###  http://www.semanticweb.org/MobaOntology#MeleeMinion
+:MeleeMinion rdf:type owl:NamedIndividual ,
+                      :Minion ;
+             :isNonPlayableOf :LeagueOfLegends ;
+             :creatureDescription "The Melee Minion is one of three minion types appearing in each wave. It attacks melee with modest damage but has higher resilience compared to other minion types. Designed to advance against enemy defenses and support allied champions." ;
+             :creatureGivesExperience 59 ;
+             :creatureGivesGold 21 ;
+             :creatureName "Melee Minion" ;
+             :creatureRequiresGroup "false"^^xsd:boolean .
 
 
 ###  http://www.semanticweb.org/MobaOntology#NormalMatch
@@ -1625,6 +1792,7 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                       [ rdf:type owl:Class ;
                         owl:complementOf :RankedMatch
                       ] ;
+             :hasMechanic :Blind ;
              :hasOutcome :Team1Victory ;
              :includesTeam :Team1 ,
                            :Team2 ;
@@ -1643,6 +1811,18 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                                           :competitionPrizePool 100000 ;
                                           :competitionStartDate "2024-06-15"^^xsd:date ;
                                           :isOfficialCompetition "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/MobaOntology#OceanDrake
+:OceanDrake rdf:type owl:NamedIndividual ,
+                     :EpicCreature ;
+            :isNonPlayableOf :LeagueOfLegends ;
+            :creatureDescription "The Ocean Drake is an epic jungle dragon that requires a group to defeat. It attacks with blows that deal moderate damage, but its buff is continuous regeneration of health and mana. It is a crucial objective for teams aiming to maintain pressure and sustainability in the match." ;
+            :creatureGivesExperience 150 ;
+            :creatureGivesGold 100 ;
+            :creatureHasBuff "Ocean Buff (Regeneration of Health and Mana)" ;
+            :creatureName "Ocean Drake" ;
+            :creatureRequiresGroup "true"^^xsd:boolean .
 
 
 ###  http://www.semanticweb.org/MobaOntology#OrbofDeception
@@ -1665,6 +1845,11 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
               :abilityDescription "Garen Health regeneration icon regenerates 1.5% − 10.1% (based on level) of his Health icon maximum health every 5 seconds." ;
               :abilityName "Perseverance" ;
               :abilityType "passive" .
+
+
+###  http://www.semanticweb.org/MobaOntology#PickAndBan
+:PickAndBan rdf:type owl:NamedIndividual ,
+                     :Draft .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player1
@@ -1750,6 +1935,10 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
              rdfs:label "Playstation"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#Rank
+:Rank rdf:type owl:NamedIndividual .
+
+
 ###  http://www.semanticweb.org/MobaOntology#RankedMatch
 :RankedMatch rdf:type owl:NamedIndividual ;
              :hasOutcome :Team1Victory ;
@@ -1757,6 +1946,18 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
              :includesTeam :Team1 ,
                            :Team3 ;
              :isMatchInGame :LeagueOfLegends .
+
+
+###  http://www.semanticweb.org/MobaOntology#RedBrambleback
+:RedBrambleback rdf:type owl:NamedIndividual ,
+                         :JungleCreature ;
+                :isNonPlayableOf :LeagueOfLegends ;
+                :creatureDescription "The Red Brambleback, known as Krug, is a neutral monster found in the red jungle. When attacked, it inflicts heavy damage with periodic attacks. Near death, it explodes into a damaging thorn cloud for enemies. Crucial for jungle efficiency in controlling the red jungle." ;
+                :creatureGivesExperience 200 ;
+                :creatureGivesGold 100 ;
+                :creatureHasBuff "Burn Damage and Slow" ;
+                :creatureName "Red Brambleback (Krug)" ;
+                :creatureRequiresGroup "false"^^xsd:boolean .
 
 
 ###  http://www.semanticweb.org/MobaOntology#RiotGames
@@ -1775,6 +1976,23 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
         :itemName "Spear of Shojin" .
 
 
+###  http://www.semanticweb.org/MobaOntology#SiegeMinion
+:SiegeMinion rdf:type owl:NamedIndividual ,
+                      :Minion ;
+             :isNonPlayableOf :LeagueOfLegends ;
+             :creatureDescription "The Siege Minion is one of three minion types appearing in each wave. It attacks from long range with powerful shots that deal significant damage to enemy structures. It has the highest resilience among minions, crucial for assaulting enemy bastions." ;
+             :creatureGivesExperience 92 ;
+             :creatureGivesGold 60 ;
+             :creatureName "Siege Minion" ;
+             :creatureRequiresGroup "false"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/MobaOntology#Silver
+:Silver rdf:type owl:NamedIndividual ;
+        :follows :Bronze ;
+        :precedes :Gold .
+
+
 ###  http://www.semanticweb.org/MobaOntology#SpiritRush
 :SpiritRush rdf:type owl:NamedIndividual ;
             :abilityCooldown 130 ;
@@ -1785,13 +2003,8 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
             :abilityType "ultimate" .
 
 
-###  http://www.semanticweb.org/MobaOntology#Structural
-:Structural rdf:type owl:NamedIndividual .
-
-
 ###  http://www.semanticweb.org/MobaOntology#Subscription
-:Subscription rdf:type owl:NamedIndividual ,
-                       :MonetizationModel ;
+:Subscription rdf:type owl:NamedIndividual ;
               :priceToPlay 15 ;
               rdfs:comment "Subscription represents a monetization model where players pay a recurring fee to access the game."@en ;
               rdfs:label "Subscription"@en .
@@ -1799,12 +2012,49 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRift
 :SummonerRift rdf:type owl:NamedIndividual ;
-              :hasMapArea :BotLane ,
-                          :Jungle ,
-                          :MidLane ,
-                          :TopLane ;
-              :hasMapSide :MapSide1 ,
-                          :MapSide2 .
+              :hasMapArea :SummonerRiftBotLane ,
+                          :SummonerRiftJungle ,
+                          :SummonerRiftMidLane ,
+                          :SummonerRiftTopLane ;
+              :mapDescription "The newest and most venerated battleground is known as Summoner's Rift. Traverse down on of three different paths in order to attack your enemy at their weakest point. Work with your allies to siege the enemy base and destroy their Nexus!" ;
+              :mapGameplay "The objective of Summoner's Rift is simple – destroy the enemy nexus. In order to do this, champions must traverse down one of three different paths (or lanes) in order to attack their enemy at their weakest points they can exploit. Both teams have their lanes defended by numerous turrets; each turret grows in strength the closer it gets to its respective nexus and each turret must be eliminated in order to gain access to the next turret in that lane. Cooperating with fellow summoners is an absolute requirement for success, as it is easy for a champion to find themselves ambushed by enemies in the lanes of the Rift." ;
+              :mapName "Summoner's Rift" .
+
+
+###  http://www.semanticweb.org/MobaOntology#SummonerRiftBotLane
+:SummonerRiftBotLane rdf:type owl:NamedIndividual ;
+                     :hasMapElement :SummonerRiftInnerTurret ,
+                                    :SummonerRiftOuterTurret ;
+                     :laneDescription "The bot lane is situated at the bottom of the map, parallel to the top lane. It is a strategic environment that involves cooperation between two players, typically an ADC (Attack Damage Carry) and a support. This lane features a combination of defensive towers and enemy attacks, making it critical for map control and protecting the elemental dragon in the lower jungle." .
+
+
+###  http://www.semanticweb.org/MobaOntology#SummonerRiftInnerTurret
+:SummonerRiftInnerTurret rdf:type owl:NamedIndividual ,
+                                  :StructuralElement ;
+                         owl:differentFrom :SummonerRiftOuterTurret .
+
+
+###  http://www.semanticweb.org/MobaOntology#SummonerRiftJungle
+:SummonerRiftJungle rdf:type owl:NamedIndividual ;
+                    :laneDescription "The jungle consists of the parts of the map between the lanes proper, excluding the teams' bases, characterized by the lack of vision or dense Fog of War. Neutral—not aggressive unless attacked—creeps called Monster icon monsters live in the jungle, and a monster or group of monsters at a certain location of the map is called a camp." .
+
+
+###  http://www.semanticweb.org/MobaOntology#SummonerRiftMidLane
+:SummonerRiftMidLane rdf:type owl:NamedIndividual ;
+                     :hasMapElement :SummonerRiftInnerTurret ,
+                                    :SummonerRiftOuterTurret ;
+                     :laneDescription "The mid lane is located centrally on the map, directly connecting the bases of both teams. It is typically the shortest path among the three main lanes and often serves as the focal point for combat actions and strategic movements. The mid lane is usually dominated by magic-based champions or assassins who can deal high burst damage quickly. This lane is crucial for controlling game flow and supporting other lanes with swift movements and targeted attacks." .
+
+
+###  http://www.semanticweb.org/MobaOntology#SummonerRiftOuterTurret
+:SummonerRiftOuterTurret rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/MobaOntology#SummonerRiftTopLane
+:SummonerRiftTopLane rdf:type owl:NamedIndividual ;
+                     :hasMapElement :SummonerRiftInnerTurret ,
+                                    :SummonerRiftOuterTurret ;
+                     :laneDescription "The top lane is one of the three main paths on the map, situated at the top relative to each team's base. It is characterized by a long, narrow terrain with towers positioned to defend access to the base. The top lane is known for being a battleground for durable champions and melee fighters. Common champions in this lane include fighters or tanks, capable of enduring heavy damage and engaging in direct combat." .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SuperMegaDeathRocket
@@ -1813,6 +2063,17 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                       :abilityDescription "Jinx fires a massive rocket in the target direction, briefly granting Sight of its surroundings and exploding upon colliding with an enemy champion. The explosion deals physical damage to nearby enemies and grants Sight of the area for 2 seconds." ;
                       :abilityName "Super Mega Death Rocket!" ;
                       :abilityType "ultimate" .
+
+
+###  http://www.semanticweb.org/MobaOntology#SuperMinion
+:SuperMinion rdf:type owl:NamedIndividual ,
+                      :Minion ;
+             :isNonPlayableOf :LeagueOfLegends ;
+             :creatureDescription "The Super Minion is a special type of minion appearing in the lane where the enemy inhibitor has been destroyed. It has high resilience and deals significant damage to structures and enemy champions. It represents a major threat and requires a quick response from the opposing team." ;
+             :creatureGivesExperience 97 ;
+             :creatureGivesGold 60 ;
+             :creatureName "Super Minion" ;
+             :creatureRequiresGroup "false"^^xsd:boolean .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Support
@@ -1870,10 +2131,6 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                   :Player14 ,
                   :Player15 ;
        :teamName "FNAtic" .
-
-
-###  http://www.semanticweb.org/MobaOntology#TopLane
-:TopLane rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Victory
@@ -1940,15 +2197,6 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                         :Marksman
                         :Support
                         :Tank
-                      )
-] .
-
-
-[ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( :BotLane
-                        :Jungle
-                        :MidLane
-                        :TopLane
                       )
 ] .
 
