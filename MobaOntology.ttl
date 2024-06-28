@@ -1,371 +1,374 @@
-@prefix : <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/> .
+@prefix : <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@base <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#> .
 
-<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology> rdf:type owl:Ontology .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology> rdf:type owl:Ontology ;
+                                                                       rdfs:comment "" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#isSpecialEventOf
-:isSpecialEventOf rdf:type owl:ObjectProperty ;
-                  rdfs:domain :SpecialEvents ;
-                  rdfs:range :Game .
-
-
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/characterOf
-:characterOf rdf:type owl:ObjectProperty .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/characterOf> rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/componentItem
-:componentItem rdf:type owl:ObjectProperty ;
-               rdfs:domain :ItemComponent ;
-               rdfs:range :BasicItem .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/componentItem> rdf:type owl:ObjectProperty ;
+                                                                                    rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ItemComponent> ;
+                                                                                    rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/BasicItem> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasAbility
-:hasAbility rdf:type owl:ObjectProperty ;
-            owl:inverseOf :isAbilityOf ;
-            rdfs:domain :Champion ;
-            rdfs:range :Ability .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasAbility> rdf:type owl:ObjectProperty ;
+                                                                                 owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isAbilityOf> ;
+                                                                                 rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Champion> ;
+                                                                                 rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ability> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasChampion
-:hasChampion rdf:type owl:ObjectProperty ;
-             owl:inverseOf :isPlayedBy ;
-             rdfs:domain :Player ;
-             rdfs:range :Character .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasChampion> rdf:type owl:ObjectProperty ;
+                                                                                  owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPlayedBy> ;
+                                                                                  rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> ;
+                                                                                  rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Character> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasCharacter
-:hasCharacter rdf:type owl:ObjectProperty ;
-              owl:inverseOf :isCharacterOf ;
-              rdfs:domain :Game ;
-              rdfs:range :Character .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasCharacter> rdf:type owl:ObjectProperty ;
+                                                                                   owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCharacterOf> ;
+                                                                                   rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> ;
+                                                                                   rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Character> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasCollectionOf
-:hasCollectionOf rdf:type owl:ObjectProperty .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasCollectionOf> rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasComponent
-:hasComponent rdf:type owl:ObjectProperty ;
-              owl:inverseOf :isComponentOf ;
-              rdfs:domain :CompositeItem ;
-              rdfs:range :ItemComponent .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasComponent> rdf:type owl:ObjectProperty ;
+                                                                                   owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isComponentOf> ;
+                                                                                   rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CompositeItem> ;
+                                                                                   rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ItemComponent> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasDeveloper
-:hasDeveloper rdf:type owl:ObjectProperty ;
-              rdfs:subPropertyOf owl:topObjectProperty ;
-              rdfs:domain :Game ;
-              rdfs:range :Developer .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasDeveloper> rdf:type owl:ObjectProperty ;
+                                                                                   rdfs:subPropertyOf owl:topObjectProperty ;
+                                                                                   rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> ;
+                                                                                   rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Developer> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasEnrolled
-:hasEnrolled rdf:type owl:ObjectProperty ;
-             owl:inverseOf :isEnrolled ;
-             rdfs:domain :Competition ;
-             rdfs:range :Team .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasEnrolled> rdf:type owl:ObjectProperty ;
+                                                                                  owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isEnrolled> ;
+                                                                                  rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Competition> ;
+                                                                                  rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapArea
-:hasMapArea rdf:type owl:ObjectProperty ;
-            owl:inverseOf :mapAreaOf ;
-            rdfs:domain :Map ;
-            rdfs:range :MapArea .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapArea> rdf:type owl:ObjectProperty ;
+                                                                                 owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapAreaOf> ;
+                                                                                 rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map> ;
+                                                                                 rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapArea> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapElement
-:hasMapElement rdf:type owl:ObjectProperty ;
-               owl:inverseOf :mapElementOf ;
-               rdfs:domain :MapArea ;
-               rdfs:range :MapElement .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapElement> rdf:type owl:ObjectProperty ;
+                                                                                    owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapElementOf> ;
+                                                                                    rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapArea> ;
+                                                                                    rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapElement> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMatch
-:hasMatch rdf:type owl:ObjectProperty ;
-          owl:inverseOf :isPartOf .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMatch> rdf:type owl:ObjectProperty ;
+                                                                               owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPartOf> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMember
-:hasMember rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf owl:topObjectProperty ;
-           owl:inverseOf :isMemberOf ;
-           rdfs:domain :Team ;
-           rdfs:range :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMember> rdf:type owl:ObjectProperty ;
+                                                                                rdfs:subPropertyOf owl:topObjectProperty ;
+                                                                                owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isMemberOf> ;
+                                                                                rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team> ;
+                                                                                rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPOV
-:hasPOV rdf:type owl:ObjectProperty ;
-        rdfs:domain :Game ;
-        rdfs:range :POV .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPOV> rdf:type owl:ObjectProperty ;
+                                                                             rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> ;
+                                                                             rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/POV> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPlatform
-:hasPlatform rdf:type owl:ObjectProperty ;
-             owl:inverseOf :platformOf ;
-             rdfs:domain :Game ;
-             rdfs:range :Platform .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPlatform> rdf:type owl:ObjectProperty ;
+                                                                                  owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/platformOf> ;
+                                                                                  rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> ;
+                                                                                  rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Platform> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasRole
-:hasRole rdf:type owl:ObjectProperty ;
-         rdfs:domain :Champion ;
-         rdfs:range :Role .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasRole> rdf:type owl:ObjectProperty ;
+                                                                              rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Champion> ;
+                                                                              rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Role> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hostMatch
-:hostMatch rdf:type owl:ObjectProperty ;
-           owl:inverseOf :takePlace ;
-           rdfs:domain :Map ;
-           rdfs:range :Match .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hostMatch> rdf:type owl:ObjectProperty ;
+                                                                                owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/takePlace> ;
+                                                                                rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map> ;
+                                                                                rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includes
-:includes rdf:type owl:ObjectProperty ;
-          owl:inverseOf :isIncluded ;
-          rdfs:comment "Generic inclusion relationship"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includes> rdf:type owl:ObjectProperty ;
+                                                                               owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isIncluded> ;
+                                                                               rdfs:comment "Generic inclusion relationship"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includesTeam
-:includesTeam rdf:type owl:ObjectProperty ;
-              rdfs:subPropertyOf owl:topObjectProperty ;
-              owl:inverseOf :isTeamOf ;
-              rdfs:domain :Match ;
-              rdfs:range :Team .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includesTeam> rdf:type owl:ObjectProperty ;
+                                                                                   rdfs:subPropertyOf owl:topObjectProperty ;
+                                                                                   owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isTeamOf> ;
+                                                                                   rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> ;
+                                                                                   rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isAbilityOf
-:isAbilityOf rdf:type owl:ObjectProperty ,
-                      owl:FunctionalProperty ;
-             rdfs:domain :Ability ;
-             rdfs:range :Champion .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isAbilityOf> rdf:type owl:ObjectProperty ,
+                                                                                           owl:FunctionalProperty ;
+                                                                                  rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ability> ;
+                                                                                  rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Champion> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isAmateurOf
-:isAmateurOf rdf:type owl:ObjectProperty .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isAmateurOf> rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBasicItem
-:isBasicItem rdf:type owl:ObjectProperty .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBasicItem> rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBuildOf
-:isBuildOf rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf owl:topObjectProperty ;
-           owl:inverseOf :isBuilded ;
-           rdfs:domain :Build ;
-           rdfs:range :Champion .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBuildOf> rdf:type owl:ObjectProperty ;
+                                                                                rdfs:subPropertyOf owl:topObjectProperty ;
+                                                                                owl:inverseOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBuilded> ;
+                                                                                rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Build> ;
+                                                                                rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Champion> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBuilded
-:isBuilded rdf:type owl:ObjectProperty ;
-           rdfs:domain :Champion ;
-           rdfs:range :Build .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBuilded> rdf:type owl:ObjectProperty ;
+                                                                                rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Champion> ;
+                                                                                rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Build> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCharacterOf
-:isCharacterOf rdf:type owl:ObjectProperty ;
-               rdfs:domain :Character ;
-               rdfs:range :Game .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCharacterOf> rdf:type owl:ObjectProperty ;
+                                                                                    rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Character> ;
+                                                                                    rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCompetitionOf
-:isCompetitionOf rdf:type owl:ObjectProperty ,
-                          owl:FunctionalProperty ;
-                 rdfs:domain :Competition ;
-                 rdfs:range :Game .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCompetitionOf> rdf:type owl:ObjectProperty ,
+                                                                                               owl:FunctionalProperty ;
+                                                                                      rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Competition> ;
+                                                                                      rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isComponentOf
-:isComponentOf rdf:type owl:ObjectProperty ;
-               rdfs:domain :ItemComponent ;
-               rdfs:range :CompositeItem .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isComponentOf> rdf:type owl:ObjectProperty ;
+                                                                                    rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ItemComponent> ;
+                                                                                    rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CompositeItem> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isEnrolled
-:isEnrolled rdf:type owl:ObjectProperty .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isEnrolled> rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isIncluded
-:isIncluded rdf:type owl:ObjectProperty .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isIncluded> rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isMemberOf
-:isMemberOf rdf:type owl:ObjectProperty ;
-            rdfs:domain :Player ;
-            rdfs:range :Team .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isMemberOf> rdf:type owl:ObjectProperty ;
+                                                                                 rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> ;
+                                                                                 rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isOfficialOf
-:isOfficialOf rdf:type owl:ObjectProperty ;
-              rdfs:domain :OfficialTournaments ;
-              rdfs:range :Game .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isOfficialOf> rdf:type owl:ObjectProperty ;
+                                                                                   rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/OfficialTournaments> ;
+                                                                                   rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPartOf
-:isPartOf rdf:type owl:ObjectProperty ,
-                   owl:TransitiveProperty ;
-          rdfs:domain :Match ;
-          rdfs:range :Game .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPartOf> rdf:type owl:ObjectProperty ,
+                                                                                        owl:TransitiveProperty ;
+                                                                               rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> ;
+                                                                               rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPlayed
-:isPlayed rdf:type owl:ObjectProperty ;
-          owl:propertyChainAxiom ( :hasMatch
-                                   :includesTeam
-                                 ) .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPlayed> rdf:type owl:ObjectProperty ;
+                                                                               owl:propertyChainAxiom ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMatch>
+                                                                                                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includesTeam>
+                                                                                                      ) .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPlayedBy
-:isPlayedBy rdf:type owl:ObjectProperty ;
-            rdfs:domain :Character ;
-            rdfs:range :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPlayedBy> rdf:type owl:ObjectProperty ;
+                                                                                 rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Character> ;
+                                                                                 rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isSpecialEventOf
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isSpecialEventOf> rdf:type owl:ObjectProperty ;
+                                                                                       rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SpecialEvents> ;
+                                                                                       rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isTeamOf
-:isTeamOf rdf:type owl:ObjectProperty .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isTeamOf> rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapAreaOf
-:mapAreaOf rdf:type owl:ObjectProperty ;
-           rdfs:domain :MapArea ;
-           rdfs:range :Map .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapAreaOf> rdf:type owl:ObjectProperty ;
+                                                                                rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapArea> ;
+                                                                                rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapContainElement
-:mapContainElement rdf:type owl:ObjectProperty ;
-                   owl:propertyChainAxiom ( :hasMapArea
-                                            :hasMapElement
-                                          ) .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapContainElement> rdf:type owl:ObjectProperty ;
+                                                                                        owl:propertyChainAxiom ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapArea>
+                                                                                                                 <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapElement>
+                                                                                                               ) .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapElementOf
-:mapElementOf rdf:type owl:ObjectProperty ;
-              rdfs:domain :MapElement ;
-              rdfs:range :MapArea .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapElementOf> rdf:type owl:ObjectProperty ;
+                                                                                   rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapElement> ;
+                                                                                   rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapArea> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/nonPlayableOf
-:nonPlayableOf rdf:type owl:ObjectProperty ;
-               rdfs:subPropertyOf :characterOf .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/nonPlayableOf> rdf:type owl:ObjectProperty ;
+                                                                                    rdfs:subPropertyOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/characterOf> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/platformOf
-:platformOf rdf:type owl:ObjectProperty .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/platformOf> rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/playableOf
-:playableOf rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :characterOf .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/playableOf> rdf:type owl:ObjectProperty ;
+                                                                                 rdfs:subPropertyOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/characterOf> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/takePlace
-:takePlace rdf:type owl:ObjectProperty ;
-           rdfs:domain :Match ;
-           rdfs:range :Map .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/takePlace> rdf:type owl:ObjectProperty ;
+                                                                                rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> ;
+                                                                                rdfs:range <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map> .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#mapType
-:mapType rdf:type owl:DatatypeProperty .
-
-
-###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#matchType
-:matchType rdf:type owl:DatatypeProperty .
-
-
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/abilityType
-:abilityType rdf:type owl:DatatypeProperty ;
-             rdfs:domain :Ability ;
-             rdfs:range xsd:string .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/abilityType> rdf:type owl:DatatypeProperty ;
+                                                                                  rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ability> ;
+                                                                                  rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/buffDuration
-:buffDuration rdf:type owl:DatatypeProperty ;
-              rdfs:comment "Specifies the duration for which a bonus or effect remains active on an entity, like a character or object."@en ;
-              rdfs:label "buffDuration"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/buffDuration> rdf:type owl:DatatypeProperty ;
+                                                                                   rdfs:comment "Specifies the duration for which a bonus or effect remains active on an entity, like a character or object."@en ;
+                                                                                   rdfs:label "buffDuration"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/elo
-:elo rdf:type owl:DatatypeProperty ,
-              owl:FunctionalProperty ;
-     rdfs:domain :Rank ;
-     rdfs:range xsd:integer .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/elo> rdf:type owl:DatatypeProperty ,
+                                                                                   owl:FunctionalProperty ;
+                                                                          rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Rank> ;
+                                                                          rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasArmor
-:hasArmor rdf:type owl:DatatypeProperty ;
-          rdfs:comment "Specifies the level of resistance to physical damage for an entity, applicable to characters, structures, and objects."@en ;
-          rdfs:label "hasArmor"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasArmor> rdf:type owl:DatatypeProperty ;
+                                                                               rdfs:comment "Specifies the level of resistance to physical damage for an entity, applicable to characters, structures, and objects."@en ;
+                                                                               rdfs:label "hasArmor"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasHealth
-:hasHealth rdf:type owl:DatatypeProperty ;
-           rdfs:comment "Indicates the health or durability of an entity, such as a character, structure, or object."@en ;
-           rdfs:label "hasHealth"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasHealth> rdf:type owl:DatatypeProperty ;
+                                                                                rdfs:comment "Indicates the health or durability of an entity, such as a character, structure, or object."@en ;
+                                                                                rdfs:label "hasHealth"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMagicResistance
-:hasMagicResistance rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf owl:topDataProperty ;
-                    rdfs:comment "Indicates the resistance to magical attacks or effects for an entity, applicable to characters, structures, and objects."@en ;
-                    rdfs:label "hasMagicResistance"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMagicResistance> rdf:type owl:DatatypeProperty ;
+                                                                                         rdfs:subPropertyOf owl:topDataProperty ;
+                                                                                         rdfs:comment "Indicates the resistance to magical attacks or effects for an entity, applicable to characters, structures, and objects."@en ;
+                                                                                         rdfs:label "hasMagicResistance"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPrice
-:hasPrice rdf:type owl:DatatypeProperty ;
-          rdfs:domain :Game ;
-          rdfs:range xsd:integer .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPrice> rdf:type owl:DatatypeProperty ;
+                                                                               rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> ;
+                                                                               rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isDestroyed
-:isDestroyed rdf:type owl:DatatypeProperty ;
-             rdfs:comment "Indicates whether an entity, such as a structure or object, has been destroyed or remains intact."@en ;
-             rdfs:label "isDestroyed"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isDestroyed> rdf:type owl:DatatypeProperty ;
+                                                                                  rdfs:comment "Indicates whether an entity, such as a structure or object, has been destroyed or remains intact."@en ;
+                                                                                  rdfs:label "isDestroyed"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/itemCost
-:itemCost rdf:type owl:DatatypeProperty ;
-          rdfs:range xsd:integer .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/itemCost> rdf:type owl:DatatypeProperty ;
+                                                                               rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/location
-:location rdf:type owl:DatatypeProperty ;
-          rdfs:domain :Competition .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/location> rdf:type owl:DatatypeProperty ;
+                                                                               rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Competition> .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapType
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapType> rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/matchType
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/matchType> rdf:type owl:DatatypeProperty .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity
-:quantity rdf:type owl:DatatypeProperty ;
-          rdfs:domain :ItemComponent ;
-          rdfs:range xsd:integer .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity> rdf:type owl:DatatypeProperty ;
+                                                                               rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ItemComponent> ;
+                                                                               rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/rankPoints
-:rankPoints rdf:type owl:DatatypeProperty ;
-            rdfs:domain :Match ;
-            rdfs:range xsd:integer .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/rankPoints> rdf:type owl:DatatypeProperty ;
+                                                                                 rdfs:domain <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> ;
+                                                                                 rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/spawnDelay
-:spawnDelay rdf:type owl:DatatypeProperty ;
-            rdfs:comment "Specifies the time delay before an entity, such as an item or reinforcement, becomes available again after being used or consumed."@en ;
-            rdfs:label "spawnDelay"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/spawnDelay> rdf:type owl:DatatypeProperty ;
+                                                                                 rdfs:comment "Specifies the time delay before an entity, such as an item or reinforcement, becomes available again after being used or consumed."@en ;
+                                                                                 rdfs:label "spawnDelay"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/spawnTime
-:spawnTime rdf:type owl:DatatypeProperty ;
-           rdfs:comment "Indicates the time interval after which an entity, such as a respawning item or monster, reappears or becomes available."@en ;
-           rdfs:label "spawnTime"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/spawnTime> rdf:type owl:DatatypeProperty ;
+                                                                                rdfs:comment "Indicates the time interval after which an entity, such as a respawning item or monster, reappears or becomes available."@en ;
+                                                                                rdfs:label "spawnTime"@en .
 
 
 #################################################################
@@ -373,596 +376,596 @@
 #################################################################
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ability
-:Ability rdf:type owl:Class ;
-         owl:equivalentClass [ rdf:type owl:Restriction ;
-                               owl:onProperty :isAbilityOf ;
-                               owl:someValuesFrom :Champion
-                             ] .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ability> rdf:type owl:Class ;
+                                                                              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                    owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isAbilityOf> ;
+                                                                                                    owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Champion>
+                                                                                                  ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Agent
-:Agent rdf:type owl:Class .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Agent> rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Amateur
-:Amateur rdf:type owl:Class ;
-         owl:equivalentClass [ rdf:type owl:Restriction ;
-                               owl:onProperty :isAmateurOf ;
-                               owl:someValuesFrom :Game
-                             ] ;
-         rdfs:subClassOf :Competition ;
-         owl:disjointWith :OfficialTournaments .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Amateur> rdf:type owl:Class ;
+                                                                              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                    owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isAmateurOf> ;
+                                                                                                    owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                  ] ;
+                                                                              rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Competition> ;
+                                                                              owl:disjointWith <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/OfficialTournaments> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/AutomaticUnit
-:AutomaticUnit rdf:type owl:Class ;
-               rdfs:subClassOf :NonPlayable .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/AutomaticUnit> rdf:type owl:Class ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NonPlayable> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Base
-:Base rdf:type owl:Class ;
-      rdfs:subClassOf :MapArea .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Base> rdf:type owl:Class ;
+                                                                           rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapArea> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/BasicItem
-:BasicItem rdf:type owl:Class ;
-           owl:equivalentClass [ rdf:type owl:Restriction ;
-                                 owl:onProperty :isBasicItem ;
-                                 owl:someValuesFrom :Game
-                               ] ;
-           rdfs:subClassOf :NonConsumable .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/BasicItem> rdf:type owl:Class ;
+                                                                                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                      owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBasicItem> ;
+                                                                                                      owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                    ] ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NonConsumable> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Blind
-:Blind rdf:type owl:Class ;
-       rdfs:subClassOf :Draft .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Blind> rdf:type owl:Class ;
+                                                                            rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Draft> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Build
-:Build rdf:type owl:Class ;
-       owl:equivalentClass [ rdf:type owl:Restriction ;
-                             owl:onProperty :includes ;
-                             owl:someValuesFrom :Item
-                           ] .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Build> rdf:type owl:Class ;
+                                                                            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includes> ;
+                                                                                                  owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Item>
+                                                                                                ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Champion
-:Champion rdf:type owl:Class ;
-          owl:equivalentClass [ rdf:type owl:Restriction ;
-                                owl:onProperty :hasRole ;
-                                owl:someValuesFrom :Role
-                              ] ;
-          rdfs:subClassOf :Playable .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Champion> rdf:type owl:Class ;
+                                                                               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                     owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasRole> ;
+                                                                                                     owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Role>
+                                                                                                   ] ;
+                                                                               rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Playable> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Championship
-:Championship rdf:type owl:Class ;
-              owl:equivalentClass [ rdf:type owl:Restriction ;
-                                    owl:onProperty :location ;
-                                    owl:someValuesFrom xsd:string
-                                  ] ;
-              rdfs:subClassOf :OfficialTournaments .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Championship> rdf:type owl:Class ;
+                                                                                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                         owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/location> ;
+                                                                                                         owl:someValuesFrom xsd:string
+                                                                                                       ] ;
+                                                                                   rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/OfficialTournaments> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Character
-:Character rdf:type owl:Class ;
-           rdfs:comment "Entity in game"@en ;
-           rdfs:label "Character"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Character> rdf:type owl:Class ;
+                                                                                rdfs:comment "Entity in game"@en ;
+                                                                                rdfs:label "Character"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Competition
-:Competition rdf:type owl:Class ;
-             rdfs:subClassOf [ rdf:type owl:Restriction ;
-                               owl:onProperty :hasEnrolled ;
-                               owl:someValuesFrom :Team
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty :isCompetitionOf ;
-                               owl:someValuesFrom :Game
-                             ] .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Competition> rdf:type owl:Class ;
+                                                                                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                                    owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasEnrolled> ;
+                                                                                                    owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team>
+                                                                                                  ] ,
+                                                                                                  [ rdf:type owl:Restriction ;
+                                                                                                    owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCompetitionOf> ;
+                                                                                                    owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                  ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CompositeItem
-:CompositeItem rdf:type owl:Class ;
-               owl:equivalentClass [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasComponent ;
-                                     owl:someValuesFrom :ItemComponent
-                                   ] ;
-               rdfs:subClassOf :NonConsumable .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CompositeItem> rdf:type owl:Class ;
+                                                                                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                          owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasComponent> ;
+                                                                                                          owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ItemComponent>
+                                                                                                        ] ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NonConsumable> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Consumable
-:Consumable rdf:type owl:Class ;
-            rdfs:subClassOf :Item ;
-            owl:disjointWith :NonConsumable .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Consumable> rdf:type owl:Class ;
+                                                                                 rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Item> ;
+                                                                                 owl:disjointWith <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NonConsumable> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Control
-:Control rdf:type owl:Class ;
-         rdfs:subClassOf :MapElement .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Control> rdf:type owl:Class ;
+                                                                              rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapElement> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Custom
-:Custom rdf:type owl:Class ;
-        owl:equivalentClass [ rdf:type owl:Restriction ;
-                              owl:onProperty :matchType ;
-                              owl:hasValue "customized"@en
-                            ] ;
-        rdfs:subClassOf :SpecialEvents .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Custom> rdf:type owl:Class ;
+                                                                             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                   owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/matchType> ;
+                                                                                                   owl:hasValue "customized"@en
+                                                                                                 ] ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SpecialEvents> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CustomEventMaps
-:CustomEventMaps rdf:type owl:Class ;
-                 owl:equivalentClass [ rdf:type owl:Restriction ;
-                                       owl:onProperty :mapType ;
-                                       owl:hasValue "customized"@en
-                                     ] ;
-                 rdfs:subClassOf :Custom .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CustomEventMaps> rdf:type owl:Class ;
+                                                                                      owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                            owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/mapType> ;
+                                                                                                            owl:hasValue "customized"@en
+                                                                                                          ] ;
+                                                                                      rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Custom> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Developer
-:Developer rdf:type owl:Class ;
-           rdfs:subClassOf :Agent .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Developer> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Agent> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DoubleLaneMap
-:DoubleLaneMap rdf:type owl:Class ;
-               owl:equivalentClass [ owl:intersectionOf ( :Map
-                                                          [ rdf:type owl:Restriction ;
-                                                            owl:onProperty :hasMapArea ;
-                                                            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-                                                            owl:onClass :Lane
-                                                          ]
-                                                        ) ;
-                                     rdf:type owl:Class
-                                   ] ;
-               rdfs:subClassOf :Map .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DoubleLaneMap> rdf:type owl:Class ;
+                                                                                    owl:equivalentClass [ owl:intersectionOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map>
+                                                                                                                               [ rdf:type owl:Restriction ;
+                                                                                                                                 owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapArea> ;
+                                                                                                                                 owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                                                                                                 owl:onClass <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Lane>
+                                                                                                                               ]
+                                                                                                                             ) ;
+                                                                                                          rdf:type owl:Class
+                                                                                                        ] ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Draft
-:Draft rdf:type owl:Class ;
-       rdfs:subClassOf :Mechanic .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Draft> rdf:type owl:Class ;
+                                                                            rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mechanic> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Elite
-:Elite rdf:type owl:Class ;
-       owl:equivalentClass [ rdf:type owl:Restriction ;
-                             owl:onProperty :elo ;
-                             owl:hasValue 5
-                           ] ;
-       rdfs:subClassOf :Rank .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Elite> rdf:type owl:Class ;
+                                                                            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/elo> ;
+                                                                                                  owl:hasValue 5
+                                                                                                ] ;
+                                                                            rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Rank> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/FirstPerson
-:FirstPerson rdf:type owl:Class ;
-             rdfs:subClassOf :PersonPOV .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/FirstPerson> rdf:type owl:Class ;
+                                                                                  rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PersonPOV> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/FreeToPlay
-:FreeToPlay rdf:type owl:Class ;
-            owl:equivalentClass [ owl:intersectionOf ( :Game
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty :hasPrice ;
-                                                         owl:hasValue 0
-                                                       ]
-                                                     ) ;
-                                  rdf:type owl:Class
-                                ] ;
-            rdfs:subClassOf :Game .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/FreeToPlay> rdf:type owl:Class ;
+                                                                                 owl:equivalentClass [ owl:intersectionOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                                            [ rdf:type owl:Restriction ;
+                                                                                                                              owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPrice> ;
+                                                                                                                              owl:hasValue 0
+                                                                                                                            ]
+                                                                                                                          ) ;
+                                                                                                       rdf:type owl:Class
+                                                                                                     ] ;
+                                                                                 rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game
-:Game rdf:type owl:Class ;
-      rdfs:subClassOf [ rdf:type owl:Restriction ;
-                        owl:onProperty :hasDeveloper ;
-                        owl:someValuesFrom :Developer
-                      ] ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty :hasPOV ;
-                        owl:someValuesFrom :POV
-                      ] ;
-      rdfs:comment "Represents a MOBA game"@en ;
-      rdfs:label "Game"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> rdf:type owl:Class ;
+                                                                           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                             owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasDeveloper> ;
+                                                                                             owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Developer>
+                                                                                           ] ,
+                                                                                           [ rdf:type owl:Restriction ;
+                                                                                             owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPOV> ;
+                                                                                             owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/POV>
+                                                                                           ] ;
+                                                                           rdfs:comment "Represents a MOBA game"@en ;
+                                                                           rdfs:label "Game"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Gold
-:Gold rdf:type owl:Class ;
-      rdfs:subClassOf :Resources .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Gold> rdf:type owl:Class ;
+                                                                           rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Resources> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/High
-:High rdf:type owl:Class ;
-      rdfs:subClassOf :Rank .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/High> rdf:type owl:Class ;
+                                                                           rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Rank> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Inventory
-:Inventory rdf:type owl:Class ;
-           rdfs:subClassOf :Mechanic .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Inventory> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mechanic> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Isometric
-:Isometric rdf:type owl:Class ;
-           rdfs:subClassOf :POV .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Isometric> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/POV> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Item
-:Item rdf:type owl:Class .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Item> rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ItemComponent
-:ItemComponent rdf:type owl:Class ;
-               owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Class ;
-                                                            owl:unionOf ( [ rdf:type owl:Restriction ;
-                                                                            owl:onProperty :componentItem ;
-                                                                            owl:someValuesFrom :BasicItem
-                                                                          ]
-                                                                          [ rdf:type owl:Restriction ;
-                                                                            owl:onProperty :componentItem ;
-                                                                            owl:someValuesFrom :CompositeItem
-                                                                          ]
-                                                                        )
-                                                          ]
-                                                          [ rdf:type owl:Restriction ;
-                                                            owl:onProperty :quantity ;
-                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                            owl:onDataRange xsd:integer
-                                                          ]
-                                                        ) ;
-                                     rdf:type owl:Class
-                                   ] .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ItemComponent> rdf:type owl:Class ;
+                                                                                    owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Class ;
+                                                                                                                                 owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                                                                                                 owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/componentItem> ;
+                                                                                                                                                 owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/BasicItem>
+                                                                                                                                               ]
+                                                                                                                                               [ rdf:type owl:Restriction ;
+                                                                                                                                                 owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/componentItem> ;
+                                                                                                                                                 owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CompositeItem>
+                                                                                                                                               ]
+                                                                                                                                             )
+                                                                                                                               ]
+                                                                                                                               [ rdf:type owl:Restriction ;
+                                                                                                                                 owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity> ;
+                                                                                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                                                                 owl:onDataRange xsd:integer
+                                                                                                                               ]
+                                                                                                                             ) ;
+                                                                                                          rdf:type owl:Class
+                                                                                                        ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Jungle
-:Jungle rdf:type owl:Class ;
-        rdfs:subClassOf :MapArea .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Jungle> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapArea> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Lane
-:Lane rdf:type owl:Class ;
-      rdfs:subClassOf :MapArea .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Lane> rdf:type owl:Class ;
+                                                                           rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapArea> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Low
-:Low rdf:type owl:Class ;
-     rdfs:subClassOf :Rank .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Low> rdf:type owl:Class ;
+                                                                          rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Rank> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map
-:Map rdf:type owl:Class ;
-     owl:equivalentClass [ rdf:type owl:Restriction ;
-                           owl:onProperty :hostMatch ;
-                           owl:someValuesFrom :Match
-                         ] .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map> rdf:type owl:Class ;
+                                                                          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hostMatch> ;
+                                                                                                owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match>
+                                                                                              ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapArea
-:MapArea rdf:type owl:Class .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapArea> rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapElement
-:MapElement rdf:type owl:Class .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapElement> rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match
-:Match rdf:type owl:Class ;
-       owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                    owl:onProperty :isPartOf ;
-                                                    owl:someValuesFrom :Game
-                                                  ]
-                                                  [ rdf:type owl:Restriction ;
-                                                    owl:onProperty :includes ;
-                                                    owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-                                                    owl:onClass :Team
-                                                  ]
-                                                ) ;
-                             rdf:type owl:Class
-                           ] .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> rdf:type owl:Class ;
+                                                                            owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                                         owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPartOf> ;
+                                                                                                                         owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                                       ]
+                                                                                                                       [ rdf:type owl:Restriction ;
+                                                                                                                         owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includes> ;
+                                                                                                                         owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                                                                                         owl:onClass <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team>
+                                                                                                                       ]
+                                                                                                                     ) ;
+                                                                                                  rdf:type owl:Class
+                                                                                                ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mechanic
-:Mechanic rdf:type owl:Class .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mechanic> rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Medium
-:Medium rdf:type owl:Class ;
-        rdfs:subClassOf :Rank .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Medium> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Rank> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mondial
-:Mondial rdf:type owl:Class ;
-         owl:equivalentClass [ rdf:type owl:Restriction ;
-                               owl:onProperty :location ;
-                               owl:hasValue "world"
-                             ] ;
-         rdfs:subClassOf :Championship .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mondial> rdf:type owl:Class ;
+                                                                              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                    owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/location> ;
+                                                                                                    owl:hasValue "world"
+                                                                                                  ] ;
+                                                                              rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Championship> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Multiplatform
-:Multiplatform rdf:type owl:Class ;
-               owl:equivalentClass [ owl:intersectionOf ( :Game
-                                                          [ rdf:type owl:Restriction ;
-                                                            owl:onProperty :hasPlatform ;
-                                                            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
-                                                            owl:onClass :Platform
-                                                          ]
-                                                        ) ;
-                                     rdf:type owl:Class
-                                   ] ;
-               rdfs:subClassOf :Game .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Multiplatform> rdf:type owl:Class ;
+                                                                                    owl:equivalentClass [ owl:intersectionOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                                               [ rdf:type owl:Restriction ;
+                                                                                                                                 owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPlatform> ;
+                                                                                                                                 owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                                                                                                 owl:onClass <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Platform>
+                                                                                                                               ]
+                                                                                                                             ) ;
+                                                                                                          rdf:type owl:Class
+                                                                                                        ] ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Neutral
-:Neutral rdf:type owl:Class ;
-         rdfs:subClassOf :MapElement .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Neutral> rdf:type owl:Class ;
+                                                                              rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapElement> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NonConsumable
-:NonConsumable rdf:type owl:Class ;
-               rdfs:subClassOf :Item .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NonConsumable> rdf:type owl:Class ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Item> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NonPlayable
-:NonPlayable rdf:type owl:Class ;
-             owl:equivalentClass [ rdf:type owl:Restriction ;
-                                   owl:onProperty :nonPlayableOf ;
-                                   owl:someValuesFrom :Game
-                                 ] ;
-             rdfs:subClassOf :Character ;
-             owl:disjointWith :Playable ;
-             rdfs:comment "Represent a character that can't be selected or controlled by a player"@en ;
-             rdfs:label "NonPlayable"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NonPlayable> rdf:type owl:Class ;
+                                                                                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                        owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/nonPlayableOf> ;
+                                                                                                        owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                      ] ;
+                                                                                  rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Character> ;
+                                                                                  owl:disjointWith <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Playable> ;
+                                                                                  rdfs:comment "Represent a character that can't be selected or controlled by a player"@en ;
+                                                                                  rdfs:label "NonPlayable"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Normal
-:Normal rdf:type owl:Class ;
-        owl:equivalentClass [ owl:intersectionOf ( :Match
-                                                   [ rdf:type owl:Restriction ;
-                                                     owl:onProperty :rankPoints ;
-                                                     owl:hasValue 0
-                                                   ]
-                                                 ) ;
-                              rdf:type owl:Class
-                            ] ;
-        rdfs:subClassOf :Match ;
-        owl:disjointWith :Ranked .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Normal> rdf:type owl:Class ;
+                                                                             owl:equivalentClass [ owl:intersectionOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match>
+                                                                                                                        [ rdf:type owl:Restriction ;
+                                                                                                                          owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/rankPoints> ;
+                                                                                                                          owl:hasValue 0
+                                                                                                                        ]
+                                                                                                                      ) ;
+                                                                                                   rdf:type owl:Class
+                                                                                                 ] ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> ;
+                                                                             owl:disjointWith <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ranked> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Objective
-:Objective rdf:type owl:Class ;
-           rdfs:subClassOf :Mechanic .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Objective> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mechanic> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/OfficialTournaments
-:OfficialTournaments rdf:type owl:Class ;
-                     owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty :isOfficialOf ;
-                                                                  owl:someValuesFrom :Game
-                                                                ]
-                                                                [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty :hasEnrolled ;
-                                                                  owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
-                                                                  owl:onClass :Team
-                                                                ]
-                                                              ) ;
-                                           rdf:type owl:Class
-                                         ] ;
-                     rdfs:subClassOf :Competition .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/OfficialTournaments> rdf:type owl:Class ;
+                                                                                          owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                                                       owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isOfficialOf> ;
+                                                                                                                                       owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                                                     ]
+                                                                                                                                     [ rdf:type owl:Restriction ;
+                                                                                                                                       owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasEnrolled> ;
+                                                                                                                                       owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                                                                                                                       owl:onClass <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team>
+                                                                                                                                     ]
+                                                                                                                                   ) ;
+                                                                                                                rdf:type owl:Class
+                                                                                                              ] ;
+                                                                                          rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Competition> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/POV
-:POV rdf:type owl:Class .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/POV> rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PayToPlay
-:PayToPlay rdf:type owl:Class ;
-           owl:equivalentClass [ owl:intersectionOf ( :Game
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty :hasPrice ;
-                                                        owl:someValuesFrom [ rdf:type rdfs:Datatype ;
-                                                                             owl:onDatatype xsd:integer ;
-                                                                             owl:withRestrictions ( [ xsd:minExclusive 0
-                                                                                                    ]
-                                                                                                  )
-                                                                           ]
-                                                      ]
-                                                    ) ;
-                                 rdf:type owl:Class
-                               ] ;
-           rdfs:subClassOf :Game .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PayToPlay> rdf:type owl:Class ;
+                                                                                owl:equivalentClass [ owl:intersectionOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                                           [ rdf:type owl:Restriction ;
+                                                                                                                             owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPrice> ;
+                                                                                                                             owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                                                                                  owl:onDatatype xsd:integer ;
+                                                                                                                                                  owl:withRestrictions ( [ xsd:minExclusive 0
+                                                                                                                                                                         ]
+                                                                                                                                                                       )
+                                                                                                                                                ]
+                                                                                                                           ]
+                                                                                                                         ) ;
+                                                                                                      rdf:type owl:Class
+                                                                                                    ] ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PersonPOV
-:PersonPOV rdf:type owl:Class ;
-           rdfs:subClassOf :POV .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PersonPOV> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/POV> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PickAndBan
-:PickAndBan rdf:type owl:Class ;
-            rdfs:subClassOf :Draft .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PickAndBan> rdf:type owl:Class ;
+                                                                                 rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Draft> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Platform
-:Platform rdf:type owl:Class .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Platform> rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Playable
-:Playable rdf:type owl:Class ;
-          owl:equivalentClass [ rdf:type owl:Restriction ;
-                                owl:onProperty :playableOf ;
-                                owl:someValuesFrom :Game
-                              ] ;
-          rdfs:subClassOf :Character ;
-          rdfs:comment "Represent a character that can be selected or controlled by a player"@en ;
-          rdfs:label "Playable"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Playable> rdf:type owl:Class ;
+                                                                               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                     owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/playableOf> ;
+                                                                                                     owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                   ] ;
+                                                                               rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Character> ;
+                                                                               rdfs:comment "Represent a character that can be selected or controlled by a player"@en ;
+                                                                               rdfs:label "Playable"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player
-:Player rdf:type owl:Class ;
-        owl:equivalentClass [ rdf:type owl:Restriction ;
-                              owl:onProperty :hasChampion ;
-                              owl:someValuesFrom :Champion
-                            ] ;
-        rdfs:subClassOf :Agent ;
-        rdfs:comment "Actor who interacts with the game"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> rdf:type owl:Class ;
+                                                                             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                   owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasChampion> ;
+                                                                                                   owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Champion>
+                                                                                                 ] ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Agent> ;
+                                                                             rdfs:comment "Actor who interacts with the game"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PointAndClick
-:PointAndClick rdf:type owl:Class ;
-               rdfs:subClassOf :Mechanic .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PointAndClick> rdf:type owl:Class ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mechanic> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Potion
-:Potion rdf:type owl:Class ;
-        rdfs:subClassOf :Consumable .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Potion> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Consumable> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Rank
-:Rank rdf:type owl:Class .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Rank> rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ranked
-:Ranked rdf:type owl:Class ;
-        owl:equivalentClass [ owl:intersectionOf ( :Match
-                                                   [ rdf:type owl:Restriction ;
-                                                     owl:onProperty :rankPoints ;
-                                                     owl:someValuesFrom [ rdf:type rdfs:Datatype ;
-                                                                          owl:onDatatype xsd:integer ;
-                                                                          owl:withRestrictions ( [ xsd:minExclusive 1
-                                                                                                 ]
-                                                                                               )
-                                                                        ]
-                                                   ]
-                                                 ) ;
-                              rdf:type owl:Class
-                            ] ;
-        rdfs:subClassOf :Match .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ranked> rdf:type owl:Class ;
+                                                                             owl:equivalentClass [ owl:intersectionOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match>
+                                                                                                                        [ rdf:type owl:Restriction ;
+                                                                                                                          owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/rankPoints> ;
+                                                                                                                          owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                                                                                                               owl:onDatatype xsd:integer ;
+                                                                                                                                               owl:withRestrictions ( [ xsd:minExclusive 1
+                                                                                                                                                                      ]
+                                                                                                                                                                    )
+                                                                                                                                             ]
+                                                                                                                        ]
+                                                                                                                      ) ;
+                                                                                                   rdf:type owl:Class
+                                                                                                 ] ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Regional
-:Regional rdf:type owl:Class ;
-          owl:equivalentClass [ rdf:type owl:Restriction ;
-                                owl:onProperty :location ;
-                                owl:hasValue "region"
-                              ] ;
-          rdfs:subClassOf :Championship .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Regional> rdf:type owl:Class ;
+                                                                               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                     owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/location> ;
+                                                                                                     owl:hasValue "region"
+                                                                                                   ] ;
+                                                                               rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Championship> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Resources
-:Resources rdf:type owl:Class ;
-           rdfs:subClassOf :Mechanic .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Resources> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mechanic> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Role
-:Role rdf:type owl:Class ;
-      owl:equivalentClass [ rdf:type owl:Class ;
-                            owl:oneOf ( :Assassin
-                                        :Bruiser
-                                        :Mage
-                                        :Marksman
-                                        :Support
-                                        :Tank
-                                      )
-                          ] ;
-      rdfs:comment "Represent a role or position in a team composition"@en ;
-      rdfs:label "Role"@en .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Role> rdf:type owl:Class ;
+                                                                           owl:equivalentClass [ rdf:type owl:Class ;
+                                                                                                 owl:oneOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Assassin>
+                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Bruiser>
+                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mage>
+                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Marksman>
+                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Support>
+                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Tank>
+                                                                                                           )
+                                                                                               ] ;
+                                                                           rdfs:comment "Represent a role or position in a team composition"@en ;
+                                                                           rdfs:label "Role"@en .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Rotational
-:Rotational rdf:type owl:Class ;
-            rdfs:subClassOf :SpecialEvents .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Rotational> rdf:type owl:Class ;
+                                                                                 rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SpecialEvents> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Single
-:Single rdf:type owl:Class ;
-        rdfs:subClassOf :Developer .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Single> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Developer> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SingleLaneMap
-:SingleLaneMap rdf:type owl:Class ;
-               owl:equivalentClass [ owl:intersectionOf ( :Map
-                                                          [ rdf:type owl:Restriction ;
-                                                            owl:onProperty :hasMapArea ;
-                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                            owl:onClass :Lane
-                                                          ]
-                                                        ) ;
-                                     rdf:type owl:Class
-                                   ] ;
-               rdfs:subClassOf :Map .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SingleLaneMap> rdf:type owl:Class ;
+                                                                                    owl:equivalentClass [ owl:intersectionOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map>
+                                                                                                                               [ rdf:type owl:Restriction ;
+                                                                                                                                 owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapArea> ;
+                                                                                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                                                                 owl:onClass <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Lane>
+                                                                                                                               ]
+                                                                                                                             ) ;
+                                                                                                          rdf:type owl:Class
+                                                                                                        ] ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SinglePlatform
-:SinglePlatform rdf:type owl:Class ;
-                owl:equivalentClass [ owl:intersectionOf ( :Game
-                                                           [ rdf:type owl:Restriction ;
-                                                             owl:onProperty :hasPlatform ;
-                                                             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                             owl:onClass :Platform
-                                                           ]
-                                                         ) ;
-                                      rdf:type owl:Class
-                                    ] ;
-                rdfs:subClassOf :Game .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SinglePlatform> rdf:type owl:Class ;
+                                                                                     owl:equivalentClass [ owl:intersectionOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                                                  owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPlatform> ;
+                                                                                                                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                                                                  owl:onClass <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Platform>
+                                                                                                                                ]
+                                                                                                                              ) ;
+                                                                                                           rdf:type owl:Class
+                                                                                                         ] ;
+                                                                                     rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SoftwareHouse
-:SoftwareHouse rdf:type owl:Class ;
-               rdfs:subClassOf :Developer .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SoftwareHouse> rdf:type owl:Class ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Developer> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SpecialEvents
-:SpecialEvents rdf:type owl:Class ;
-               owl:equivalentClass [ rdf:type owl:Restriction ;
-                                     owl:onProperty :isSpecialEventOf ;
-                                     owl:someValuesFrom :Game
-                                   ] ;
-               rdfs:subClassOf :OfficialTournaments .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/SpecialEvents> rdf:type owl:Class ;
+                                                                                    owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                          owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isSpecialEventOf> ;
+                                                                                                          owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Game>
+                                                                                                        ] ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/OfficialTournaments> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Structural
-:Structural rdf:type owl:Class ;
-            rdfs:subClassOf :MapElement .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Structural> rdf:type owl:Class ;
+                                                                                 rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/MapElement> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team
-:Team rdf:type owl:Class ;
-      owl:equivalentClass [ rdf:type owl:Restriction ;
-                            owl:onProperty :isTeamOf ;
-                            owl:someValuesFrom :Match
-                          ] ;
-      rdfs:subClassOf [ rdf:type owl:Restriction ;
-                        owl:onProperty :isEnrolled ;
-                        owl:someValuesFrom :Competition
-                      ] .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team> rdf:type owl:Class ;
+                                                                           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                                                                 owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isTeamOf> ;
+                                                                                                 owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match>
+                                                                                               ] ;
+                                                                           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                             owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isEnrolled> ;
+                                                                                             owl:someValuesFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Competition>
+                                                                                           ] .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ThreeLaneMap
-:ThreeLaneMap rdf:type owl:Class ;
-              owl:equivalentClass [ owl:intersectionOf ( :Map
-                                                         [ rdf:type owl:Restriction ;
-                                                           owl:onProperty :hasMapArea ;
-                                                           owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
-                                                           owl:onClass :Lane
-                                                         ]
-                                                       ) ;
-                                    rdf:type owl:Class
-                                  ] ;
-              rdfs:subClassOf :Map .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ThreeLaneMap> rdf:type owl:Class ;
+                                                                                   owl:equivalentClass [ owl:intersectionOf ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map>
+                                                                                                                              [ rdf:type owl:Restriction ;
+                                                                                                                                owl:onProperty <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapArea> ;
+                                                                                                                                owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                                                                                                                owl:onClass <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Lane>
+                                                                                                                              ]
+                                                                                                                            ) ;
+                                                                                                         rdf:type owl:Class
+                                                                                                       ] ;
+                                                                                   rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ThridPerson
-:ThridPerson rdf:type owl:Class ;
-             rdfs:subClassOf :PersonPOV .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/ThridPerson> rdf:type owl:Class ;
+                                                                                  rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PersonPOV> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ward
-:Ward rdf:type owl:Class ;
-      rdfs:subClassOf :Consumable .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ward> rdf:type owl:Class ;
+                                                                           rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Consumable> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/XP
-:XP rdf:type owl:Class ;
-    rdfs:subClassOf :Resources .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/XP> rdf:type owl:Class ;
+                                                                         rdfs:subClassOf <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Resources> .
 
 
 #################################################################
@@ -971,296 +974,300 @@
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Summoner'sRift
 <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Summoner'sRift> rdf:type owl:NamedIndividual ,
-                                                                                              :Map ;
-                                                                                     :hasMapArea :BotLane ;
-                                                                                     :hostMatch :NormalMatch .
+                                                                                              <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Map> ;
+                                                                                     <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapArea> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/BotLane> ;
+                                                                                     <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hostMatch> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NormalMatch> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ahri
-:Ahri rdf:type owl:NamedIndividual ;
-      owl:differentFrom :Garen ;
-      :hasRole :Assassin ;
-      :isBuilded :Build1 ;
-      :isCharacterOf :LeagueOfLegends .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ahri> rdf:type owl:NamedIndividual ;
+                                                                           owl:differentFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Garen> ;
+                                                                           <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasRole> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Assassin> ;
+                                                                           <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBuilded> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Build1> ;
+                                                                           <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCharacterOf> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Assassin
-:Assassin rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Assassin> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/BotLane
-:BotLane rdf:type owl:NamedIndividual ,
-                  :Lane ;
-         :hasMapElement :Turret .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/BotLane> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Lane> ;
+                                                                              <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMapElement> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Turret> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Bruiser
-:Bruiser rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Bruiser> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Build1
-:Build1 rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Build1> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CaulfieldsWarhammer
-:CaulfieldsWarhammer rdf:type owl:NamedIndividual ;
-                     :hasComponent :GlowingMote_CaulfieldsWarhammer_Component ,
-                                   :LongSword_CaulfieldWarhammer_Component .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CaulfieldsWarhammer> rdf:type owl:NamedIndividual ;
+                                                                                          <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasComponent> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/GlowingMote_CaulfieldsWarhammer_Component> ,
+                                                                                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LongSword_CaulfieldWarhammer_Component> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CaulfieldsWarhammer_Shojin_Component
-:CaulfieldsWarhammer_Shojin_Component rdf:type owl:NamedIndividual ;
-                                      :componentItem :CaulfieldsWarhammer ;
-                                      :quantity 1 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CaulfieldsWarhammer_Shojin_Component> rdf:type owl:NamedIndividual ;
+                                                                                                           <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/componentItem> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CaulfieldsWarhammer> ;
+                                                                                                           <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity> 1 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Courage
-:Courage rdf:type owl:NamedIndividual ;
-         :abilityType "basic" .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Courage> rdf:type owl:NamedIndividual ;
+                                                                              <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/abilityType> "basic" .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DecisiveStrike
-:DecisiveStrike rdf:type owl:NamedIndividual ;
-                :abilityType "basic" .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DecisiveStrike> rdf:type owl:NamedIndividual ;
+                                                                                     <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/abilityType> "basic" .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DemacianJustice
-:DemacianJustice rdf:type owl:NamedIndividual ;
-                 :abilityType "ultimate" .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DemacianJustice> rdf:type owl:NamedIndividual ;
+                                                                                      <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/abilityType> "ultimate" .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DiamondRank
-:DiamondRank rdf:type owl:NamedIndividual ;
-             :elo 4 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DiamondRank> rdf:type owl:NamedIndividual ;
+                                                                                  <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/elo> 4 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Dota2
-:Dota2 rdf:type owl:NamedIndividual ;
-       :hasDeveloper :RiotGames ;
-       :hasPOV :StandardIsometric ;
-       :hasPrice 0 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Dota2> rdf:type owl:NamedIndividual ;
+                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasDeveloper> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/RiotGames> ;
+                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPOV> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/StandardIsometric> ;
+                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPrice> 0 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Garen
-:Garen rdf:type owl:NamedIndividual ;
-       :hasAbility :Courage ,
-                   :DecisiveStrike ,
-                   :DemacianJustice ,
-                   :Judgment ,
-                   :Perseverance ;
-       :hasRole :Tank .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Garen> rdf:type owl:NamedIndividual ;
+                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasAbility> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Courage> ,
+                                                                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DecisiveStrike> ,
+                                                                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DemacianJustice> ,
+                                                                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Judgment> ,
+                                                                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Perseverance> ;
+                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasRole> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Tank> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/GlowingMote
-:GlowingMote rdf:type owl:NamedIndividual ;
-             :isBasicItem :LeagueOfLegends .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/GlowingMote> rdf:type owl:NamedIndividual ;
+                                                                                  <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBasicItem> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/GlowingMote_CaulfieldsWarhammer_Component
-:GlowingMote_CaulfieldsWarhammer_Component rdf:type owl:NamedIndividual ;
-                                           :componentItem :GlowingMote ;
-                                           :quantity 1 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/GlowingMote_CaulfieldsWarhammer_Component> rdf:type owl:NamedIndividual ;
+                                                                                                                <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/componentItem> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/GlowingMote> ;
+                                                                                                                <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity> 1 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Judgment
-:Judgment rdf:type owl:NamedIndividual ;
-          :abilityType "basic" .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Judgment> rdf:type owl:NamedIndividual ;
+                                                                               <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/abilityType> "basic" .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends
-:LeagueOfLegends rdf:type owl:NamedIndividual ;
-                 :hasDeveloper :RiotGames ;
-                 :hasPOV :StandardIsometric ;
-                 :hasPlatform :PC ;
-                 :hasPrice 0 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends> rdf:type owl:NamedIndividual ;
+                                                                                      <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasDeveloper> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/RiotGames> ;
+                                                                                      <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPOV> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/StandardIsometric> ;
+                                                                                      <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPlatform> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PC> ;
+                                                                                      <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasPrice> 0 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LongSword
-:LongSword rdf:type owl:NamedIndividual ;
-           :isBasicItem :LeagueOfLegends .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LongSword> rdf:type owl:NamedIndividual ;
+                                                                                <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBasicItem> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LongSword_CaulfieldWarhammer_Component
-:LongSword_CaulfieldWarhammer_Component rdf:type owl:NamedIndividual ;
-                                        :componentItem :LongSword ;
-                                        :quantity 2 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LongSword_CaulfieldWarhammer_Component> rdf:type owl:NamedIndividual ;
+                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/componentItem> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LongSword> ;
+                                                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity> 2 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mage
-:Mage rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mage> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Marksman
-:Marksman rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Marksman> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mobile
-:Mobile rdf:type owl:NamedIndividual ,
-                 :Platform ;
-        owl:differentFrom :XBOX .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mobile> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Platform> ;
+                                                                             owl:differentFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/XBOX> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NormalMatch
-:NormalMatch rdf:type owl:NamedIndividual ,
-                      :Match ;
-             :includesTeam :Team1 ,
-                           :Team2 ;
-             :rankPoints 0 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/NormalMatch> rdf:type owl:NamedIndividual ,
+                                                                                           <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> ;
+                                                                                  <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includesTeam> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team1> ,
+                                                                                                                                                                     <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team2> ;
+                                                                                  <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/rankPoints> 0 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PC
-:PC rdf:type owl:NamedIndividual ,
-             :Platform ;
-    owl:differentFrom :XBOX .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PC> rdf:type owl:NamedIndividual ,
+                                                                                  <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Platform> ;
+                                                                         owl:differentFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/XBOX> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Perseverance
-:Perseverance rdf:type owl:NamedIndividual ;
-              :abilityType "passive" .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Perseverance> rdf:type owl:NamedIndividual ;
+                                                                                   <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/abilityType> "passive" .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Pickaxe
-:Pickaxe rdf:type owl:NamedIndividual ;
-         :isBasicItem :LeagueOfLegends .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Pickaxe> rdf:type owl:NamedIndividual ;
+                                                                              <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isBasicItem> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Pickaxe_Shojin_Component
-:Pickaxe_Shojin_Component rdf:type owl:NamedIndividual ;
-                          :componentItem :Pickaxe ;
-                          :quantity 1 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Pickaxe_Shojin_Component> rdf:type owl:NamedIndividual ;
+                                                                                               <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/componentItem> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Pickaxe> ;
+                                                                                               <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/quantity> 1 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player1
-:Player1 rdf:type owl:NamedIndividual ,
-                  :Player ;
-         :hasChampion :Ahri .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player1> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> ;
+                                                                              <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasChampion> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Ahri> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player10
-:Player10 rdf:type owl:NamedIndividual ,
-                   :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player10> rdf:type owl:NamedIndividual ,
+                                                                                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player2
-:Player2 rdf:type owl:NamedIndividual ,
-                  :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player2> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player3
-:Player3 rdf:type owl:NamedIndividual ,
-                  :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player3> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player4
-:Player4 rdf:type owl:NamedIndividual ,
-                  :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player4> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player5
-:Player5 rdf:type owl:NamedIndividual ,
-                  :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player5> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player6
-:Player6 rdf:type owl:NamedIndividual ,
-                  :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player6> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player7
-:Player7 rdf:type owl:NamedIndividual ,
-                  :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player7> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player8
-:Player8 rdf:type owl:NamedIndividual ,
-                  :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player8> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player9
-:Player9 rdf:type owl:NamedIndividual ,
-                  :Player .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player9> rdf:type owl:NamedIndividual ,
+                                                                                       <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Playstation
-:Playstation rdf:type owl:NamedIndividual ,
-                      :Platform ;
-             owl:differentFrom :XBOX .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Playstation> rdf:type owl:NamedIndividual ,
+                                                                                           <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Platform> ;
+                                                                                  owl:differentFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/XBOX> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/RankedMatch
-:RankedMatch rdf:type owl:NamedIndividual ,
-                      :Match ;
-             :includesTeam :Team1 ,
-                           :Team2 ;
-             :isPartOf :LeagueOfLegends ;
-             :takePlace <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Summoner'sRift> ;
-             :rankPoints 33 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/RankedMatch> rdf:type owl:NamedIndividual ,
+                                                                                           <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Match> ;
+                                                                                  <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/includesTeam> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team1> ,
+                                                                                                                                                                     <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team2> ;
+                                                                                  <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isPartOf> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends> ;
+                                                                                  <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/takePlace> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology#Summoner'sRift> ;
+                                                                                  <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/rankPoints> 33 .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/RiotGames
-:RiotGames rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/RiotGames> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Shojin
-:Shojin rdf:type owl:NamedIndividual ;
-        :hasComponent :CaulfieldsWarhammer_Shojin_Component ,
-                      :Pickaxe_Shojin_Component .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Shojin> rdf:type owl:NamedIndividual ;
+                                                                             <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasComponent> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/CaulfieldsWarhammer_Shojin_Component> ,
+                                                                                                                                                                <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Pickaxe_Shojin_Component> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/StandardIsometric
-:StandardIsometric rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/StandardIsometric> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Support
-:Support rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Support> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Tank
-:Tank rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Tank> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team1
-:Team1 rdf:type owl:NamedIndividual ,
-                :Team ;
-       owl:differentFrom :Team2 ;
-       :hasMember :Player1 ,
-                  :Player2 ,
-                  :Player3 ,
-                  :Player4 ,
-                  :Player5 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team1> rdf:type owl:NamedIndividual ,
+                                                                                     <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team> ;
+                                                                            owl:differentFrom <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team2> ;
+                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMember> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player1> ,
+                                                                                                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player2> ,
+                                                                                                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player3> ,
+                                                                                                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player4> ,
+                                                                                                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player5> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team2
-:Team2 rdf:type owl:NamedIndividual ,
-                :Team ;
-       :hasMember :Player10 ,
-                  :Player6 ,
-                  :Player7 ,
-                  :Player8 ,
-                  :Player9 .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team2> rdf:type owl:NamedIndividual ,
+                                                                                     <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team> ;
+                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasMember> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player10> ,
+                                                                                                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player6> ,
+                                                                                                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player7> ,
+                                                                                                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player8> ,
+                                                                                                                                                            <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player9> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team3
-:Team3 rdf:type owl:NamedIndividual .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team3> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Turret
-:Turret rdf:type owl:NamedIndividual ,
-                 :Structural .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Turret> rdf:type owl:NamedIndividual ,
+                                                                                      <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Structural> .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/TwitchCompetition
-:TwitchCompetition rdf:type owl:NamedIndividual ;
-                   :hasEnrolled :Team1 ,
-                                :Team2 ,
-                                :Team3 ;
-                   :isCompetitionOf :LeagueOfLegends ;
-                   :location "italy" .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/TwitchCompetition> rdf:type owl:NamedIndividual ;
+                                                                                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/hasEnrolled> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team1> ,
+                                                                                                                                                                          <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team2> ,
+                                                                                                                                                                          <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team3> ;
+                                                                                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/isCompetitionOf> <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/LeagueOfLegends> ;
+                                                                                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/location> "italy" .
+
+
+###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/WWG
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/WWG> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/XBOX
-:XBOX rdf:type owl:NamedIndividual ,
-               :Platform .
+<http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/XBOX> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Platform> .
 
 
 #################################################################
@@ -1268,64 +1275,64 @@
 #################################################################
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :Elite
-                :High
-                :Low
-                :Medium
+  owl:members ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Elite>
+                <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/High>
+                <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Low>
+                <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Medium>
               )
 ] .
 
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( :Assassin
-                        :Bruiser
-                        :Mage
-                        :Marksman
-                        :Support
-                        :Tank
+  owl:distinctMembers ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Assassin>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Bruiser>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mage>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Marksman>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Support>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Tank>
                       )
 ] .
 
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( :Courage
-                        :DecisiveStrike
-                        :DemacianJustice
-                        :Judgment
-                        :Perseverance
+  owl:distinctMembers ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Courage>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DecisiveStrike>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/DemacianJustice>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Judgment>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Perseverance>
                       )
 ] .
 
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( :Mobile
-                        :PC
-                        :Playstation
+  owl:distinctMembers ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Mobile>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/PC>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Playstation>
                       )
 ] .
 
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( :Player1
-                        :Player10
-                        :Player2
-                        :Player3
-                        :Player4
-                        :Player5
-                        :Player6
-                        :Player7
-                        :Player8
-                        :Player9
+  owl:distinctMembers ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player1>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player10>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player2>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player3>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player4>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player5>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player6>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player7>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player8>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Player9>
                       )
 ] .
 
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( :Team1
-                        :Team2
-                        :Team3
+  owl:distinctMembers ( <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team1>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team2>
+                        <http://www.semanticweb.org/julieqqrd/ontologies/2024/5/MobaOntology/Team3>
                       )
 ] .
 
 
-###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
