@@ -1,7 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'; // Importa createRouter e createWebHistory da Vue Router
+import QueryComponent from '../views/QueryComponent.vue'
 
 const routes = [
-  // Aggiungi altre route secondo necessità
+    {
+        path: '/query',
+        name: 'Query',
+        component: QueryComponent,
+    },
 ];
 
 const router = createRouter({
