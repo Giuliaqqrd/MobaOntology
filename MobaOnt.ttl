@@ -87,6 +87,8 @@ inno:hasDeveloped rdf:type owl:ObjectProperty ;
 ###  http://purl.org/net/videogameontology#hasPlayingArea
 vgo:hasPlayingArea rdf:type owl:ObjectProperty ;
                    owl:equivalentProperty :hasMapArea ;
+                   rdfs:domain :Map ;
+                   rdfs:range :MapArea ;
                    rdfs:label "vgo:hasPlayingArea"@en .
 
 
@@ -101,6 +103,8 @@ vgo:isItemInGame rdf:type owl:ObjectProperty ;
 ###  http://purl.org/net/videogameontology#isSessionInGame
 vgo:isSessionInGame rdf:type owl:ObjectProperty ;
                     owl:equivalentProperty :isMatchInGame ;
+                    rdfs:domain :Match ;
+                    rdfs:range vgo:Game ;
                     rdfs:comment "The vgo:isSessionInGame property links a vgo:Session to a certain vgo:Game. Each gameplay session must belong to a certain game."@en ;
                     rdfs:label "vgo:isSessionInGame"@en .
 
@@ -108,6 +112,8 @@ vgo:isSessionInGame rdf:type owl:ObjectProperty ;
 ###  http://purl.org/net/videogameontology#ownsCharacter
 vgo:ownsCharacter rdf:type owl:ObjectProperty ;
                   owl:equivalentProperty :ownsChampion ;
+                  rdfs:domain vgo:Player ;
+                  rdfs:range :Champion ;
                   rdfs:comment "The vgo:ownsCharacter property asserts which characters are owned by a specific player. A player can have multiple characters in one game and this connection is used to define all the different characters a player could be playing. Even though a player deletes, trades or loses his/her character in any way, the connection can be kept to contain the player's history of owned characters."@en ;
                   rdfs:label "vgo:ownsCharacter"@en .
 
@@ -120,6 +126,7 @@ vgo:ownsItem rdf:type owl:ObjectProperty ;
 
 ###  http://purl.org/net/videogameontology#purchasesGameOffering
 vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
+                          owl:inverseOf :isPurchasedInGame ;
                           rdfs:domain vgo:InAppPurchaseEvent ;
                           rdfs:range vgo:GameProduct .
 
@@ -135,13 +142,11 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#containsElement
 :containsElement rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Map ;
+                 rdfs:range :MapElement ;
                  owl:propertyChainAxiom ( :hasMapArea
                                           :hasMapElement
                                         ) .
-
-
-###  http://www.semanticweb.org/MobaOntology#follows
-:follows rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasAbility
@@ -166,6 +171,7 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/MobaOntology#hasComponent
 :hasComponent rdf:type owl:ObjectProperty ;
               owl:inverseOf :isComponentOf ;
+              rdf:type owl:TransitiveProperty ;
               rdfs:domain :CompositeItem ;
               rdfs:range vgo:Item .
 
@@ -185,6 +191,10 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                rdfs:range vgo:Game .
 
 
+###  http://www.semanticweb.org/MobaOntology#hasFeature
+:hasFeature rdf:type owl:ObjectProperty .
+
+
 ###  http://www.semanticweb.org/MobaOntology#hasItemSet
 :hasItemSet rdf:type owl:ObjectProperty ;
             owl:inverseOf :isItemSetOf ;
@@ -201,6 +211,7 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#hasMapArea
 :hasMapArea rdf:type owl:ObjectProperty ;
+            owl:inverseOf :isMapAreaOf ;
             rdfs:domain :Map ;
             rdfs:range :MapArea .
 
@@ -221,6 +232,7 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#hasMechanic
 :hasMechanic rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :hasFeature ;
              owl:inverseOf :isMechanicOf ;
              rdfs:domain vgo:Game ;
              rdfs:range :Mechanic .
@@ -245,11 +257,13 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/MobaOntology#hasOutcome
 :hasOutcome rdf:type owl:ObjectProperty ;
             owl:inverseOf :isOutcomeOf ;
+            rdfs:domain :Match ;
             rdfs:range :GameOutcome .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasPOV
 :hasPOV rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasFeature ;
         owl:inverseOf :isPOVOf ;
         rdfs:domain vgo:Game ;
         rdfs:range :PointOfView .
@@ -257,6 +271,8 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#hasRank
 :hasRank rdf:type owl:ObjectProperty ;
+         owl:inverseOf :isRankOf ;
+         rdfs:domain :RankedMatch ;
          rdfs:range :Rank .
 
 
@@ -269,6 +285,7 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#includesTeam
 :includesTeam rdf:type owl:ObjectProperty ;
+              owl:inverseOf :isTeamInMatch ;
               rdfs:domain :Match ;
               rdfs:range :Team .
 
@@ -304,7 +321,8 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#isHighestElo
-:isHighestElo rdf:type owl:ObjectProperty ;
+:isHighestElo rdf:type owl:ObjectProperty ,
+                       owl:SymmetricProperty ;
               rdfs:domain :Elite ;
               rdfs:range :Rank .
 
@@ -319,6 +337,12 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 :isLocationOf rdf:type owl:ObjectProperty ;
               rdfs:domain :Location ;
               rdfs:range sport:Competition .
+
+
+###  http://www.semanticweb.org/MobaOntology#isMapAreaOf
+:isMapAreaOf rdf:type owl:ObjectProperty ;
+             rdfs:domain :MapArea ;
+             rdfs:range :Map .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isMapElementOf
@@ -360,7 +384,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#isOutcomeOf
-:isOutcomeOf rdf:type owl:ObjectProperty .
+:isOutcomeOf rdf:type owl:ObjectProperty ;
+             rdfs:domain :GameOutcome ;
+             rdfs:range :Match .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isOwnedByPlayer
@@ -374,6 +400,7 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#isPOVOf
 :isPOVOf rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
          rdfs:domain :PointOfView ;
          rdfs:range vgo:Game .
 
@@ -399,10 +426,28 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                                        ) .
 
 
+###  http://www.semanticweb.org/MobaOntology#isPurchasedInGame
+:isPurchasedInGame rdf:type owl:ObjectProperty ;
+                   rdfs:domain vgo:GameProduct ;
+                   rdfs:range vgo:InAppPurchaseEvent .
+
+
+###  http://www.semanticweb.org/MobaOntology#isRankOf
+:isRankOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Rank ;
+          rdfs:range :RankedMatch .
+
+
 ###  http://www.semanticweb.org/MobaOntology#isRoleOf
 :isRoleOf rdf:type owl:ObjectProperty ;
           rdfs:domain :Role ;
           rdfs:range :Champion .
+
+
+###  http://www.semanticweb.org/MobaOntology#isTeamInMatch
+:isTeamInMatch rdf:type owl:ObjectProperty ;
+               rdfs:domain :Team ;
+               rdfs:range :Match .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isTeamOf
@@ -413,10 +458,10 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
           rdfs:label "isTeamOf"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#locatedIn
-:locatedIn rdf:type owl:ObjectProperty ;
-           rdfs:domain :Creature ;
-           rdfs:range :MapArea .
+###  http://www.semanticweb.org/MobaOntology#locatedInMap
+:locatedInMap rdf:type owl:ObjectProperty ;
+              rdfs:domain :Creature ;
+              rdfs:range :MapArea .
 
 
 ###  http://www.semanticweb.org/MobaOntology#ownsChampion
@@ -429,7 +474,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#precedes
 :precedes rdf:type owl:ObjectProperty ,
-                   owl:TransitiveProperty .
+                   owl:TransitiveProperty ;
+          rdfs:domain :Rank ;
+          rdfs:range :Rank .
 
 
 ###  http://www.semanticweb.org/MobaOntology#referredTo
@@ -440,6 +487,8 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#suitableItem
 :suitableItem rdf:type owl:ObjectProperty ;
+              rdfs:domain :Champion ;
+              rdfs:range vgo:Item ;
               owl:propertyChainAxiom ( :hasBuild
                                        :hasItemSet
                                      ) .
@@ -452,6 +501,8 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 ###  http://purl.org/net/videogameontology#username
 vgo:username rdf:type owl:DatatypeProperty ;
              owl:equivalentProperty :hasNickname ;
+             rdfs:domain vgo:Player ;
+             rdfs:range xsd:string ;
              rdfs:comment "The username connects player to a text string which describes the username a player has."@en ;
              rdfs:label "username"@en .
 
@@ -651,6 +702,7 @@ vgo:username rdf:type owl:DatatypeProperty ;
 ###  http://www.semanticweb.org/MobaOntology#hasFoundationDate
 :hasFoundationDate rdf:type owl:DatatypeProperty ,
                             owl:FunctionalProperty ;
+                   rdfs:domain :SoftwareHouse ;
                    rdfs:comment "Specifies the date when a software development company (SoftwareHouse) was founded. This property records the foundation date of the company."@en ;
                    rdfs:label "hasFoundationDate"@en .
 
@@ -658,6 +710,8 @@ vgo:username rdf:type owl:DatatypeProperty ;
 ###  http://www.semanticweb.org/MobaOntology#hasIndividualName
 :hasIndividualName rdf:type owl:DatatypeProperty ,
                             owl:FunctionalProperty ;
+                   rdfs:domain :SingleDeveloper ;
+                   rdfs:range xsd:string ;
                    rdfs:comment "Specifies the real name of an individual developer. This property records the personal name of the developer."@en ;
                    rdfs:label "hasIndividualName"@en .
 
@@ -673,6 +727,7 @@ vgo:username rdf:type owl:DatatypeProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#isOfficialCompetition
 :isOfficialCompetition rdf:type owl:DatatypeProperty ;
+                       rdfs:domain sport:Competition ;
                        rdfs:range xsd:boolean .
 
 
@@ -962,6 +1017,7 @@ vgo:PlayingArea rdf:type owl:Class ;
 ###  http://www.semanticweb.org/MobaOntology#ConsumableItem
 :ConsumableItem rdf:type owl:Class ;
                 rdfs:subClassOf vgo:Item ;
+                owl:disjointWith :NonConsumableItem ;
                 rdfs:comment "An item in a MOBA game that can be used by a character and is typically consumed upon use, providing temporary benefits or effects."@en ;
                 rdfs:label "ConsumableItem"@en .
 
@@ -996,17 +1052,6 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Elite
 :Elite rdf:type owl:Class ;
-       owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                    owl:onProperty :follows ;
-                                                    owl:someValuesFrom :High
-                                                  ]
-                                                  [ rdf:type owl:Restriction ;
-                                                    owl:onProperty :isHighestElo ;
-                                                    owl:someValuesFrom :Rank
-                                                  ]
-                                                ) ;
-                             rdf:type owl:Class
-                           ] ;
        rdfs:subClassOf :Rank ;
        rdfs:comment "A Elite rank in a MOBA game representing players with the highest ELO ratings, typically following the High rank and considered to be among the top tier."@en ;
        rdfs:label "Elite"@en .
@@ -1082,6 +1127,7 @@ vgo:PlayingArea rdf:type owl:Class ;
 ###  http://www.semanticweb.org/MobaOntology#Isometric
 :Isometric rdf:type owl:Class ;
            rdfs:subClassOf :PointOfView ;
+           owl:disjointWith :PersonPOV ;
            rdfs:comment "A graphical projection used in MOBA games where the game world is viewed from a fixed angle, typically allowing for a broad view of the battlefield."@en ;
            rdfs:label "Isometric"@en .
 
@@ -1183,6 +1229,10 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Mechanic
 :Mechanic rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                owl:onProperty :isMechanicOf ;
+                                owl:someValuesFrom vgo:Game
+                              ] ;
           rdfs:comment "A fundamental rule, system, or interaction mechanism that governs gameplay in a MOBA, such as abilities, movement, or objectives."@en ;
           rdfs:label "Mechanic"@en .
 
@@ -1738,7 +1788,6 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#Diamond
 :Diamond rdf:type owl:NamedIndividual ;
-         :follows :Gold ;
          :isHighestElo :Rank ;
          rdfs:comment "Elite rank of League Of Legends."@en ;
          rdfs:label "Diamond"@en .
@@ -2231,7 +2280,6 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#Silver
 :Silver rdf:type owl:NamedIndividual ;
-        :follows :Bronze ;
         :precedes :Gold ;
         rdfs:comment "Medium rank in a MOBA game."@en ;
         rdfs:label "Silver"@en .
@@ -2250,7 +2298,8 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 
 ###  http://www.semanticweb.org/MobaOntology#StandardIsometric
-:StandardIsometric rdf:type owl:NamedIndividual ;
+:StandardIsometric rdf:type owl:NamedIndividual ,
+                            :Isometric ;
                    :isPOVOf :LeagueOfLegends ;
                    rdfs:comment "A common isometric perspective used in games, including MOBAs, where the game world is viewed from a fixed angle that combines top-down and side views, providing a broad perspective of the environment."@en ;
                    rdfs:label "StandardIsometric"@en .
