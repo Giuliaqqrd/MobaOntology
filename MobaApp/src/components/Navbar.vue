@@ -11,10 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Play</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Explore</a>
+            <router-link class="nav-link" to="/games">Explore Games</router-link>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="mapDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

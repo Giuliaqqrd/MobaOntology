@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // URL base delle API di GraphDB
-const BASE_URL = 'http://localhost:7200/repositories/Moba2';
+const BASE_URL = 'http://localhost:7200/repositories/MobaOnt';
 
 // Funzione per eseguire una query SPARQL
 export const executeSparqlQuery = async (query, infer) => {
@@ -20,7 +20,6 @@ export const executeSparqlQuery = async (query, infer) => {
     });
 
     // Ritorna i dati dalla risposta
-    console.log(response.data)
     return parseSparqlResults(response.data);
   } catch (error) {
     // Gestisci gli errori qui, ad esempio loggandoli o ritornando un errore standardizzato
@@ -31,7 +30,6 @@ export const executeSparqlQuery = async (query, infer) => {
 
 // Funzione per eseguire una update query SPARQL
 export const executeUpdateSparqlQuery = async (query) => {
-  console.log(query)
   try {
     // Codifica la query SPARQL per includerla nell'URL
     const encodedQuery = encodeURIComponent(query);
@@ -61,21 +59,12 @@ export const executeWikiDataSparqlQuery = async (query) => {
 
     const response = await axios.get('https://query.wikidata.org/sparql', {
       params: {
-        query: `
-        SELECT ?sexLabel ?publicationDate WHERE {
-              wd:Q100254994 wdt:P21 ?sex;  # Sesso
-                      wdt:P577 ?publicationDate.  # Data di pubblicazione
-
-              # Ottieni le label multilingue
-              SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-              }
-        `,
+        query: query,
         format: 'json'
       }
     });
 
     // Ritorna i dati dalla risposta
-    console.log(response.data)
     return parseSparqlResults(response.data);
   } catch (error) {
     // Gestisci gli errori qui, ad esempio loggandoli o ritornando un errore standardizzato

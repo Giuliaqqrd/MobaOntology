@@ -4,6 +4,7 @@ import MapsView from '../views/MapsView.vue'
 import ChampionsView from '../views/ChampionsView.vue'
 import CompetitionView from '../views/CompetitionView.vue'
 import TestView from '../views/TestView.vue'
+import GamesView from '../views/GamesView.vue'
 
 const routes = [
     {
@@ -30,6 +31,11 @@ const routes = [
       path: '/test',
       name: 'Test',
       component: TestView
+    },
+    {
+      path: '/games',
+      name: 'Games',
+      component: GamesView
     }
 ];
 
