@@ -7,6 +7,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix inno: <http://purl.org/innovation/ns#> .
+@prefix obda: <https://w3id.org/obda/vocabulary#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -1430,7 +1431,10 @@ sport:Competition rdf:type owl:Class ;
 #################################################################
 
 ###  http://www.semanticweb.org/MobaOntology#Ahri
-:Ahri rdf:type owl:NamedIndividual ;
+:Ahri rdf:type owl:NamedIndividual ,
+               vgo:Character ,
+               :Champion ,
+               :PlayableCharacter ;
       :hasAbility :Charm ,
                   :EssenceTheft ,
                   :FoxFire ,
@@ -1452,7 +1456,9 @@ sport:Competition rdf:type owl:Class ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#America
-:America rdf:type owl:NamedIndividual .
+:America rdf:type owl:NamedIndividual ,
+                  :Location ;
+         :isLocationOf :NorthAmericanChallengersLeagueSummer2024 .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Asia
@@ -1460,7 +1466,9 @@ sport:Competition rdf:type owl:Class ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#Assassin
-:Assassin rdf:type owl:NamedIndividual ;
+:Assassin rdf:type owl:NamedIndividual ,
+                   :Role ;
+          :isRoleOf :Ahri ;
           :roleDescription "An assassin is an agile hero that specializes in killing or disabling roaming targets picking them off as they try to replenish HP. Focused on infiltration, deception, and mobility, assassins are opportunistic hunters who find favorable moments within a fight before jumping into the fray. Regardless of the size of the enemy team, assassins specializes in positioning and artful killing." ;
           rdfs:comment "Represents the role of an assassin in the game, known for high burst damage and mobility."@en ;
           rdfs:label "Assassin"@en .
@@ -1468,12 +1476,17 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Blind
 :Blind rdf:type owl:NamedIndividual ,
-                :Draft .
+                :Draft ,
+                :Mechanic .
 
 
 ###  http://www.semanticweb.org/MobaOntology#BlueSentinel
 :BlueSentinel rdf:type owl:NamedIndividual ,
-                       :JungleCreature ;
+                       vgo:Character ,
+                       :Creature ,
+                       :JungleCreature ,
+                       :NeutralCreature ,
+                       :NonPlayableCharacter ;
               :isNonPlayableOf :LeagueOfLegends ;
               :creatureDescription "The Blue Sentinel, also known as Gromp, is a neutral monster residing in the blue jungle. When attacked, it deals periodic damage and increases attack speed as its health decreases. Strategically positioned to encourage advancement for champions controlling the blue jungle." ;
               :creatureGivesExperience 200 ;
@@ -1488,7 +1501,9 @@ sport:Competition rdf:type owl:Class ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#Bruiser
-:Bruiser rdf:type owl:NamedIndividual ;
+:Bruiser rdf:type owl:NamedIndividual ,
+                  :Role ;
+         :isRoleOf :Garen ;
          :roleDescription "Bruisers are a diverse group of short-ranged combatants who excel at both dealing and surviving damage. With easy access to heavy, continuous damage (or DPS) and a host of innate defenses, bruisers thrive in extended fights as they seek out enemies to take down, but their limited range puts them at constant risk of being kept at bay (or kited) by their opponents via crowd control, range and mobility." ;
          rdfs:comment "Represents the role of a bruiser in the game, known for a balance of damage and durability."@en ;
          rdfs:label "Bruiser"@en .
@@ -1496,7 +1511,10 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#CasterMinion
 :CasterMinion rdf:type owl:NamedIndividual ,
-                       :Minion ;
+                       vgo:Character ,
+                       :Creature ,
+                       :Minion ,
+                       :NonPlayableCharacter ;
               :isNonPlayableOf :LeagueOfLegends ;
               :creatureDescription "The Caster Minion is one of three minion types appearing in each wave. It attacks at range with magic attacks that deal moderate but continuous damage. It has lower resilience but higher potential damage compared to the Melee Minion." ;
               :creatureGivesExperience 29 ;
@@ -1506,15 +1524,21 @@ sport:Competition rdf:type owl:Class ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#CaulfieldWarhammer
-:CaulfieldWarhammer rdf:type owl:NamedIndividual ;
+:CaulfieldWarhammer rdf:type owl:NamedIndividual ,
+                             vgo:Item ,
+                             :CompositeItem ,
+                             :NonConsumableItem ;
                     :hasComponent :LongSword ;
+                    :isComponentOf :Shojin ;
                     :itemCost 1100 ;
                     :itemEffect "The Brutalizer's stats (old item that has been removed) has been split across two items. Its armor penetration went to Serrated Dirk Serrated Dirk and its cooldown reduction to Caulfield's Warhammer Caulfield's Warhammer." ;
                     :itemName "Caulfield's Warhammer" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Charm
-:Charm rdf:type owl:NamedIndividual ;
+:Charm rdf:type owl:NamedIndividual ,
+                :Ability ;
+       :isAbilityOf :Ahri ;
        :abilityCooldown 12 ;
        :abilityDescription "Ahri blows forth a kiss in the target direction that deals magic damage to the first enemy hit, Knockdown icon knocking them down and Charm icon charming and Slow icon slowing them by 65% for a duration." ;
        :abilityName "Charm" ;
@@ -1525,25 +1549,30 @@ sport:Competition rdf:type owl:Class ;
 :CompetitorsLoLItalianTournamentSpring2024 rdf:type owl:NamedIndividual ;
                                            :hasCompetitor :Team1 ,
                                                           :Team2 ,
-                                                          :Team3 .
+                                                          :Team3 ;
+                                           :isCompetitorOf :LoLItalianTournamentSpring2024 .
 
 
 ###  http://www.semanticweb.org/MobaOntology#CompetitorsNorthAmericanChallengersLeagueSummer2024
 :CompetitorsNorthAmericanChallengersLeagueSummer2024 rdf:type owl:NamedIndividual ;
                                                      :hasCompetitor :Team1 ,
                                                                     :Team2 ,
-                                                                    :Team3 .
+                                                                    :Team3 ;
+                                                     :isCompetitorOf :NorthAmericanChallengersLeagueSummer2024 .
 
 
 ###  http://www.semanticweb.org/MobaOntology#CompetitorsWorldChampionship2023
 :CompetitorsWorldChampionship2023 rdf:type owl:NamedIndividual ;
                                   :hasCompetitor :Team1 ,
                                                  :Team2 ,
-                                                 :Team3 .
+                                                 :Team3 ;
+                                  :isCompetitorOf :WorldChampionship2023 .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Courage
-:Courage rdf:type owl:NamedIndividual ;
+:Courage rdf:type owl:NamedIndividual ,
+                  :Ability ;
+         :isAbilityOf :Garen ;
          :abilityCooldown 23 ;
          :abilityDescription "For each stack, Garen gains Armor icon 0.2 bonus armor and Magic resistance icon 0.2 bonus magic resistance, up to a maximum of 30 bonus resistances each. After reaching maximum stacks, Garen gains 10% bonus armor and 10% bonus magic resistance." ;
          :abilityName "Courage" ;
@@ -1551,7 +1580,9 @@ sport:Competition rdf:type owl:Class ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#DecisiveStrike
-:DecisiveStrike rdf:type owl:NamedIndividual ;
+:DecisiveStrike rdf:type owl:NamedIndividual ,
+                         :Ability ;
+                :isAbilityOf :Garen ;
                 :abilityCooldown 8 ;
                 :abilityDescription """Garen Remove Scurvy cleanses himself of all Slow icon slows and gains Movement speed icon 35% bonus movement speed for a duration.
 Additionally, Garen empowers his next basic attack within 4.5 seconds to have an Relentless Force 2 uncancellable windup, Bear Stance lunge at the target, deal bonus physical damage, and Silence icon silence them for 1.5 seconds.""" ;
@@ -1560,7 +1591,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#DemacianJustice
-:DemacianJustice rdf:type owl:NamedIndividual ;
+:DemacianJustice rdf:type owl:NamedIndividual ,
+                          :Ability ;
+                 :isAbilityOf :Garen ;
                  :abilityCooldown 120 ;
                  :abilityDescription "Garen calls upon the might of Demacia onto the target enemy Champion icon champion, dealing them Hybrid penetration icon true damage as well as True Sight icon revealing them for 1 second at the start of the cast time." ;
                  :abilityName "Demacian Justice" ;
@@ -1568,20 +1601,27 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#Developer1
-:Developer1 rdf:type owl:NamedIndividual ;
+:Developer1 rdf:type owl:NamedIndividual ,
+                     :Developer ,
+                     :SingleDeveloper ,
+                     foaf:Agent ,
+                     foaf:Person ;
             :hasIndividualName "Mario Rossi" ;
             rdfs:comment "Developer1 is an individual developer involved in the creation of MOBA games."@en ;
             rdfs:label "Developer1"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Diamond
-:Diamond rdf:type owl:NamedIndividual ;
+:Diamond rdf:type owl:NamedIndividual ,
+                  :Elite ,
+                  :Rank ;
          :follows :Gold ;
          :isHighestElo :Rank .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Dota2
-:Dota2 rdf:type owl:NamedIndividual ;
+:Dota2 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
        :hasMonetization :InGamePurchase ;
        :gameDescription "Dota 2 is a 2013 multiplayer online battle arena (MOBA) video game by Valve. The game is a sequel to Defense of the Ancients (DotA), a community-created mod for Blizzard Entertainment's Warcraft III: Reign of Chaos. Dota 2 is played in matches between two teams of five players, with each team occupying and defending their own separate base on the map. Each of the ten players independently controls a powerful character known as a \"hero\" that all have unique abilities and differing styles of play. During a match players collect experience points and items for their heroes to defeat the opposing team's heroes in player versus player combat. A team wins by being the first to destroy the other team's \"Ancient\", a large structure located within their base." ;
        :gameLaunchDate "2013-07-09"^^xsd:date ;
@@ -1591,18 +1631,24 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#EssenceTheft
-:EssenceTheft rdf:type owl:NamedIndividual ;
+:EssenceTheft rdf:type owl:NamedIndividual ,
+                       :Ability ;
+              :isAbilityOf :Ahri ;
               :abilityDescription "Ahri generates a stack of Essence Fragment whenever she kills a Minion icon minion or Monster icon monster. At 9 stacks, she consumes them to Heal power icon heal herself for 35 − 95 (based on level) (+ 20% AP)." ;
               :abilityName "Essence Theft" ;
               :abilityType "passive" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Europa
-:Europa rdf:type owl:NamedIndividual .
+:Europa rdf:type owl:NamedIndividual ,
+                 :Location ;
+        :isLocationOf :LoLItalianTournamentSpring2024 .
 
 
 ###  http://www.semanticweb.org/MobaOntology#FlameChompers
-:FlameChompers rdf:type owl:NamedIndividual ;
+:FlameChompers rdf:type owl:NamedIndividual ,
+                        :Ability ;
+               :isAbilityOf :Jinx ;
                :abilityCooldown 20 ;
                :abilityDescription "Jinx tosses out 3 Chompers centered at the target location, landing after 0.4 seconds, arming after 0.5 seconds, and exploding after 5 seconds to deal magic damage to nearby enemies." ;
                :abilityName "Flame Chompers!" ;
@@ -1610,7 +1656,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#FoxFire
-:FoxFire rdf:type owl:NamedIndividual ;
+:FoxFire rdf:type owl:NamedIndividual ,
+                  :Ability ;
+         :isAbilityOf :Ahri ;
          :abilityCooldown 9 ;
          :abilityDescription "Ahri gains Movement speed icon 40% bonus movement speed that decays over 2 seconds and conjures three flames which orbit her clockwise for up to 2.5 seconds. After 0.25 seconds of the cast, each flame targets a Sight icon visible enemy based on priority, or after 0.4 seconds, simply targets the closest visible enemy in range. Each flame deals magic damage, with subsequent flames against a target dealing 30% damage." ;
          :abilityName "Fox-Fire" ;
@@ -1618,19 +1666,25 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#GameBoost
-:GameBoost rdf:type owl:NamedIndividual .
+:GameBoost rdf:type owl:NamedIndividual ,
+                    vgo:GameProduct .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GameCoin
-:GameCoin rdf:type owl:NamedIndividual .
+:GameCoin rdf:type owl:NamedIndividual ,
+                   vgo:GameProduct .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GameSkin
-:GameSkin rdf:type owl:NamedIndividual .
+:GameSkin rdf:type owl:NamedIndividual ,
+                   vgo:GameProduct .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Garen
-:Garen rdf:type owl:NamedIndividual ;
+:Garen rdf:type owl:NamedIndividual ,
+                vgo:Character ,
+                :Champion ,
+                :PlayableCharacter ;
        :hasAbility :Courage ,
                    :DecisiveStrike ,
                    :DemacianJustice ,
@@ -1652,9 +1706,12 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#GarenBuild
-:GarenBuild rdf:type owl:NamedIndividual ;
+:GarenBuild rdf:type owl:NamedIndividual ,
+                     dctype:Collection ,
+                     :Build ;
             :hasItemSet :LongSword ,
-                        :Shojin .
+                        :Shojin ;
+            :isBuildOf :Garen .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GeneralMatch
@@ -1663,7 +1720,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#GetExcited
-:GetExcited rdf:type owl:NamedIndividual ;
+:GetExcited rdf:type owl:NamedIndividual ,
+                     :Ability ;
+            :isAbilityOf :Jinx ;
             :abilityDescription "Whenever Jinx scores a Damage rating takedown against an enemy Champion, epic Monster, Turret, or inhibitor within 3 seconds of damaging them, she gains Movement speed icon 175% bonus movement speed decaying over 6 seconds." ;
             :abilityName "Get Excited!" ;
             :abilityType "passive" .
@@ -1675,14 +1734,19 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#InAppPurchaseEvent
-:InAppPurchaseEvent rdf:type owl:NamedIndividual ;
+:InAppPurchaseEvent rdf:type owl:NamedIndividual ,
+                             vgo:InAppPurchaseEvent ,
+                             vgo:InstantaneousEvent ;
                     vgo:purchasesGameOffering :GameBoost ,
                                               :GameCoin ,
                                               :GameSkin .
 
 
 ###  http://www.semanticweb.org/MobaOntology#InGamePurchase
-:InGamePurchase rdf:type owl:NamedIndividual ;
+:InGamePurchase rdf:type owl:NamedIndividual ,
+                         :MonetizationModel ;
+                :isMonetizationOf :Dota2 ,
+                                  :LeagueOfLegends ;
                 :priceToPlay 0 ;
                 rdfs:comment "In-game Purchase represents a monetization model where players can buy virtual items or benefits within the game."@en ;
                 rdfs:label "InGamePurchase"@en .
@@ -1690,7 +1754,10 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#InfernalDrake
 :InfernalDrake rdf:type owl:NamedIndividual ,
-                        :EpicCreature ;
+                        vgo:Character ,
+                        :Creature ,
+                        :EpicCreature ,
+                        :NonPlayableCharacter ;
                :isNonPlayableOf :LeagueOfLegends ;
                :creatureDescription "The Infernal Drake is an epic jungle dragon that requires a group to defeat. It attacks with powerful blows that deal attack and magic damage. It is a strategic objective in the jungle, favoring aggressive and combat-oriented gameplay." ;
                :creatureGivesExperience 150 ;
@@ -1701,7 +1768,10 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#Jinx
-:Jinx rdf:type owl:NamedIndividual ;
+:Jinx rdf:type owl:NamedIndividual ,
+               vgo:Character ,
+               :Champion ,
+               :PlayableCharacter ;
       :hasAbility :FlameChompers ,
                   :GetExcited ,
                   :SuperMegaDeathRocket ,
@@ -1719,7 +1789,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#Judgment
-:Judgment rdf:type owl:NamedIndividual ;
+:Judgment rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :isAbilityOf :Garen ;
           :abilityCooldown 9 ;
           :abilityDescription "Garen rapidly spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times over 3 seconds, becoming Ghost ghosted and unable to basic attack and dealing physical damage to nearby enemies periodically. Judgment can be recast after 1 second for its duration, and does so automatically after it ends." ;
           :abilityName "Judgment" ;
@@ -1727,10 +1799,17 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#LeagueOfLegends
-:LeagueOfLegends rdf:type owl:NamedIndividual ;
+:LeagueOfLegends rdf:type owl:NamedIndividual ,
+                          vgo:Game ;
                  :availableOnPlatform :PC ,
                                       :XBOX ;
+                 :hasDeveloper :RiotGames ;
+                 :hasMatch :NormalMatch ,
+                           :RankedMatch ;
                  :hasMonetization :InGamePurchase ;
+                 :isDisciplineOf :LoLItalianTournamentSpring2024 ,
+                                 :NorthAmericanChallengersLeagueSummer2024 ,
+                                 :WorldChampionship2023 ;
                  :gameDescription "League of Legends (LoL), commonly referred to as League, is a 2009 multiplayer online battle arena video game developed and published by Riot Games. Inspired by Defense of the Ancients, a custom map for Warcraft III, Riot's founders sought to develop a stand-alone game in the same genre. Since its release in October 2009, League has been free-to-play and is monetized through purchasable character customization. The game is available for Microsoft Windows and macOS." ;
                  :gameLaunchDate "2009-10-27"^^xsd:date ;
                  :gameName "League of Legends" ;
@@ -1739,7 +1818,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#LoLItalianTournamentSpring2024
-:LoLItalianTournamentSpring2024 rdf:type owl:NamedIndividual ;
+:LoLItalianTournamentSpring2024 rdf:type owl:NamedIndividual ,
+                                         event:Event ,
+                                         sport:Competition ;
                                 :hasCompetitor :CompetitorsLoLItalianTournamentSpring2024 ;
                                 :hasDiscipline :LeagueOfLegends ;
                                 :hasLocation :Europa ;
@@ -1755,22 +1836,29 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#LongSword
-:LongSword rdf:type owl:NamedIndividual ;
+:LongSword rdf:type owl:NamedIndividual ,
+                    vgo:Item ;
            vgo:isItemInGame :LeagueOfLegends ;
+           :isComponentOf :CaulfieldWarhammer ;
+           :isItemSetOf :GarenBuild ;
            :itemCost 350 ;
            :itemEffect "Long Sword is the basic item from which the gold value for the stat attack damage is derived (approximately 35 Gold 35 per point of attack damage)." ;
            :itemName "LongSword" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Mage
-:Mage rdf:type owl:NamedIndividual ;
+:Mage rdf:type owl:NamedIndividual ,
+               :Role ;
+      :isRoleOf :Ahri ;
       :roleDescription "Mages are champions who typically possess great reach, ability-based area of effect damage and crowd control, and who use all of these strengths in tandem with each other to trap and destroy enemies from a distance. Specializing in magic damage, often burst damage, and therefore investing heavily in items that allow them to cast stronger and faster spells, mages excel at chaining their abilities together in powerful combos in order to win fights, though their abilities also tend to be difficult to land and can be mitigated, if not avoided completely, by their targets if they react in time." ;
       rdfs:comment "Represents the role of a mage in the game, known for high magical damage from a distance."@en ;
       rdfs:label "Mage"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Marksman
-:Marksman rdf:type owl:NamedIndividual ;
+:Marksman rdf:type owl:NamedIndividual ,
+                   :Role ;
+          :isRoleOf :Jinx ;
           :roleDescription "Marksmen are ranged champions whose power almost exclusively revolves around their basic attacks: using their reach to land massive continuous damage from a distance, marksmen are capable of taking down even the toughest of opponents when positioned behind the safety of their team, and excel at securing map objectives." ;
           rdfs:comment "Represents the role of a marksman in the game, known for high sustained damage from a distance."@en ;
           rdfs:label "Marksman"@en .
@@ -1778,7 +1866,10 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#MeleeMinion
 :MeleeMinion rdf:type owl:NamedIndividual ,
-                      :Minion ;
+                      vgo:Character ,
+                      :Creature ,
+                      :Minion ,
+                      :NonPlayableCharacter ;
              :isNonPlayableOf :LeagueOfLegends ;
              :creatureDescription "The Melee Minion is one of three minion types appearing in each wave. It attacks melee with modest damage but has higher resilience compared to other minion types. Designed to advance against enemy defenses and support allied champions." ;
              :creatureGivesExperience 59 ;
@@ -1789,9 +1880,11 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#NormalMatch
 :NormalMatch rdf:type owl:NamedIndividual ,
+                      :Match ,
                       [ rdf:type owl:Class ;
                         owl:complementOf :RankedMatch
                       ] ;
+             vgo:isSessionInGame :LeagueOfLegends ;
              :hasMechanic :Blind ;
              :hasOutcome :Team1Victory ;
              :includesTeam :Team1 ,
@@ -1800,7 +1893,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#NorthAmericanChallengersLeagueSummer2024
-:NorthAmericanChallengersLeagueSummer2024 rdf:type owl:NamedIndividual ;
+:NorthAmericanChallengersLeagueSummer2024 rdf:type owl:NamedIndividual ,
+                                                   event:Event ,
+                                                   sport:Competition ;
                                           :hasCompetitor :CompetitorsNorthAmericanChallengersLeagueSummer2024 ;
                                           :hasDiscipline :LeagueOfLegends ;
                                           :hasLocation :America ;
@@ -1815,7 +1910,10 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#OceanDrake
 :OceanDrake rdf:type owl:NamedIndividual ,
-                     :EpicCreature ;
+                     vgo:Character ,
+                     :Creature ,
+                     :EpicCreature ,
+                     :NonPlayableCharacter ;
             :isNonPlayableOf :LeagueOfLegends ;
             :creatureDescription "The Ocean Drake is an epic jungle dragon that requires a group to defeat. It attacks with blows that deal moderate damage, but its buff is continuous regeneration of health and mana. It is a crucial objective for teams aiming to maintain pressure and sustainability in the match." ;
             :creatureGivesExperience 150 ;
@@ -1826,7 +1924,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#OrbofDeception
-:OrbofDeception rdf:type owl:NamedIndividual ;
+:OrbofDeception rdf:type owl:NamedIndividual ,
+                         :Ability ;
+                :isAbilityOf :Ahri ;
                 :abilityCooldown 7 ;
                 :abilityDescription "Ahri sends her orb in the target direction that deals magic damage to enemies hit. At maximum range, the orb homes back to her to deal the same in Hybrid penetration icon true damage to enemies hit." ;
                 :abilityName "Orb of Deception" ;
@@ -1834,13 +1934,17 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#PC
-:PC rdf:type owl:NamedIndividual ;
+:PC rdf:type owl:NamedIndividual ,
+             :Platform ;
+    :isPlatformOf :LeagueOfLegends ;
     rdfs:comment "PC represents personal computers as a gaming platform."@en ;
     rdfs:label "PC"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Perseverance
-:Perseverance rdf:type owl:NamedIndividual ;
+:Perseverance rdf:type owl:NamedIndividual ,
+                       :Ability ;
+              :isAbilityOf :Garen ;
               :abilityCooldown 5 ;
               :abilityDescription "Garen Health regeneration icon regenerates 1.5% − 10.1% (based on level) of his Health icon maximum health every 5 seconds." ;
               :abilityName "Perseverance" ;
@@ -1849,11 +1953,14 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#PickAndBan
 :PickAndBan rdf:type owl:NamedIndividual ,
-                     :Draft .
+                     :Draft ,
+                     :Mechanic .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player1
 :Player1 rdf:type owl:NamedIndividual ;
+         :isMemberOf :Team1 ;
+         vgo:username "Faker" ;
          :hasNickname "Faker" ;
          rdfs:comment "Player1 is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
          rdfs:label "Player1"@en .
@@ -1861,71 +1968,99 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#Player10
 :Player10 rdf:type owl:NamedIndividual ;
+          :isMemberOf :Team2 ;
+          vgo:username "Rekkles" ;
           :hasNickname "Rekkles" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player11
 :Player11 rdf:type owl:NamedIndividual ;
+          :isMemberOf :Team3 ;
+          vgo:username "Wixxi" ;
           :hasNickname "Wixxi" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player12
 :Player12 rdf:type owl:NamedIndividual ;
+          :isMemberOf :Team3 ;
+          vgo:username "Shiazuri" ;
           :hasNickname "Shiazuri" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player13
 :Player13 rdf:type owl:NamedIndividual ;
+          :isMemberOf :Team3 ;
+          vgo:username "Onat" ;
           :hasNickname "Onat" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player14
 :Player14 rdf:type owl:NamedIndividual ;
+          :isMemberOf :Team3 ;
+          vgo:username "Zamudo" ;
           :hasNickname "Zamudo" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player15
 :Player15 rdf:type owl:NamedIndividual ;
+          :isMemberOf :Team3 ;
+          vgo:username "Rovex" ;
           :hasNickname "Rovex" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player2
 :Player2 rdf:type owl:NamedIndividual ;
+         :isMemberOf :Team1 ;
+         vgo:username "Terenas" ;
          :hasNickname "Terenas" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player3
 :Player3 rdf:type owl:NamedIndividual ;
+         :isMemberOf :Team1 ;
+         vgo:username "PaoloCannone" ;
          :hasNickname "PaoloCannone" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player4
 :Player4 rdf:type owl:NamedIndividual ;
+         :isMemberOf :Team1 ;
+         vgo:username "Julieqqrd" ;
          :hasNickname "Julieqqrd" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player5
 :Player5 rdf:type owl:NamedIndividual ;
+         :isMemberOf :Team1 ;
+         vgo:username "FragolaQT" ;
          :hasNickname "FragolaQT" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player6
 :Player6 rdf:type owl:NamedIndividual ;
+         :isMemberOf :Team2 ;
+         vgo:username "Apecarroramarro" ;
          :hasNickname "Apecarroramarro" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player7
 :Player7 rdf:type owl:NamedIndividual ;
+         :isMemberOf :Team2 ;
+         vgo:username "Uni" ;
          :hasNickname "Uni" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player8
 :Player8 rdf:type owl:NamedIndividual ;
+         :isMemberOf :Team2 ;
+         vgo:username "Acefos" ;
          :hasNickname "Acefos" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player9
 :Player9 rdf:type owl:NamedIndividual ;
+         :isMemberOf :Team2 ;
+         vgo:username "Jun" ;
          :hasNickname "Jun" .
 
 
@@ -1936,11 +2071,14 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#Rank
-:Rank rdf:type owl:NamedIndividual .
+:Rank rdf:type owl:NamedIndividual ,
+               :Rank .
 
 
 ###  http://www.semanticweb.org/MobaOntology#RankedMatch
-:RankedMatch rdf:type owl:NamedIndividual ;
+:RankedMatch rdf:type owl:NamedIndividual ,
+                      :Match ;
+             vgo:isSessionInGame :LeagueOfLegends ;
              :hasOutcome :Team1Victory ;
              :hasRank :Diamond ;
              :includesTeam :Team1 ,
@@ -1950,7 +2088,11 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#RedBrambleback
 :RedBrambleback rdf:type owl:NamedIndividual ,
-                         :JungleCreature ;
+                         vgo:Character ,
+                         :Creature ,
+                         :JungleCreature ,
+                         :NeutralCreature ,
+                         :NonPlayableCharacter ;
                 :isNonPlayableOf :LeagueOfLegends ;
                 :creatureDescription "The Red Brambleback, known as Krug, is a neutral monster found in the red jungle. When attacked, it inflicts heavy damage with periodic attacks. Near death, it explodes into a damaging thorn cloud for enemies. Crucial for jungle efficiency in controlling the red jungle." ;
                 :creatureGivesExperience 200 ;
@@ -1961,7 +2103,11 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#RiotGames
-:RiotGames rdf:type owl:NamedIndividual ;
+:RiotGames rdf:type owl:NamedIndividual ,
+                    :Developer ,
+                    :SoftwareHouse ,
+                    foaf:Agent ,
+                    foaf:Organization ;
            inno:hasDeveloped :LeagueOfLegends ;
            :hasFoundationDate 2008 ;
            rdfs:comment "Riot Games is a software house known for developing the MOBA game League of Legends."@en ;
@@ -1969,8 +2115,12 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#Shojin
-:Shojin rdf:type owl:NamedIndividual ;
+:Shojin rdf:type owl:NamedIndividual ,
+                 vgo:Item ,
+                 :CompositeItem ,
+                 :NonConsumableItem ;
         :hasComponent :CaulfieldWarhammer ;
+        :isItemSetOf :GarenBuild ;
         :itemCost 3100 ;
         :itemEffect "Dealing ability damage with a champion ability grants a stack for 6 seconds, stacking up to 4 times and up to 1 per cast instance per second and every second for damage over time abilities. For each stack, your ability damage and proc damage dealt by abilities gain 3% increased damage, for a total increase of 12% at maximum stacks." ;
         :itemName "Spear of Shojin" .
@@ -1978,7 +2128,10 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#SiegeMinion
 :SiegeMinion rdf:type owl:NamedIndividual ,
-                      :Minion ;
+                      vgo:Character ,
+                      :Creature ,
+                      :Minion ,
+                      :NonPlayableCharacter ;
              :isNonPlayableOf :LeagueOfLegends ;
              :creatureDescription "The Siege Minion is one of three minion types appearing in each wave. It attacks from long range with powerful shots that deal significant damage to enemy structures. It has the highest resilience among minions, crucial for assaulting enemy bastions." ;
              :creatureGivesExperience 92 ;
@@ -1994,7 +2147,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 
 ###  http://www.semanticweb.org/MobaOntology#SpiritRush
-:SpiritRush rdf:type owl:NamedIndividual ;
+:SpiritRush rdf:type owl:NamedIndividual ,
+                     :Ability ;
+            :isAbilityOf :Ahri ;
             :abilityCooldown 130 ;
             :abilityDescription """Ahri Dash dashes to the target location and then fires essence bolts to up to 3 nearby Sight icon visible enemies, each dealing magic damage.
 
@@ -2004,14 +2159,20 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 
 ###  http://www.semanticweb.org/MobaOntology#Subscription
-:Subscription rdf:type owl:NamedIndividual ;
+:Subscription rdf:type owl:NamedIndividual ,
+                       :MonetizationModel ;
               :priceToPlay 15 ;
               rdfs:comment "Subscription represents a monetization model where players pay a recurring fee to access the game."@en ;
               rdfs:label "Subscription"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRift
-:SummonerRift rdf:type owl:NamedIndividual ;
+:SummonerRift rdf:type owl:NamedIndividual ,
+                       :Map ;
+              vgo:hasPlayingArea :SummonerRiftBotLane ,
+                                 :SummonerRiftJungle ,
+                                 :SummonerRiftMidLane ,
+                                 :SummonerRiftTopLane ;
               :hasMapArea :SummonerRiftBotLane ,
                           :SummonerRiftJungle ,
                           :SummonerRiftMidLane ,
@@ -2022,7 +2183,9 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftBotLane
-:SummonerRiftBotLane rdf:type owl:NamedIndividual ;
+:SummonerRiftBotLane rdf:type owl:NamedIndividual ,
+                              :Lane ,
+                              :MapArea ;
                      :hasMapElement :SummonerRiftInnerTurret ,
                                     :SummonerRiftOuterTurret ;
                      :laneDescription "The bot lane is situated at the bottom of the map, parallel to the top lane. It is a strategic environment that involves cooperation between two players, typically an ADC (Attack Damage Carry) and a support. This lane features a combination of defensive towers and enemy attacks, making it critical for map control and protecting the elemental dragon in the lower jungle." .
@@ -2030,35 +2193,51 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftInnerTurret
 :SummonerRiftInnerTurret rdf:type owl:NamedIndividual ,
+                                  :MapElement ,
                                   :StructuralElement ;
-                         owl:differentFrom :SummonerRiftOuterTurret .
+                         owl:differentFrom :SummonerRiftOuterTurret ;
+                         :isMapElementOf :SummonerRiftBotLane ,
+                                         :SummonerRiftMidLane ,
+                                         :SummonerRiftTopLane .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftJungle
-:SummonerRiftJungle rdf:type owl:NamedIndividual ;
+:SummonerRiftJungle rdf:type owl:NamedIndividual ,
+                             :Lane ,
+                             :MapArea ;
                     :laneDescription "The jungle consists of the parts of the map between the lanes proper, excluding the teams' bases, characterized by the lack of vision or dense Fog of War. Neutral—not aggressive unless attacked—creeps called Monster icon monsters live in the jungle, and a monster or group of monsters at a certain location of the map is called a camp." .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftMidLane
-:SummonerRiftMidLane rdf:type owl:NamedIndividual ;
+:SummonerRiftMidLane rdf:type owl:NamedIndividual ,
+                              :Lane ,
+                              :MapArea ;
                      :hasMapElement :SummonerRiftInnerTurret ,
                                     :SummonerRiftOuterTurret ;
                      :laneDescription "The mid lane is located centrally on the map, directly connecting the bases of both teams. It is typically the shortest path among the three main lanes and often serves as the focal point for combat actions and strategic movements. The mid lane is usually dominated by magic-based champions or assassins who can deal high burst damage quickly. This lane is crucial for controlling game flow and supporting other lanes with swift movements and targeted attacks." .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftOuterTurret
-:SummonerRiftOuterTurret rdf:type owl:NamedIndividual .
+:SummonerRiftOuterTurret rdf:type owl:NamedIndividual ,
+                                  :MapElement ;
+                         :isMapElementOf :SummonerRiftBotLane ,
+                                         :SummonerRiftMidLane ,
+                                         :SummonerRiftTopLane .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftTopLane
-:SummonerRiftTopLane rdf:type owl:NamedIndividual ;
+:SummonerRiftTopLane rdf:type owl:NamedIndividual ,
+                              :Lane ,
+                              :MapArea ;
                      :hasMapElement :SummonerRiftInnerTurret ,
                                     :SummonerRiftOuterTurret ;
                      :laneDescription "The top lane is one of the three main paths on the map, situated at the top relative to each team's base. It is characterized by a long, narrow terrain with towers positioned to defend access to the base. The top lane is known for being a battleground for durable champions and melee fighters. Common champions in this lane include fighters or tanks, capable of enduring heavy damage and engaging in direct combat." .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SuperMegaDeathRocket
-:SuperMegaDeathRocket rdf:type owl:NamedIndividual ;
+:SuperMegaDeathRocket rdf:type owl:NamedIndividual ,
+                               :Ability ;
+                      :isAbilityOf :Jinx ;
                       :abilityCooldown 85 ;
                       :abilityDescription "Jinx fires a massive rocket in the target direction, briefly granting Sight of its surroundings and exploding upon colliding with an enemy champion. The explosion deals physical damage to nearby enemies and grants Sight of the area for 2 seconds." ;
                       :abilityName "Super Mega Death Rocket!" ;
@@ -2067,7 +2246,10 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 ###  http://www.semanticweb.org/MobaOntology#SuperMinion
 :SuperMinion rdf:type owl:NamedIndividual ,
-                      :Minion ;
+                      vgo:Character ,
+                      :Creature ,
+                      :Minion ,
+                      :NonPlayableCharacter ;
              :isNonPlayableOf :LeagueOfLegends ;
              :creatureDescription "The Super Minion is a special type of minion appearing in the lane where the enemy inhibitor has been destroyed. It has high resilience and deals significant damage to structures and enemy champions. It represents a major threat and requires a quick response from the opposing team." ;
              :creatureGivesExperience 97 ;
@@ -2077,14 +2259,17 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 
 ###  http://www.semanticweb.org/MobaOntology#Support
-:Support rdf:type owl:NamedIndividual ;
+:Support rdf:type owl:NamedIndividual ,
+                  :Role ;
          :roleDescription "The Support role is to aid and help protect your allies in any situation. Your role is is to shield or heal them, to tanking some damage or sacrificing yourself to keep others alive. You are often giving up the glorious kills in the game to support others, but in the end its usually the support to secure the true MVP award. Support heroes usually lane with the marksman in top lane or at mid lane in order to be able to travel quickly where they are needed." ;
          rdfs:comment "Represents the role of a support in the game, known for assisting and protecting other players."@en ;
          rdfs:label "Support"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Switcheroo
-:Switcheroo rdf:type owl:NamedIndividual ;
+:Switcheroo rdf:type owl:NamedIndividual ,
+                     :Ability ;
+            :isAbilityOf :Jinx ;
             :abilityCooldown 1 ;
             :abilityDescription "Jinx switches between Pow-Pow Pow-Pow, her minigun, and Fishbones Fishbones, her rocket launcher." ;
             :abilityName "Switcheroo!" ;
@@ -2092,7 +2277,9 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 
 ###  http://www.semanticweb.org/MobaOntology#Tank
-:Tank rdf:type owl:NamedIndividual ;
+:Tank rdf:type owl:NamedIndividual ,
+               :Role ;
+      :isRoleOf :Garen ;
       :roleDescription "Tanks are tough melee champions who sacrifice damage in exchange for powerful crowd control. While able to engage enemies in combat, a tank's purpose isn't usually to kill opponents; rather, tanks excel at disrupting enemies and diverting focus to themselves, allowing them to lock down specific targets (or several targets at once), as well as remove (or peel) threats from their allies." ;
       rdfs:comment "Represents the role of a tank in the game, known for high durability and the ability to absorb damage."@en ;
       rdfs:label "Tank"@en .
@@ -2106,11 +2293,19 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                   :Player3 ,
                   :Player4 ,
                   :Player5 ;
+       :isCompetitorOf :CompetitorsLoLItalianTournamentSpring2024 ,
+                       :CompetitorsNorthAmericanChallengersLeagueSummer2024 ,
+                       :CompetitorsWorldChampionship2023 ;
        :teamName "SKT" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Team1Victory
-:Team1Victory rdf:type owl:NamedIndividual .
+:Team1Victory rdf:type owl:NamedIndividual ,
+                       vgo:GameEvent ,
+                       vgo:InstantaneousEvent ,
+                       :GameOutcome ;
+              :isOutcomeOf :NormalMatch ,
+                           :RankedMatch .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Team2
@@ -2120,6 +2315,9 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                   :Player7 ,
                   :Player8 ,
                   :Player9 ;
+       :isCompetitorOf :CompetitorsLoLItalianTournamentSpring2024 ,
+                       :CompetitorsNorthAmericanChallengersLeagueSummer2024 ,
+                       :CompetitorsWorldChampionship2023 ;
        :teamName "SSG" .
 
 
@@ -2130,19 +2328,30 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                   :Player13 ,
                   :Player14 ,
                   :Player15 ;
+       :isCompetitorOf :CompetitorsLoLItalianTournamentSpring2024 ,
+                       :CompetitorsNorthAmericanChallengersLeagueSummer2024 ,
+                       :CompetitorsWorldChampionship2023 ;
        :teamName "FNAtic" .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Victory
-:Victory rdf:type owl:NamedIndividual .
+:Victory rdf:type owl:NamedIndividual ,
+                  vgo:GameEvent ,
+                  vgo:InstantaneousEvent ,
+                  :GameOutcome ;
+         :isOutcomeOf :GeneralMatch .
 
 
 ###  http://www.semanticweb.org/MobaOntology#World
-:World rdf:type owl:NamedIndividual .
+:World rdf:type owl:NamedIndividual ,
+                :Location ;
+       :isLocationOf :WorldChampionship2023 .
 
 
 ###  http://www.semanticweb.org/MobaOntology#WorldChampionship2023
-:WorldChampionship2023 rdf:type owl:NamedIndividual ;
+:WorldChampionship2023 rdf:type owl:NamedIndividual ,
+                                event:Event ,
+                                sport:Competition ;
                        :hasCompetitor :CompetitorsWorldChampionship2023 ;
                        :hasDiscipline :LeagueOfLegends ;
                        :hasLocation :World ;
@@ -2164,17 +2373,3116 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 
 ###  http://www.semanticweb.org/MobaOntology#XBOX
-:XBOX rdf:type owl:NamedIndividual ;
+:XBOX rdf:type owl:NamedIndividual ,
+               :Platform ;
+      :isPlatformOf :LeagueOfLegends ;
       rdfs:comment "XBOX represents Microsoft's gaming console as a gaming platform."@en ;
       rdfs:label "XBOX"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Zap
-:Zap rdf:type owl:NamedIndividual ;
+:Zap rdf:type owl:NamedIndividual ,
+              :Ability ;
+     :isAbilityOf :Jinx ;
      :abilityCooldown 5 ;
      :abilityDescription "Jinx fires a shock blast in the target direction that deals physical damage to the first enemy it hits and Reveal reveals and Slow slows them for 2 seconds." ;
      :abilityName "Zap!" ;
      :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability1
+:ability1 rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :abilityDescription "Aatrox swings his greatsword, dealing damage." ;
+          :abilityName "Darkin Blade" ;
+          :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability10
+:ability10 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Akali drops a smoke bomb, becoming invisible and gaining movement speed." ;
+           :abilityName "Twilight Shroud" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability11
+:ability11 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Akali flips backward and throws a shuriken forward." ;
+           :abilityName "Shuriken Flip" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability12
+:ability12 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Akali dashes twice, dealing damage." ;
+           :abilityName "Perfect Execution" ;
+           :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability13
+:ability13 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Ashe fires arrows in a cone, dealing damage." ;
+           :abilityName "Volley" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability14
+:ability14 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Ashe sends a hawk spirit on a scouting mission." ;
+           :abilityName "Hawkshot" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability15
+:ability15 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Ashe gains attack speed and her basic attacks fire a flurry of arrows." ;
+           :abilityName "Ranger's Focus" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability16
+:ability16 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Ashe fires a giant arrow that stuns and damages the first enemy hit." ;
+           :abilityName "Enchanted Crystal Arrow" ;
+           :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability17
+:ability17 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Garen gains a burst of speed and strikes an enemy." ;
+           :abilityName "Decisive Strike" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability18
+:ability18 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Garen reduces incoming damage for a few seconds." ;
+           :abilityName "Courage" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability19
+:ability19 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Garen rapidly spins around, dealing damage to nearby enemies." ;
+           :abilityName "Judgment" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability2
+:ability2 rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :abilityDescription "Aatrox smashes the ground, dealing damage and pulling enemies." ;
+          :abilityName "Infernal Chains" ;
+          :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability20
+:ability20 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Garen calls down the might of Demacia on his opponent, dealing a finishing blow." ;
+           :abilityName "Demacian Justice" ;
+           :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability21
+:ability21 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Caitlyn revs up her rifle for a penetrating shot." ;
+           :abilityName "Piltover Peacemaker" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability22
+:ability22 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Caitlyn sets traps that immobilize and reveal enemies." ;
+           :abilityName "Yordle Snap Trap" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability23
+:ability23 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Caitlyn fires a net, knocking herself backward and slowing an enemy." ;
+           :abilityName "90 Caliber Net" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability24
+:ability24 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Caitlyn takes time to line up the perfect shot, dealing massive damage to a single target." ;
+           :abilityName "Ace in the Hole" ;
+           :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability25
+:ability25 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Darius swings his axe in a wide circle, dealing damage." ;
+           :abilityName "Decimate" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability26
+:ability26 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Darius's next attack deals bonus damage and slows the target." ;
+           :abilityName "Crippling Strike" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability27
+:ability27 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Darius pulls in enemies with his axe's hook." ;
+           :abilityName "Apprehend" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability28
+:ability28 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Darius leaps to an enemy and executes them with a powerful chop." ;
+           :abilityName "Noxian Guillotine" ;
+           :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability29
+:ability29 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Jinx swaps her minigun and rocket launcher." ;
+           :abilityName "Switcheroo!" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability3
+:ability3 rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :abilityDescription "Aatrox dashes, dealing damage and healing himself." ;
+          :abilityName "Umbral Dash" ;
+          :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability30
+:ability30 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Jinx fires a shock blast that slows and damages the first enemy hit." ;
+           :abilityName "Zap!" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability31
+:ability31 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Jinx tosses out three grenades that explode and root enemies." ;
+           :abilityName "Flame Chompers!" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability32
+:ability32 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Jinx fires a global rocket that gains damage as it travels, exploding on impact." ;
+           :abilityName "Super Mega Death Rocket!" ;
+           :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability33
+:ability33 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Yasuo thrusts his sword forward, dealing damage." ;
+           :abilityName "Steel Tempest" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability34
+:ability34 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Yasuo creates a moving wall that blocks projectiles." ;
+           :abilityName "Wind Wall" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability35
+:ability35 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Yasuo dashes through a target, dealing damage." ;
+           :abilityName "Sweeping Blade" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability36
+:ability36 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Yasuo blinks to an airborne enemy champion, dealing damage and keeping them in the air." ;
+           :abilityName "Last Breath" ;
+           :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability37
+:ability37 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Ezreal fires a bolt of energy, dealing damage." ;
+           :abilityName "Mystic Shot" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability38
+:ability38 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Ezreal fires an orb that sticks to the first champion or objective hit." ;
+           :abilityName "Essence Flux" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability39
+:ability39 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Ezreal teleports to a target location and fires a homing bolt." ;
+           :abilityName "Arcane Shift" ;
+           :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability4
+:ability4 rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :abilityDescription "Aatrox transforms, gaining attack damage and resurrecting on taking lethal damage." ;
+          :abilityName "World Ender" ;
+          :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability40
+:ability40 rdf:type owl:NamedIndividual ,
+                    :Ability ;
+           :abilityDescription "Ezreal winds up for a powerful shot that deals massive damage to all targets hit." ;
+           :abilityName "Trueshot Barrage" ;
+           :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability5
+:ability5 rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :abilityDescription "Ahri sends out and pulls back her orb, dealing damage each way." ;
+          :abilityName "Orb of Deception" ;
+          :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability6
+:ability6 rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :abilityDescription "Ahri releases three fox-fires, damaging nearby enemies." ;
+          :abilityName "Fox-Fire" ;
+          :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability7
+:ability7 rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :abilityDescription "Ahri blows a kiss that charms and damages an enemy." ;
+          :abilityName "Charm" ;
+          :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability8
+:ability8 rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :abilityDescription "Ahri dashes forward and fires essence bolts, damaging nearby enemies." ;
+          :abilityName "Spirit Rush" ;
+          :abilityType "supreme" .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability9
+:ability9 rdf:type owl:NamedIndividual ,
+                   :Ability ;
+          :abilityDescription "Akali throws kunai, dealing damage in a cone." ;
+          :abilityName "Five Point Strike" ;
+          :abilityType "basic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityApprehend
+:abilityApprehend rdf:type owl:NamedIndividual ,
+                           :Ability ;
+                  :isAbilityOf :championDarius .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityCharm
+:abilityCharm rdf:type owl:NamedIndividual ,
+                       :Ability ;
+              :isAbilityOf :championAhri .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityCourage
+:abilityCourage rdf:type owl:NamedIndividual ,
+                         :Ability ;
+                :isAbilityOf :championGaren .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityDecimate
+:abilityDecimate rdf:type owl:NamedIndividual ,
+                          :Ability ;
+                 :isAbilityOf :championDarius .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityFox-Fire
+:abilityFox-Fire rdf:type owl:NamedIndividual ,
+                          :Ability ;
+                 :isAbilityOf :championAhri .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityHawkshot
+:abilityHawkshot rdf:type owl:NamedIndividual ,
+                          :Ability ;
+                 :isAbilityOf :championAshe .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityJudgment
+:abilityJudgment rdf:type owl:NamedIndividual ,
+                          :Ability ;
+                 :isAbilityOf :championGaren .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityVolley
+:abilityVolley rdf:type owl:NamedIndividual ,
+                        :Ability ;
+               :isAbilityOf :championAshe .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilitybasic
+:abilitybasic rdf:type owl:NamedIndividual ,
+                       :Ability .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilitysupreme
+:abilitysupreme rdf:type owl:NamedIndividual ,
+                         :Ability .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion1
+:champion1 rdf:type owl:NamedIndividual ,
+                    vgo:Character ,
+                    :Champion ,
+                    :PlayableCharacter ;
+           :championName "Aatrox" .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion10
+:champion10 rdf:type owl:NamedIndividual ,
+                     vgo:Character ,
+                     :Champion ,
+                     :PlayableCharacter ;
+            :championName "Ezreal" .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion2
+:champion2 rdf:type owl:NamedIndividual ,
+                    vgo:Character ,
+                    :Champion ,
+                    :PlayableCharacter ;
+           :championName "Ahri" .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion3
+:champion3 rdf:type owl:NamedIndividual ,
+                    vgo:Character ,
+                    :Champion ,
+                    :PlayableCharacter ;
+           :championName "Akali" .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion4
+:champion4 rdf:type owl:NamedIndividual ,
+                    vgo:Character ,
+                    :Champion ,
+                    :PlayableCharacter ;
+           :championName "Ashe" .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion5
+:champion5 rdf:type owl:NamedIndividual ,
+                    vgo:Character ,
+                    :Champion ,
+                    :PlayableCharacter ;
+           :championName "Garen" .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion6
+:champion6 rdf:type owl:NamedIndividual ,
+                    vgo:Character ,
+                    :Champion ,
+                    :PlayableCharacter ;
+           :championName "Caitlyn" .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion7
+:champion7 rdf:type owl:NamedIndividual ,
+                    vgo:Character ,
+                    :Champion ,
+                    :PlayableCharacter ;
+           :championName "Darius" .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion8
+:champion8 rdf:type owl:NamedIndividual ,
+                    vgo:Character ,
+                    :Champion ,
+                    :PlayableCharacter ;
+           :championName "Jinx" .
+
+
+###  http://www.semanticweb.org/MobaOntology#champion9
+:champion9 rdf:type owl:NamedIndividual ,
+                    vgo:Character ,
+                    :Champion ,
+                    :PlayableCharacter ;
+           :championName "Yasuo" .
+
+
+###  http://www.semanticweb.org/MobaOntology#championAatrox
+:championAatrox rdf:type owl:NamedIndividual ,
+                         vgo:Character ,
+                         :Champion ,
+                         :PlayableCharacter ;
+                :hasAbility <http://www.semanticweb.org/MobaOntology#abilityDarkin%20Blade> ,
+                            <http://www.semanticweb.org/MobaOntology#abilityInfernal%20Chains> ,
+                            <http://www.semanticweb.org/MobaOntology#abilityUmbral%20Dash> ,
+                            <http://www.semanticweb.org/MobaOntology#abilityWorld%20Ender> .
+
+
+###  http://www.semanticweb.org/MobaOntology#championAhri
+:championAhri rdf:type owl:NamedIndividual ,
+                       vgo:Character ,
+                       :Champion ,
+                       :PlayableCharacter ;
+              :hasAbility :abilityCharm ,
+                          :abilityFox-Fire ,
+                          <http://www.semanticweb.org/MobaOntology#abilityOrb%20of%20Deception> ,
+                          <http://www.semanticweb.org/MobaOntology#abilitySpirit%20Rush> .
+
+
+###  http://www.semanticweb.org/MobaOntology#championAkali
+:championAkali rdf:type owl:NamedIndividual ,
+                        vgo:Character ,
+                        :Champion ,
+                        :PlayableCharacter ;
+               :hasAbility <http://www.semanticweb.org/MobaOntology#abilityFive%20Point%20Strike> ,
+                           <http://www.semanticweb.org/MobaOntology#abilityPerfect%20Execution> ,
+                           <http://www.semanticweb.org/MobaOntology#abilityShuriken%20Flip> ,
+                           <http://www.semanticweb.org/MobaOntology#abilityTwilight%20Shroud> .
+
+
+###  http://www.semanticweb.org/MobaOntology#championAshe
+:championAshe rdf:type owl:NamedIndividual ,
+                       vgo:Character ,
+                       :Champion ,
+                       :PlayableCharacter ;
+              :hasAbility :abilityHawkshot ,
+                          :abilityVolley ,
+                          <http://www.semanticweb.org/MobaOntology#abilityEnchanted%20Crystal%20Arrow> ,
+                          <http://www.semanticweb.org/MobaOntology#abilityRanger%27s%20Focus> .
+
+
+###  http://www.semanticweb.org/MobaOntology#championCaitlyn
+:championCaitlyn rdf:type owl:NamedIndividual ,
+                          vgo:Character ,
+                          :Champion ,
+                          :PlayableCharacter ;
+                 :hasAbility <http://www.semanticweb.org/MobaOntology#ability90%20Caliber%20Net> ,
+                             <http://www.semanticweb.org/MobaOntology#abilityAce%20in%20the%20Hole> ,
+                             <http://www.semanticweb.org/MobaOntology#abilityPiltover%20Peacemaker> ,
+                             <http://www.semanticweb.org/MobaOntology#abilityYordle%20Snap%20Trap> .
+
+
+###  http://www.semanticweb.org/MobaOntology#championDarius
+:championDarius rdf:type owl:NamedIndividual ,
+                         vgo:Character ,
+                         :Champion ,
+                         :PlayableCharacter ;
+                :hasAbility :abilityApprehend ,
+                            :abilityDecimate ,
+                            <http://www.semanticweb.org/MobaOntology#abilityCrippling%20Strike> ,
+                            <http://www.semanticweb.org/MobaOntology#abilityNoxian%20Guillotine> .
+
+
+###  http://www.semanticweb.org/MobaOntology#championEzreal
+:championEzreal rdf:type owl:NamedIndividual ,
+                         vgo:Character ,
+                         :Champion ,
+                         :PlayableCharacter ;
+                :hasAbility <http://www.semanticweb.org/MobaOntology#abilityArcane%20Shift> ,
+                            <http://www.semanticweb.org/MobaOntology#abilityEssence%20Flux> ,
+                            <http://www.semanticweb.org/MobaOntology#abilityMystic%20Shot> ,
+                            <http://www.semanticweb.org/MobaOntology#abilityTrueshot%20Barrage> .
+
+
+###  http://www.semanticweb.org/MobaOntology#championGaren
+:championGaren rdf:type owl:NamedIndividual ,
+                        vgo:Character ,
+                        :Champion ,
+                        :PlayableCharacter ;
+               :hasAbility :abilityCourage ,
+                           :abilityJudgment ,
+                           <http://www.semanticweb.org/MobaOntology#abilityDecisive%20Strike> ,
+                           <http://www.semanticweb.org/MobaOntology#abilityDemacian%20Justice> .
+
+
+###  http://www.semanticweb.org/MobaOntology#championJinx
+:championJinx rdf:type owl:NamedIndividual ,
+                       vgo:Character ,
+                       :Champion ,
+                       :PlayableCharacter ;
+              :hasAbility <http://www.semanticweb.org/MobaOntology#abilityFlame%20Chompers%21> ,
+                          <http://www.semanticweb.org/MobaOntology#abilitySuper%20Mega%20Death%20Rocket%21> ,
+                          <http://www.semanticweb.org/MobaOntology#abilitySwitcheroo%21> ,
+                          <http://www.semanticweb.org/MobaOntology#abilityZap%21> .
+
+
+###  http://www.semanticweb.org/MobaOntology#championYasuo
+:championYasuo rdf:type owl:NamedIndividual ,
+                        vgo:Character ,
+                        :Champion ,
+                        :PlayableCharacter ;
+               :hasAbility <http://www.semanticweb.org/MobaOntology#abilityLast%20Breath> ,
+                           <http://www.semanticweb.org/MobaOntology#abilitySteel%20Tempest> ,
+                           <http://www.semanticweb.org/MobaOntology#abilitySweeping%20Blade> ,
+                           <http://www.semanticweb.org/MobaOntology#abilityWind%20Wall> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition1
+:competition1 rdf:type owl:NamedIndividual ,
+                       event:Event ,
+                       sport:Competition ;
+              :competitionCountry "world" ;
+              :competitionEndDate "2024-10-10"^^xsd:date ;
+              :competitionName "World Championship" ;
+              :competitionOrganizer "Riot Games" ;
+              :competitionPrizePool 5000000 ;
+              :competitionSponsor "Mercedes-Benz" ;
+              :competitionStartDate "2024-09-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition10
+:competition10 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "world" ;
+               :competitionEndDate "2024-03-10"^^xsd:date ;
+               :competitionName "DreamLeague" ;
+               :competitionOrganizer "DreamHack" ;
+               :competitionPrizePool 1000000 ;
+               :competitionSponsor "Mars Media" ;
+               :competitionStartDate "2024-03-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition11
+:competition11 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "world" ;
+               :competitionEndDate "2024-01-10"^^xsd:date ;
+               :competitionName "Smite World Championship" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 1000000 ;
+               :competitionSponsor "Alienware" ;
+               :competitionStartDate "2024-01-05"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition12
+:competition12 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "world" ;
+               :competitionEndDate "2024-03-15"^^xsd:date ;
+               :competitionName "Smite Pro League" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 250000 ;
+               :competitionSponsor "Razer" ;
+               :competitionStartDate "2024-02-15"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition13
+:competition13 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "world" ;
+               :competitionEndDate "2024-03-25"^^xsd:date ;
+               :competitionName "Smite Console World Championship" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 50000 ;
+               :competitionSponsor "AOC" ;
+               :competitionStartDate "2024-03-20"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition14
+:competition14 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "world" ;
+               :competitionEndDate "2024-04-15"^^xsd:date ;
+               :competitionName "Smite Minor League" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 75000 ;
+               :competitionSponsor "SteelSeries" ;
+               :competitionStartDate "2024-04-10"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition15
+:competition15 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "world" ;
+               :competitionEndDate "2024-05-10"^^xsd:date ;
+               :competitionName "Smite Oceanic Pro League" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 150000 ;
+               :competitionSponsor "HyperX" ;
+               :competitionStartDate "2024-05-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition16
+:competition16 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "France" ;
+               :competitionEndDate "2024-04-15"^^xsd:date ;
+               :competitionName "LFL Spring Split" ;
+               :competitionOrganizer "Riot Games" ;
+               :competitionPrizePool 200000 ;
+               :competitionSponsor "Red Bull" ;
+               :competitionStartDate "2024-01-15"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition17
+:competition17 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Spain" ;
+               :competitionEndDate "2024-05-01"^^xsd:date ;
+               :competitionName "SuperLiga Orange Spring Split" ;
+               :competitionOrganizer "Riot Games" ;
+               :competitionPrizePool 150000 ;
+               :competitionSponsor "Domino's Pizza" ;
+               :competitionStartDate "2024-02-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition18
+:competition18 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Italy" ;
+               :competitionEndDate "2024-04-20"^^xsd:date ;
+               :competitionName "PG Nationals Spring Split" ;
+               :competitionOrganizer "Riot Games" ;
+               :competitionPrizePool 180000 ;
+               :competitionSponsor "Tim" ;
+               :competitionStartDate "2024-01-20"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition19
+:competition19 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Turkey" ;
+               :competitionEndDate "2024-08-31"^^xsd:date ;
+               :competitionName "TCL Summer Split" ;
+               :competitionOrganizer "Riot Games" ;
+               :competitionPrizePool 250000 ;
+               :competitionSponsor "Turkcell" ;
+               :competitionStartDate "2024-06-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition2
+:competition2 rdf:type owl:NamedIndividual ,
+                       event:Event ,
+                       sport:Competition ;
+              :competitionCountry "world" ;
+              :competitionEndDate "2024-05-15"^^xsd:date ;
+              :competitionName "Mid-Season Invitational" ;
+              :competitionOrganizer "Riot Games" ;
+              :competitionPrizePool 1500000 ;
+              :competitionSponsor "Red Bull" ;
+              :competitionStartDate "2024-05-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition20
+:competition20 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Australia" ;
+               :competitionEndDate "2024-08-31"^^xsd:date ;
+               :competitionName "OPL Winter Split" ;
+               :competitionOrganizer "Riot Games" ;
+               :competitionPrizePool 120000 ;
+               :competitionSponsor "Acer" ;
+               :competitionStartDate "2024-05-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition21
+:competition21 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Canada" ;
+               :competitionEndDate "2024-03-20"^^xsd:date ;
+               :competitionName "Canada Cup" ;
+               :competitionOrganizer "ESL" ;
+               :competitionPrizePool 300000 ;
+               :competitionSponsor "Intel" ;
+               :competitionStartDate "2024-03-15"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition22
+:competition22 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Brazil" ;
+               :competitionEndDate "2024-04-10"^^xsd:date ;
+               :competitionName "Brazil Major" ;
+               :competitionOrganizer "DreamHack" ;
+               :competitionPrizePool 180000 ;
+               :competitionSponsor "Monster Energy" ;
+               :competitionStartDate "2024-04-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition23
+:competition23 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "South Africa" ;
+               :competitionEndDate "2024-05-10"^^xsd:date ;
+               :competitionName "ESL Africa Championship" ;
+               :competitionOrganizer "Epic Esports Events" ;
+               :competitionPrizePool 150000 ;
+               :competitionSponsor "Red Bull" ;
+               :competitionStartDate "2024-05-05"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition24
+:competition24 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "India" ;
+               :competitionEndDate "2024-02-15"^^xsd:date ;
+               :competitionName "India Gaming Carnival" ;
+               :competitionOrganizer "PGL" ;
+               :competitionPrizePool 90000 ;
+               :competitionSponsor "Alienware" ;
+               :competitionStartDate "2024-02-10"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition25
+:competition25 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Japan" ;
+               :competitionEndDate "2024-01-30"^^xsd:date ;
+               :competitionName "Japan Dota Cup" ;
+               :competitionOrganizer "Mars Media" ;
+               :competitionPrizePool 500000 ;
+               :competitionSponsor "Douyu" ;
+               :competitionStartDate "2024-01-20"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition26
+:competition26 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Argentina" ;
+               :competitionEndDate "2024-01-10"^^xsd:date ;
+               :competitionName "South American Smite Championship" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 80000 ;
+               :competitionSponsor "Coca-Cola" ;
+               :competitionStartDate "2024-01-05"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition27
+:competition27 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Chile" ;
+               :competitionEndDate "2024-03-15"^^xsd:date ;
+               :competitionName "Latin American Smite Pro League" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 100000 ;
+               :competitionSponsor "Monster Energy" ;
+               :competitionStartDate "2024-02-15"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition28
+:competition28 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Peru" ;
+               :competitionEndDate "2024-06-20"^^xsd:date ;
+               :competitionName "Peruvian Smite League" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 120000 ;
+               :competitionSponsor "Twitch" ;
+               :competitionStartDate "2024-03-20"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition29
+:competition29 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Thailand" ;
+               :competitionEndDate "2024-08-10"^^xsd:date ;
+               :competitionName "SEA Smite Invitational" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 70000 ;
+               :competitionSponsor "Logitech" ;
+               :competitionStartDate "2024-05-10"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition3
+:competition3 rdf:type owl:NamedIndividual ,
+                       event:Event ,
+                       sport:Competition ;
+              :competitionCountry "world" ;
+              :competitionEndDate "2024-12-10"^^xsd:date ;
+              :competitionName "All-Star Event" ;
+              :competitionOrganizer "Riot Games" ;
+              :competitionPrizePool 500000 ;
+              :competitionSponsor "State Farm" ;
+              :competitionStartDate "2024-12-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition30
+:competition30 rdf:type owl:NamedIndividual ,
+                        event:Event ,
+                        sport:Competition ;
+               :competitionCountry "Vietnam" ;
+               :competitionEndDate "2024-07-10"^^xsd:date ;
+               :competitionName "Vietnamese Smite Championship" ;
+               :competitionOrganizer "Hi-Rez Studios" ;
+               :competitionPrizePool 50000 ;
+               :competitionSponsor "HyperX" ;
+               :competitionStartDate "2024-07-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition4
+:competition4 rdf:type owl:NamedIndividual ,
+                       event:Event ,
+                       sport:Competition ;
+              :competitionCountry "world" ;
+              :competitionEndDate "2024-06-25"^^xsd:date ;
+              :competitionName "Rift Rivals" ;
+              :competitionOrganizer "Riot Games" ;
+              :competitionPrizePool 300000 ;
+              :competitionSponsor "KitKat" ;
+              :competitionStartDate "2024-06-20"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition5
+:competition5 rdf:type owl:NamedIndividual ,
+                       event:Event ,
+                       sport:Competition ;
+              :competitionCountry "world" ;
+              :competitionEndDate "2024-04-15"^^xsd:date ;
+              :competitionName "League of Legends Championship Series" ;
+              :competitionOrganizer "Riot Games" ;
+              :competitionPrizePool 200000 ;
+              :competitionSponsor "Gillette" ;
+              :competitionStartDate "2024-01-15"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition6
+:competition6 rdf:type owl:NamedIndividual ,
+                       event:Event ,
+                       sport:Competition ;
+              :competitionCountry "world" ;
+              :competitionEndDate "2024-08-25"^^xsd:date ;
+              :competitionName "The International" ;
+              :competitionOrganizer "Valve" ;
+              :competitionPrizePool 40000000 ;
+              :competitionSponsor "Red Bull" ;
+              :competitionStartDate "2024-08-15"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition7
+:competition7 rdf:type owl:NamedIndividual ,
+                       event:Event ,
+                       sport:Competition ;
+              :competitionCountry "world" ;
+              :competitionEndDate "2024-06-15"^^xsd:date ;
+              :competitionName "Major Championships" ;
+              :competitionOrganizer "Valve" ;
+              :competitionPrizePool 300000 ;
+              :competitionSponsor "Intel" ;
+              :competitionStartDate "2024-06-10"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition8
+:competition8 rdf:type owl:NamedIndividual ,
+                       event:Event ,
+                       sport:Competition ;
+              :competitionCountry "world" ;
+              :competitionEndDate "2024-05-10"^^xsd:date ;
+              :competitionName "Dota Pro Circuit" ;
+              :competitionOrganizer "Valve" ;
+              :competitionPrizePool 500000 ;
+              :competitionSponsor "Parimatch" ;
+              :competitionStartDate "2024-05-05"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competition9
+:competition9 rdf:type owl:NamedIndividual ,
+                       event:Event ,
+                       sport:Competition ;
+              :competitionCountry "world" ;
+              :competitionEndDate "2024-07-10"^^xsd:date ;
+              :competitionName "EPICENTER" ;
+              :competitionOrganizer "Epic Esports Events" ;
+              :competitionPrizePool 3000000 ;
+              :competitionSponsor "Southeast Asia Gateway" ;
+              :competitionStartDate "2024-07-01"^^xsd:date .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionDreamLeague
+:competitionDreamLeague rdf:type owl:NamedIndividual ,
+                                 event:Event ,
+                                 sport:Competition ;
+                        :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionEPICENTER
+:competitionEPICENTER rdf:type owl:NamedIndividual ,
+                               event:Event ,
+                               sport:Competition ;
+                      :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors1
+:competitors1 rdf:type owl:NamedIndividual ,
+                       dctype:Collection ,
+                       :Competitors ,
+                       :Team ;
+              :hasMember :teamCloud9 ,
+                         <http://www.semanticweb.org/MobaOntology#teamCounter%20Logic%20Gaming> ,
+                         <http://www.semanticweb.org/MobaOntology#teamTeam%20Liquid> ,
+                         <http://www.semanticweb.org/MobaOntology#teamTeam%20SoloMid> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors10
+:competitors10 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors11
+:competitors11 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors ,
+                        :Team ;
+               :hasMember :teamVirtus.pro ,
+                          <http://www.semanticweb.org/MobaOntology#teamTeam%20Liquid> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors12
+:competitors12 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors ,
+                        :Team ;
+               :hasMember :teameUnited ,
+                          <http://www.semanticweb.org/MobaOntology#teamNoble%20eSports> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors13
+:competitors13 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors14
+:competitors14 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors15
+:competitors15 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors ,
+                        :Team ;
+               :hasMember <http://www.semanticweb.org/MobaOntology#teamTeam%20Dignitas> ,
+                          <http://www.semanticweb.org/MobaOntology#teamTempo%20Storm> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors16
+:competitors16 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors17
+:competitors17 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors18
+:competitors18 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors19
+:competitors19 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors2
+:competitors2 rdf:type owl:NamedIndividual ,
+                       dctype:Collection ,
+                       :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors20
+:competitors20 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors21
+:competitors21 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors22
+:competitors22 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors23
+:competitors23 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors24
+:competitors24 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors25
+:competitors25 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors26
+:competitors26 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors27
+:competitors27 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors28
+:competitors28 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors29
+:competitors29 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors3
+:competitors3 rdf:type owl:NamedIndividual ,
+                       dctype:Collection ,
+                       :Competitors ,
+                       :Team ;
+              :hasMember :teamFnatic ,
+                         :teamOG .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors30
+:competitors30 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors31
+:competitors31 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors32
+:competitors32 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors33
+:competitors33 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors34
+:competitors34 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors35
+:competitors35 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors36
+:competitors36 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors37
+:competitors37 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors38
+:competitors38 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors39
+:competitors39 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors4
+:competitors4 rdf:type owl:NamedIndividual ,
+                       dctype:Collection ,
+                       :Competitors ,
+                       :Team ;
+              :hasMember <http://www.semanticweb.org/MobaOntology#teamEvil%20Geniuses> ,
+                         <http://www.semanticweb.org/MobaOntology#teamTeam%20Secret> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors40
+:competitors40 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors41
+:competitors41 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors42
+:competitors42 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors43
+:competitors43 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors44
+:competitors44 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors45
+:competitors45 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors46
+:competitors46 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors47
+:competitors47 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors48
+:competitors48 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors49
+:competitors49 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors5
+:competitors5 rdf:type owl:NamedIndividual ,
+                       dctype:Collection ,
+                       :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors50
+:competitors50 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors51
+:competitors51 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors52
+:competitors52 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors53
+:competitors53 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors54
+:competitors54 rdf:type owl:NamedIndividual ,
+                        dctype:Collection ,
+                        :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors6
+:competitors6 rdf:type owl:NamedIndividual ,
+                       dctype:Collection ,
+                       :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors7
+:competitors7 rdf:type owl:NamedIndividual ,
+                       dctype:Collection ,
+                       :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors8
+:competitors8 rdf:type owl:NamedIndividual ,
+                       dctype:Collection ,
+                       :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitors9
+:competitors9 rdf:type owl:NamedIndividual ,
+                       dctype:Collection ,
+                       :Competitors .
+
+
+###  http://www.semanticweb.org/MobaOntology#game1
+:game1 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
+       :gameName "League of Legends" .
+
+
+###  http://www.semanticweb.org/MobaOntology#game10
+:game10 rdf:type owl:NamedIndividual ,
+                 vgo:Game ;
+        :gameName "Paragon" .
+
+
+###  http://www.semanticweb.org/MobaOntology#game2
+:game2 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
+       :gameName "Dota 2" .
+
+
+###  http://www.semanticweb.org/MobaOntology#game3
+:game3 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
+       :gameName "Smite" .
+
+
+###  http://www.semanticweb.org/MobaOntology#game4
+:game4 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
+       :gameName "Heroes of the Storm" .
+
+
+###  http://www.semanticweb.org/MobaOntology#game5
+:game5 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
+       :gameName "Arena of Valor" .
+
+
+###  http://www.semanticweb.org/MobaOntology#game6
+:game6 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
+       :gameName "Vainglory" .
+
+
+###  http://www.semanticweb.org/MobaOntology#game7
+:game7 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
+       :gameName "Mobile Legends: Bang Bang" .
+
+
+###  http://www.semanticweb.org/MobaOntology#game8
+:game8 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
+       :gameName "Strife" .
+
+
+###  http://www.semanticweb.org/MobaOntology#game9
+:game9 rdf:type owl:NamedIndividual ,
+                vgo:Game ;
+       :gameName "Heroes of Newerth" .
+
+
+###  http://www.semanticweb.org/MobaOntology#gameSmite
+:gameSmite rdf:type owl:NamedIndividual ,
+                    vgo:Game ;
+           :isDisciplineOf <http://www.semanticweb.org/MobaOntology#competitionLatin%20American%20Smite%20Pro%20League> ,
+                           <http://www.semanticweb.org/MobaOntology#competitionPeruvian%20Smite%20League> ,
+                           <http://www.semanticweb.org/MobaOntology#competitionSEA%20Smite%20Invitational> ,
+                           <http://www.semanticweb.org/MobaOntology#competitionSmite%20Console%20World%20Championship> ,
+                           <http://www.semanticweb.org/MobaOntology#competitionSmite%20Minor%20League> ,
+                           <http://www.semanticweb.org/MobaOntology#competitionSmite%20Oceanic%20Pro%20League> ,
+                           <http://www.semanticweb.org/MobaOntology#competitionSmite%20Pro%20League> ,
+                           <http://www.semanticweb.org/MobaOntology#competitionSmite%20World%20Championship> ,
+                           <http://www.semanticweb.org/MobaOntology#competitionSouth%20American%20Smite%20Championship> ,
+                           <http://www.semanticweb.org/MobaOntology#competitionVietnamese%20Smite%20Championship> .
+
+
+###  http://www.semanticweb.org/MobaOntology#player1
+:player1 rdf:type owl:NamedIndividual ,
+                  vgo:Player ,
+                  foaf:Agent ;
+         vgo:username "Bjergsen" ;
+         :hasNickname "Bjergsen" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player10
+:player10 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Ceb" ;
+          :hasNickname "Ceb" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player11
+:player11 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Trixtank" ;
+          :hasNickname "Trixtank" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player12
+:player12 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Variety" ;
+          :hasNickname "Variety" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player13
+:player13 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Qvofred" ;
+          :hasNickname "Qvofred" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player14
+:player14 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Hurriwind" ;
+          :hasNickname "Hurriwind" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player15
+:player15 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Ataraxia" ;
+          :hasNickname "Ataraxia" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player16
+:player16 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Breez" ;
+          :hasNickname "Breez" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player17
+:player17 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "SmX" ;
+          :hasNickname "SmX" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player18
+:player18 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "QuackNiix" ;
+          :hasNickname "QuackNiix" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player19
+:player19 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "scHwimpi" ;
+          :hasNickname "scHwimpi" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player2
+:player2 rdf:type owl:NamedIndividual ,
+                  vgo:Player ,
+                  foaf:Agent ;
+         vgo:username "Doublelift" ;
+         :hasNickname "Doublelift" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player20
+:player20 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Wubby" ;
+          :hasNickname "Wubby" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player21
+:player21 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "ADC" ;
+          :hasNickname "ADC" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player22
+:player22 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Viettel" ;
+          :hasNickname "Viettel" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player23
+:player23 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "CaKhoDua" ;
+          :hasNickname "CaKhoDua" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player24
+:player24 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Mica" ;
+          :hasNickname "Mica" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player25
+:player25 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Violet" ;
+          :hasNickname "Violet" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player26
+:player26 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "MaxGreen" ;
+          :hasNickname "MaxGreen" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player27
+:player27 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "eVoL" ;
+          :hasNickname "eVoL" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player28
+:player28 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "ttigers" ;
+          :hasNickname "ttigers" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player29
+:player29 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "DNZio" ;
+          :hasNickname "DNZio" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player3
+:player3 rdf:type owl:NamedIndividual ,
+                  vgo:Player ,
+                  foaf:Agent ;
+         vgo:username "Broken Blade" ;
+         :hasNickname "Broken Blade" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player30
+:player30 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Oldskool" ;
+          :hasNickname "Oldskool" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player31
+:player31 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Wannn" ;
+          :hasNickname "Wannn" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player32
+:player32 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Rexxy" ;
+          :hasNickname "Rexxy" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player33
+:player33 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Lemon" ;
+          :hasNickname "Lemon" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player34
+:player34 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Yam" ;
+          :hasNickname "Yam" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player35
+:player35 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Donkey" ;
+          :hasNickname "Donkey" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player36
+:player36 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Shade" ;
+          :hasNickname "Shade" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player37
+:player37 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Razor" ;
+          :hasNickname "Razor" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player38
+:player38 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Slick" ;
+          :hasNickname "Slick" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player39
+:player39 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Viper" ;
+          :hasNickname "Viper" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player4
+:player4 rdf:type owl:NamedIndividual ,
+                  vgo:Player ,
+                  foaf:Agent ;
+         vgo:username "Spica" ;
+         :hasNickname "Spica" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player40
+:player40 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Phoenix" ;
+          :hasNickname "Phoenix" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player41
+:player41 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Limmp" ;
+          :hasNickname "Limmp" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player42
+:player42 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Chessie" ;
+          :hasNickname "Chessie" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player43
+:player43 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Handsken" ;
+          :hasNickname "Handsken" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player44
+:player44 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Limp" ;
+          :hasNickname "Limp" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player45
+:player45 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Zfreek" ;
+          :hasNickname "Zfreek" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player46
+:player46 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Sparrow" ;
+          :hasNickname "Sparrow" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player47
+:player47 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Rampage" ;
+          :hasNickname "Rampage" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player48
+:player48 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Murdock" ;
+          :hasNickname "Murdock" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player49
+:player49 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Gideon" ;
+          :hasNickname "Gideon" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player5
+:player5 rdf:type owl:NamedIndividual ,
+                  vgo:Player ,
+                  foaf:Agent ;
+         vgo:username "Biofrost" ;
+         :hasNickname "Biofrost" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player50
+:player50 rdf:type owl:NamedIndividual ,
+                   vgo:Player ,
+                   foaf:Agent ;
+          vgo:username "Feng Mao" ;
+          :hasNickname "Feng Mao" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player6
+:player6 rdf:type owl:NamedIndividual ,
+                  vgo:Player ,
+                  foaf:Agent ;
+         vgo:username "N0tail" ;
+         :hasNickname "N0tail" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player7
+:player7 rdf:type owl:NamedIndividual ,
+                  vgo:Player ,
+                  foaf:Agent ;
+         vgo:username "Topson" ;
+         :hasNickname "Topson" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player8
+:player8 rdf:type owl:NamedIndividual ,
+                  vgo:Player ,
+                  foaf:Agent ;
+         vgo:username "Saksa" ;
+         :hasNickname "Saksa" .
+
+
+###  http://www.semanticweb.org/MobaOntology#player9
+:player9 rdf:type owl:NamedIndividual ,
+                  vgo:Player ,
+                  foaf:Agent ;
+         vgo:username "MidOne" ;
+         :hasNickname "MidOne" .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerADC
+:playerADC rdf:type owl:NamedIndividual ,
+                    vgo:Player ,
+                    foaf:Agent ;
+           :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Flash> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerAtaraxia
+:playerAtaraxia rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Dignitas> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerBiofrost
+:playerBiofrost rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20SoloMid> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerBjergsen
+:playerBjergsen rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20SoloMid> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerBreez
+:playerBreez rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf :teamFnatic .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerCaKhoDua
+:playerCaKhoDua rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Flash> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerCeb
+:playerCeb rdf:type owl:NamedIndividual ,
+                    vgo:Player ,
+                    foaf:Agent ;
+           :isMemberOf :teamOG .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerChessie
+:playerChessie rdf:type owl:NamedIndividual ,
+                        vgo:Player ,
+                        foaf:Agent ;
+               :isMemberOf :teamComplexity .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerDNZio
+:playerDNZio rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTribe%20Gaming> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerDonkey
+:playerDonkey rdf:type owl:NamedIndividual ,
+                       vgo:Player ,
+                       foaf:Agent ;
+              :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEVOS%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerDoublelift
+:playerDoublelift rdf:type owl:NamedIndividual ,
+                           vgo:Player ,
+                           foaf:Agent ;
+                  :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20SoloMid> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerGideon
+:playerGideon rdf:type owl:NamedIndividual ,
+                       vgo:Player ,
+                       foaf:Agent ;
+              :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEpic%20Gamers> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerHandsken
+:playerHandsken rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf :teamComplexity .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerHurriwind
+:playerHurriwind rdf:type owl:NamedIndividual ,
+                          vgo:Player ,
+                          foaf:Agent ;
+                 :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Dignitas> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerLemon
+:playerLemon rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEVOS%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerLimmp
+:playerLimmp rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf :teamComplexity .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerLimp
+:playerLimp rdf:type owl:NamedIndividual ,
+                     vgo:Player ,
+                     foaf:Agent ;
+            :isMemberOf :teamComplexity .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerMaxGreen
+:playerMaxGreen rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTribe%20Gaming> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerMica
+:playerMica rdf:type owl:NamedIndividual ,
+                     vgo:Player ,
+                     foaf:Agent ;
+            :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Flash> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerMidOne
+:playerMidOne rdf:type owl:NamedIndividual ,
+                       vgo:Player ,
+                       foaf:Agent ;
+              :isMemberOf :teamOG .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerMurdock
+:playerMurdock rdf:type owl:NamedIndividual ,
+                        vgo:Player ,
+                        foaf:Agent ;
+               :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEpic%20Gamers> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerN0tail
+:playerN0tail rdf:type owl:NamedIndividual ,
+                       vgo:Player ,
+                       foaf:Agent ;
+              :isMemberOf :teamOG .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerOldskool
+:playerOldskool rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTribe%20Gaming> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerPhoenix
+:playerPhoenix rdf:type owl:NamedIndividual ,
+                        vgo:Player ,
+                        foaf:Agent ;
+               :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Rising> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerQuackNiix
+:playerQuackNiix rdf:type owl:NamedIndividual ,
+                          vgo:Player ,
+                          foaf:Agent ;
+                 :isMemberOf :teamFnatic .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerQvofred
+:playerQvofred rdf:type owl:NamedIndividual ,
+                        vgo:Player ,
+                        foaf:Agent ;
+               :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Dignitas> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerRampage
+:playerRampage rdf:type owl:NamedIndividual ,
+                        vgo:Player ,
+                        foaf:Agent ;
+               :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEpic%20Gamers> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerRazor
+:playerRazor rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Rising> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerRexxy
+:playerRexxy rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEVOS%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerSaksa
+:playerSaksa rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf :teamOG .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerShade
+:playerShade rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Rising> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerSlick
+:playerSlick rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Rising> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerSmX
+:playerSmX rdf:type owl:NamedIndividual ,
+                    vgo:Player ,
+                    foaf:Agent ;
+           :isMemberOf :teamFnatic .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerSparrow
+:playerSparrow rdf:type owl:NamedIndividual ,
+                        vgo:Player ,
+                        foaf:Agent ;
+               :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEpic%20Gamers> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerSpica
+:playerSpica rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20SoloMid> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerTopson
+:playerTopson rdf:type owl:NamedIndividual ,
+                       vgo:Player ,
+                       foaf:Agent ;
+              :isMemberOf :teamOG .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerTrixtank
+:playerTrixtank rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Dignitas> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerVariety
+:playerVariety rdf:type owl:NamedIndividual ,
+                        vgo:Player ,
+                        foaf:Agent ;
+               :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Dignitas> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerViettel
+:playerViettel rdf:type owl:NamedIndividual ,
+                        vgo:Player ,
+                        foaf:Agent ;
+               :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Flash> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerViolet
+:playerViolet rdf:type owl:NamedIndividual ,
+                       vgo:Player ,
+                       foaf:Agent ;
+              :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Flash> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerViper
+:playerViper rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20Rising> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerWannn
+:playerWannn rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEVOS%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerWubby
+:playerWubby rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf :teamFnatic .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerYam
+:playerYam rdf:type owl:NamedIndividual ,
+                    vgo:Player ,
+                    foaf:Agent ;
+           :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEVOS%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerZfreek
+:playerZfreek rdf:type owl:NamedIndividual ,
+                       vgo:Player ,
+                       foaf:Agent ;
+              :isMemberOf :teamComplexity .
+
+
+###  http://www.semanticweb.org/MobaOntology#playereVoL
+:playereVoL rdf:type owl:NamedIndividual ,
+                     vgo:Player ,
+                     foaf:Agent ;
+            :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTribe%20Gaming> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerscHwimpi
+:playerscHwimpi rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf :teamFnatic .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerttigers
+:playerttigers rdf:type owl:NamedIndividual ,
+                        vgo:Player ,
+                        foaf:Agent ;
+               :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTribe%20Gaming> .
+
+
+###  http://www.semanticweb.org/MobaOntology#team1
+:team1 rdf:type owl:NamedIndividual ,
+                dctype:Collection ,
+                :Team ;
+       :teamName "Team SoloMid" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team10
+:team10 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team Liquid" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team11
+:team11 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Noble eSports" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team12
+:team12 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "eUnited" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team13
+:team13 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team Dignitas" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team14
+:team14 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Spacestation Gaming" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team15
+:team15 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Renegades" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team16
+:team16 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team Dignitas" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team17
+:team17 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Tempo Storm" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team18
+:team18 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Fnatic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team19
+:team19 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team Liquid" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team2
+:team2 rdf:type owl:NamedIndividual ,
+                dctype:Collection ,
+                :Team ;
+       :teamName "Cloud9" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team20
+:team20 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Gale Force eSports" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team21
+:team21 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team Flash" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team22
+:team22 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "NRG Esports" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team23
+:team23 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team Liquid" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team24
+:team24 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "ONE Team" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team25
+:team25 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Ahq e-Sports Club" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team26
+:team26 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Tribe Gaming" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team27
+:team27 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "TSM Vainglory" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team28
+:team28 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Cloud9 Vainglory" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team29
+:team29 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Rogue Vainglory" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team3
+:team3 rdf:type owl:NamedIndividual ,
+                dctype:Collection ,
+                :Team ;
+       :teamName "Team Liquid" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team30
+:team30 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Vision Gaming" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team31
+:team31 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "EVOS Legends" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team32
+:team32 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "RRQ Hoshi" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team33
+:team33 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Bren Esports" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team34
+:team34 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Alter Ego" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team35
+:team35 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Onic Esports" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team36
+:team36 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team Rising" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team37
+:team37 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team Synergy" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team38
+:team38 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Infinity Gaming" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team39
+:team39 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Prime Gaming" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team4
+:team4 rdf:type owl:NamedIndividual ,
+                dctype:Collection ,
+                :Team ;
+       :teamName "Counter Logic Gaming" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team40
+:team40 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Vengeance Esports" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team41
+:team41 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Complexity" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team42
+:team42 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Fnatic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team43
+:team43 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team QSQ" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team44
+:team44 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Turtle Masters" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team45
+:team45 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "ReaLz Gaming" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team46
+:team46 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Epic Gamers" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team47
+:team47 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Team Orbital" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team48
+:team48 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Nemesis Gaming" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team49
+:team49 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Prime Mates" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team5
+:team5 rdf:type owl:NamedIndividual ,
+                dctype:Collection ,
+                :Team ;
+       :teamName "Fnatic" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team50
+:team50 rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 :Team ;
+        :teamName "Rebellion Squad" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team6
+:team6 rdf:type owl:NamedIndividual ,
+                dctype:Collection ,
+                :Team ;
+       :teamName "OG" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team7
+:team7 rdf:type owl:NamedIndividual ,
+                dctype:Collection ,
+                :Team ;
+       :teamName "Team Secret" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team8
+:team8 rdf:type owl:NamedIndividual ,
+                dctype:Collection ,
+                :Team ;
+       :teamName "Evil Geniuses" .
+
+
+###  http://www.semanticweb.org/MobaOntology#team9
+:team9 rdf:type owl:NamedIndividual ,
+                dctype:Collection ,
+                :Team ;
+       :teamName "Virtus.pro" .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamCloud9
+:teamCloud9 rdf:type owl:NamedIndividual ,
+                     vgo:Player ,
+                     foaf:Agent ;
+            :isMemberOf :competitors1 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamComplexity
+:teamComplexity rdf:type owl:NamedIndividual ,
+                         dctype:Collection ,
+                         :Team ;
+                :hasMember :playerChessie ,
+                           :playerHandsken ,
+                           :playerLimmp ,
+                           :playerLimp ,
+                           :playerZfreek .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamFnatic
+:teamFnatic rdf:type owl:NamedIndividual ,
+                     dctype:Collection ,
+                     vgo:Player ,
+                     :Team ,
+                     foaf:Agent ;
+            :hasMember :playerBreez ,
+                       :playerQuackNiix ,
+                       :playerSmX ,
+                       :playerWubby ,
+                       :playerscHwimpi ;
+            :isMemberOf :competitors3 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamOG
+:teamOG rdf:type owl:NamedIndividual ,
+                 dctype:Collection ,
+                 vgo:Player ,
+                 :Team ,
+                 foaf:Agent ;
+        :hasMember :playerCeb ,
+                   :playerMidOne ,
+                   :playerN0tail ,
+                   :playerSaksa ,
+                   :playerTopson ;
+        :isMemberOf :competitors3 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamVirtus.pro
+:teamVirtus.pro rdf:type owl:NamedIndividual ,
+                         vgo:Player ,
+                         foaf:Agent ;
+                :isMemberOf :competitors11 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teameUnited
+:teameUnited rdf:type owl:NamedIndividual ,
+                      vgo:Player ,
+                      foaf:Agent ;
+             :isMemberOf :competitors12 .
+
+
+###  http://www.semanticweb.org/MobaOntology#ability90%20Caliber%20Net
+<http://www.semanticweb.org/MobaOntology#ability90%20Caliber%20Net> rdf:type owl:NamedIndividual ,
+                                                                             :Ability ;
+                                                                    :isAbilityOf :championCaitlyn .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityAce%20in%20the%20Hole
+<http://www.semanticweb.org/MobaOntology#abilityAce%20in%20the%20Hole> rdf:type owl:NamedIndividual ,
+                                                                                :Ability ;
+                                                                       :isAbilityOf :championCaitlyn .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityArcane%20Shift
+<http://www.semanticweb.org/MobaOntology#abilityArcane%20Shift> rdf:type owl:NamedIndividual ,
+                                                                         :Ability ;
+                                                                :isAbilityOf :championEzreal .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityCrippling%20Strike
+<http://www.semanticweb.org/MobaOntology#abilityCrippling%20Strike> rdf:type owl:NamedIndividual ,
+                                                                             :Ability ;
+                                                                    :isAbilityOf :championDarius .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityDarkin%20Blade
+<http://www.semanticweb.org/MobaOntology#abilityDarkin%20Blade> rdf:type owl:NamedIndividual ,
+                                                                         :Ability ;
+                                                                :isAbilityOf :championAatrox .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityDecisive%20Strike
+<http://www.semanticweb.org/MobaOntology#abilityDecisive%20Strike> rdf:type owl:NamedIndividual ,
+                                                                            :Ability ;
+                                                                   :isAbilityOf :championGaren .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityDemacian%20Justice
+<http://www.semanticweb.org/MobaOntology#abilityDemacian%20Justice> rdf:type owl:NamedIndividual ,
+                                                                             :Ability ;
+                                                                    :isAbilityOf :championGaren .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityEnchanted%20Crystal%20Arrow
+<http://www.semanticweb.org/MobaOntology#abilityEnchanted%20Crystal%20Arrow> rdf:type owl:NamedIndividual ,
+                                                                                      :Ability ;
+                                                                             :isAbilityOf :championAshe .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityEssence%20Flux
+<http://www.semanticweb.org/MobaOntology#abilityEssence%20Flux> rdf:type owl:NamedIndividual ,
+                                                                         :Ability ;
+                                                                :isAbilityOf :championEzreal .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityFive%20Point%20Strike
+<http://www.semanticweb.org/MobaOntology#abilityFive%20Point%20Strike> rdf:type owl:NamedIndividual ,
+                                                                                :Ability ;
+                                                                       :isAbilityOf :championAkali .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityFlame%20Chompers%21
+<http://www.semanticweb.org/MobaOntology#abilityFlame%20Chompers%21> rdf:type owl:NamedIndividual ,
+                                                                              :Ability ;
+                                                                     :isAbilityOf :championJinx .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityInfernal%20Chains
+<http://www.semanticweb.org/MobaOntology#abilityInfernal%20Chains> rdf:type owl:NamedIndividual ,
+                                                                            :Ability ;
+                                                                   :isAbilityOf :championAatrox .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityLast%20Breath
+<http://www.semanticweb.org/MobaOntology#abilityLast%20Breath> rdf:type owl:NamedIndividual ,
+                                                                        :Ability ;
+                                                               :isAbilityOf :championYasuo .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityMystic%20Shot
+<http://www.semanticweb.org/MobaOntology#abilityMystic%20Shot> rdf:type owl:NamedIndividual ,
+                                                                        :Ability ;
+                                                               :isAbilityOf :championEzreal .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityNoxian%20Guillotine
+<http://www.semanticweb.org/MobaOntology#abilityNoxian%20Guillotine> rdf:type owl:NamedIndividual ,
+                                                                              :Ability ;
+                                                                     :isAbilityOf :championDarius .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityOrb%20of%20Deception
+<http://www.semanticweb.org/MobaOntology#abilityOrb%20of%20Deception> rdf:type owl:NamedIndividual ,
+                                                                               :Ability ;
+                                                                      :isAbilityOf :championAhri .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityPerfect%20Execution
+<http://www.semanticweb.org/MobaOntology#abilityPerfect%20Execution> rdf:type owl:NamedIndividual ,
+                                                                              :Ability ;
+                                                                     :isAbilityOf :championAkali .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityPiltover%20Peacemaker
+<http://www.semanticweb.org/MobaOntology#abilityPiltover%20Peacemaker> rdf:type owl:NamedIndividual ,
+                                                                                :Ability ;
+                                                                       :isAbilityOf :championCaitlyn .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityRanger%27s%20Focus
+<http://www.semanticweb.org/MobaOntology#abilityRanger%27s%20Focus> rdf:type owl:NamedIndividual ,
+                                                                             :Ability ;
+                                                                    :isAbilityOf :championAshe .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityShuriken%20Flip
+<http://www.semanticweb.org/MobaOntology#abilityShuriken%20Flip> rdf:type owl:NamedIndividual ,
+                                                                          :Ability ;
+                                                                 :isAbilityOf :championAkali .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilitySpirit%20Rush
+<http://www.semanticweb.org/MobaOntology#abilitySpirit%20Rush> rdf:type owl:NamedIndividual ,
+                                                                        :Ability ;
+                                                               :isAbilityOf :championAhri .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilitySteel%20Tempest
+<http://www.semanticweb.org/MobaOntology#abilitySteel%20Tempest> rdf:type owl:NamedIndividual ,
+                                                                          :Ability ;
+                                                                 :isAbilityOf :championYasuo .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilitySuper%20Mega%20Death%20Rocket%21
+<http://www.semanticweb.org/MobaOntology#abilitySuper%20Mega%20Death%20Rocket%21> rdf:type owl:NamedIndividual ,
+                                                                                           :Ability ;
+                                                                                  :isAbilityOf :championJinx .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilitySweeping%20Blade
+<http://www.semanticweb.org/MobaOntology#abilitySweeping%20Blade> rdf:type owl:NamedIndividual ,
+                                                                           :Ability ;
+                                                                  :isAbilityOf :championYasuo .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilitySwitcheroo%21
+<http://www.semanticweb.org/MobaOntology#abilitySwitcheroo%21> rdf:type owl:NamedIndividual ,
+                                                                        :Ability ;
+                                                               :isAbilityOf :championJinx .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityTrueshot%20Barrage
+<http://www.semanticweb.org/MobaOntology#abilityTrueshot%20Barrage> rdf:type owl:NamedIndividual ,
+                                                                             :Ability ;
+                                                                    :isAbilityOf :championEzreal .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityTwilight%20Shroud
+<http://www.semanticweb.org/MobaOntology#abilityTwilight%20Shroud> rdf:type owl:NamedIndividual ,
+                                                                            :Ability ;
+                                                                   :isAbilityOf :championAkali .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityUmbral%20Dash
+<http://www.semanticweb.org/MobaOntology#abilityUmbral%20Dash> rdf:type owl:NamedIndividual ,
+                                                                        :Ability ;
+                                                               :isAbilityOf :championAatrox .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityWind%20Wall
+<http://www.semanticweb.org/MobaOntology#abilityWind%20Wall> rdf:type owl:NamedIndividual ,
+                                                                      :Ability ;
+                                                             :isAbilityOf :championYasuo .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityWorld%20Ender
+<http://www.semanticweb.org/MobaOntology#abilityWorld%20Ender> rdf:type owl:NamedIndividual ,
+                                                                        :Ability ;
+                                                               :isAbilityOf :championAatrox .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityYordle%20Snap%20Trap
+<http://www.semanticweb.org/MobaOntology#abilityYordle%20Snap%20Trap> rdf:type owl:NamedIndividual ,
+                                                                               :Ability ;
+                                                                      :isAbilityOf :championCaitlyn .
+
+
+###  http://www.semanticweb.org/MobaOntology#abilityZap%21
+<http://www.semanticweb.org/MobaOntology#abilityZap%21> rdf:type owl:NamedIndividual ,
+                                                                 :Ability ;
+                                                        :isAbilityOf :championJinx .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionAll-Star%20Event
+<http://www.semanticweb.org/MobaOntology#competitionAll-Star%20Event> rdf:type owl:NamedIndividual ,
+                                                                               event:Event ,
+                                                                               sport:Competition ;
+                                                                      :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionBrazil%20Major
+<http://www.semanticweb.org/MobaOntology#competitionBrazil%20Major> rdf:type owl:NamedIndividual ,
+                                                                             event:Event ,
+                                                                             sport:Competition ;
+                                                                    :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionCanada%20Cup
+<http://www.semanticweb.org/MobaOntology#competitionCanada%20Cup> rdf:type owl:NamedIndividual ,
+                                                                           event:Event ,
+                                                                           sport:Competition ;
+                                                                  :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionDota%20Pro%20Circuit
+<http://www.semanticweb.org/MobaOntology#competitionDota%20Pro%20Circuit> rdf:type owl:NamedIndividual ,
+                                                                                   event:Event ,
+                                                                                   sport:Competition ;
+                                                                          :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionESL%20Africa%20Championship
+<http://www.semanticweb.org/MobaOntology#competitionESL%20Africa%20Championship> rdf:type owl:NamedIndividual ,
+                                                                                          event:Event ,
+                                                                                          sport:Competition ;
+                                                                                 :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionIndia%20Gaming%20Carnival
+<http://www.semanticweb.org/MobaOntology#competitionIndia%20Gaming%20Carnival> rdf:type owl:NamedIndividual ,
+                                                                                        event:Event ,
+                                                                                        sport:Competition ;
+                                                                               :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionJapan%20Dota%20Cup
+<http://www.semanticweb.org/MobaOntology#competitionJapan%20Dota%20Cup> rdf:type owl:NamedIndividual ,
+                                                                                 event:Event ,
+                                                                                 sport:Competition ;
+                                                                        :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionLFL%20Spring%20Split
+<http://www.semanticweb.org/MobaOntology#competitionLFL%20Spring%20Split> rdf:type owl:NamedIndividual ,
+                                                                                   event:Event ,
+                                                                                   sport:Competition ;
+                                                                          :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionLatin%20American%20Smite%20Pro%20League
+<http://www.semanticweb.org/MobaOntology#competitionLatin%20American%20Smite%20Pro%20League> rdf:type owl:NamedIndividual ,
+                                                                                                      event:Event ,
+                                                                                                      sport:Competition ;
+                                                                                             :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionLeague%20of%20Legends%20Championship%20Series
+<http://www.semanticweb.org/MobaOntology#competitionLeague%20of%20Legends%20Championship%20Series> rdf:type owl:NamedIndividual ,
+                                                                                                            event:Event ,
+                                                                                                            sport:Competition ;
+                                                                                                   :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionMajor%20Championships
+<http://www.semanticweb.org/MobaOntology#competitionMajor%20Championships> rdf:type owl:NamedIndividual ,
+                                                                                    event:Event ,
+                                                                                    sport:Competition ;
+                                                                           :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionMid-Season%20Invitational
+<http://www.semanticweb.org/MobaOntology#competitionMid-Season%20Invitational> rdf:type owl:NamedIndividual ,
+                                                                                        event:Event ,
+                                                                                        sport:Competition ;
+                                                                               :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionOPL%20Winter%20Split
+<http://www.semanticweb.org/MobaOntology#competitionOPL%20Winter%20Split> rdf:type owl:NamedIndividual ,
+                                                                                   event:Event ,
+                                                                                   sport:Competition ;
+                                                                          :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionPG%20Nationals%20Spring%20Split
+<http://www.semanticweb.org/MobaOntology#competitionPG%20Nationals%20Spring%20Split> rdf:type owl:NamedIndividual ,
+                                                                                              event:Event ,
+                                                                                              sport:Competition ;
+                                                                                     :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionPeruvian%20Smite%20League
+<http://www.semanticweb.org/MobaOntology#competitionPeruvian%20Smite%20League> rdf:type owl:NamedIndividual ,
+                                                                                        event:Event ,
+                                                                                        sport:Competition ;
+                                                                               :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionRift%20Rivals
+<http://www.semanticweb.org/MobaOntology#competitionRift%20Rivals> rdf:type owl:NamedIndividual ,
+                                                                            event:Event ,
+                                                                            sport:Competition ;
+                                                                   :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionSEA%20Smite%20Invitational
+<http://www.semanticweb.org/MobaOntology#competitionSEA%20Smite%20Invitational> rdf:type owl:NamedIndividual ,
+                                                                                         event:Event ,
+                                                                                         sport:Competition ;
+                                                                                :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionSmite%20Console%20World%20Championship
+<http://www.semanticweb.org/MobaOntology#competitionSmite%20Console%20World%20Championship> rdf:type owl:NamedIndividual ,
+                                                                                                     event:Event ,
+                                                                                                     sport:Competition ;
+                                                                                            :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionSmite%20Minor%20League
+<http://www.semanticweb.org/MobaOntology#competitionSmite%20Minor%20League> rdf:type owl:NamedIndividual ,
+                                                                                     event:Event ,
+                                                                                     sport:Competition ;
+                                                                            :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionSmite%20Oceanic%20Pro%20League
+<http://www.semanticweb.org/MobaOntology#competitionSmite%20Oceanic%20Pro%20League> rdf:type owl:NamedIndividual ,
+                                                                                             event:Event ,
+                                                                                             sport:Competition ;
+                                                                                    :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionSmite%20Pro%20League
+<http://www.semanticweb.org/MobaOntology#competitionSmite%20Pro%20League> rdf:type owl:NamedIndividual ,
+                                                                                   event:Event ,
+                                                                                   sport:Competition ;
+                                                                          :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionSmite%20World%20Championship
+<http://www.semanticweb.org/MobaOntology#competitionSmite%20World%20Championship> rdf:type owl:NamedIndividual ,
+                                                                                           event:Event ,
+                                                                                           sport:Competition ;
+                                                                                  :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionSouth%20American%20Smite%20Championship
+<http://www.semanticweb.org/MobaOntology#competitionSouth%20American%20Smite%20Championship> rdf:type owl:NamedIndividual ,
+                                                                                                      event:Event ,
+                                                                                                      sport:Competition ;
+                                                                                             :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionSuperLiga%20Orange%20Spring%20Split
+<http://www.semanticweb.org/MobaOntology#competitionSuperLiga%20Orange%20Spring%20Split> rdf:type owl:NamedIndividual ,
+                                                                                                  event:Event ,
+                                                                                                  sport:Competition ;
+                                                                                         :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionTCL%20Summer%20Split
+<http://www.semanticweb.org/MobaOntology#competitionTCL%20Summer%20Split> rdf:type owl:NamedIndividual ,
+                                                                                   event:Event ,
+                                                                                   sport:Competition ;
+                                                                          :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionThe%20International
+<http://www.semanticweb.org/MobaOntology#competitionThe%20International> rdf:type owl:NamedIndividual ,
+                                                                                  event:Event ,
+                                                                                  sport:Competition ;
+                                                                         :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameDota%202> .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionVietnamese%20Smite%20Championship
+<http://www.semanticweb.org/MobaOntology#competitionVietnamese%20Smite%20Championship> rdf:type owl:NamedIndividual ,
+                                                                                                event:Event ,
+                                                                                                sport:Competition ;
+                                                                                       :hasDiscipline :gameSmite .
+
+
+###  http://www.semanticweb.org/MobaOntology#competitionWorld%20Championship
+<http://www.semanticweb.org/MobaOntology#competitionWorld%20Championship> rdf:type owl:NamedIndividual ,
+                                                                                   event:Event ,
+                                                                                   sport:Competition ;
+                                                                          :hasDiscipline <http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> .
+
+
+###  http://www.semanticweb.org/MobaOntology#gameDota%202
+<http://www.semanticweb.org/MobaOntology#gameDota%202> rdf:type owl:NamedIndividual ,
+                                                                vgo:Game ;
+                                                       :isDisciplineOf :competitionDreamLeague ,
+                                                                       :competitionEPICENTER ,
+                                                                       <http://www.semanticweb.org/MobaOntology#competitionBrazil%20Major> ,
+                                                                       <http://www.semanticweb.org/MobaOntology#competitionCanada%20Cup> ,
+                                                                       <http://www.semanticweb.org/MobaOntology#competitionDota%20Pro%20Circuit> ,
+                                                                       <http://www.semanticweb.org/MobaOntology#competitionESL%20Africa%20Championship> ,
+                                                                       <http://www.semanticweb.org/MobaOntology#competitionIndia%20Gaming%20Carnival> ,
+                                                                       <http://www.semanticweb.org/MobaOntology#competitionJapan%20Dota%20Cup> ,
+                                                                       <http://www.semanticweb.org/MobaOntology#competitionMajor%20Championships> ,
+                                                                       <http://www.semanticweb.org/MobaOntology#competitionThe%20International> .
+
+
+###  http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends
+<http://www.semanticweb.org/MobaOntology#gameLeague%20of%20Legends> rdf:type owl:NamedIndividual ,
+                                                                             vgo:Game ;
+                                                                    :isDisciplineOf <http://www.semanticweb.org/MobaOntology#competitionAll-Star%20Event> ,
+                                                                                    <http://www.semanticweb.org/MobaOntology#competitionLFL%20Spring%20Split> ,
+                                                                                    <http://www.semanticweb.org/MobaOntology#competitionLeague%20of%20Legends%20Championship%20Series> ,
+                                                                                    <http://www.semanticweb.org/MobaOntology#competitionMid-Season%20Invitational> ,
+                                                                                    <http://www.semanticweb.org/MobaOntology#competitionOPL%20Winter%20Split> ,
+                                                                                    <http://www.semanticweb.org/MobaOntology#competitionPG%20Nationals%20Spring%20Split> ,
+                                                                                    <http://www.semanticweb.org/MobaOntology#competitionRift%20Rivals> ,
+                                                                                    <http://www.semanticweb.org/MobaOntology#competitionSuperLiga%20Orange%20Spring%20Split> ,
+                                                                                    <http://www.semanticweb.org/MobaOntology#competitionTCL%20Summer%20Split> ,
+                                                                                    <http://www.semanticweb.org/MobaOntology#competitionWorld%20Championship> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerBroken%20Blade
+<http://www.semanticweb.org/MobaOntology#playerBroken%20Blade> rdf:type owl:NamedIndividual ,
+                                                                        vgo:Player ,
+                                                                        foaf:Agent ;
+                                                               :isMemberOf <http://www.semanticweb.org/MobaOntology#teamTeam%20SoloMid> .
+
+
+###  http://www.semanticweb.org/MobaOntology#playerFeng%20Mao
+<http://www.semanticweb.org/MobaOntology#playerFeng%20Mao> rdf:type owl:NamedIndividual ,
+                                                                    vgo:Player ,
+                                                                    foaf:Agent ;
+                                                           :isMemberOf <http://www.semanticweb.org/MobaOntology#teamEpic%20Gamers> .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamCounter%20Logic%20Gaming
+<http://www.semanticweb.org/MobaOntology#teamCounter%20Logic%20Gaming> rdf:type owl:NamedIndividual ,
+                                                                                vgo:Player ,
+                                                                                foaf:Agent ;
+                                                                       :isMemberOf :competitors1 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamEVOS%20Legends
+<http://www.semanticweb.org/MobaOntology#teamEVOS%20Legends> rdf:type owl:NamedIndividual ,
+                                                                      dctype:Collection ,
+                                                                      :Team ;
+                                                             :hasMember :playerDonkey ,
+                                                                        :playerLemon ,
+                                                                        :playerRexxy ,
+                                                                        :playerWannn ,
+                                                                        :playerYam .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamEpic%20Gamers
+<http://www.semanticweb.org/MobaOntology#teamEpic%20Gamers> rdf:type owl:NamedIndividual ,
+                                                                     dctype:Collection ,
+                                                                     :Team ;
+                                                            :hasMember :playerGideon ,
+                                                                       :playerMurdock ,
+                                                                       :playerRampage ,
+                                                                       :playerSparrow ,
+                                                                       <http://www.semanticweb.org/MobaOntology#playerFeng%20Mao> .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamEvil%20Geniuses
+<http://www.semanticweb.org/MobaOntology#teamEvil%20Geniuses> rdf:type owl:NamedIndividual ,
+                                                                       vgo:Player ,
+                                                                       foaf:Agent ;
+                                                              :isMemberOf :competitors4 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamNoble%20eSports
+<http://www.semanticweb.org/MobaOntology#teamNoble%20eSports> rdf:type owl:NamedIndividual ,
+                                                                       vgo:Player ,
+                                                                       foaf:Agent ;
+                                                              :isMemberOf :competitors12 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamTeam%20Dignitas
+<http://www.semanticweb.org/MobaOntology#teamTeam%20Dignitas> rdf:type owl:NamedIndividual ,
+                                                                       dctype:Collection ,
+                                                                       vgo:Player ,
+                                                                       :Team ,
+                                                                       foaf:Agent ;
+                                                              :hasMember :playerAtaraxia ,
+                                                                         :playerHurriwind ,
+                                                                         :playerQvofred ,
+                                                                         :playerTrixtank ,
+                                                                         :playerVariety ;
+                                                              :isMemberOf :competitors15 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamTeam%20Flash
+<http://www.semanticweb.org/MobaOntology#teamTeam%20Flash> rdf:type owl:NamedIndividual ,
+                                                                    dctype:Collection ,
+                                                                    :Team ;
+                                                           :hasMember :playerADC ,
+                                                                      :playerCaKhoDua ,
+                                                                      :playerMica ,
+                                                                      :playerViettel ,
+                                                                      :playerViolet .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamTeam%20Liquid
+<http://www.semanticweb.org/MobaOntology#teamTeam%20Liquid> rdf:type owl:NamedIndividual ,
+                                                                     vgo:Player ,
+                                                                     foaf:Agent ;
+                                                            :isMemberOf :competitors1 ,
+                                                                        :competitors11 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamTeam%20Rising
+<http://www.semanticweb.org/MobaOntology#teamTeam%20Rising> rdf:type owl:NamedIndividual ,
+                                                                     dctype:Collection ,
+                                                                     :Team ;
+                                                            :hasMember :playerPhoenix ,
+                                                                       :playerRazor ,
+                                                                       :playerShade ,
+                                                                       :playerSlick ,
+                                                                       :playerViper .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamTeam%20Secret
+<http://www.semanticweb.org/MobaOntology#teamTeam%20Secret> rdf:type owl:NamedIndividual ,
+                                                                     vgo:Player ,
+                                                                     foaf:Agent ;
+                                                            :isMemberOf :competitors4 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamTeam%20SoloMid
+<http://www.semanticweb.org/MobaOntology#teamTeam%20SoloMid> rdf:type owl:NamedIndividual ,
+                                                                      dctype:Collection ,
+                                                                      vgo:Player ,
+                                                                      :Team ,
+                                                                      foaf:Agent ;
+                                                             :hasMember :playerBiofrost ,
+                                                                        :playerBjergsen ,
+                                                                        :playerDoublelift ,
+                                                                        :playerSpica ,
+                                                                        <http://www.semanticweb.org/MobaOntology#playerBroken%20Blade> ;
+                                                             :isMemberOf :competitors1 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamTempo%20Storm
+<http://www.semanticweb.org/MobaOntology#teamTempo%20Storm> rdf:type owl:NamedIndividual ,
+                                                                     vgo:Player ,
+                                                                     foaf:Agent ;
+                                                            :isMemberOf :competitors15 .
+
+
+###  http://www.semanticweb.org/MobaOntology#teamTribe%20Gaming
+<http://www.semanticweb.org/MobaOntology#teamTribe%20Gaming> rdf:type owl:NamedIndividual ,
+                                                                      dctype:Collection ,
+                                                                      :Team ;
+                                                             :hasMember :playerDNZio ,
+                                                                        :playerMaxGreen ,
+                                                                        :playerOldskool ,
+                                                                        :playereVoL ,
+                                                                        :playerttigers .
 
 
 #################################################################
