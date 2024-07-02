@@ -1,0 +1,282 @@
+@prefix : <http://www.semanticweb.org/MobaOntology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix sport: <https://www.bbc.co.uk/ontologies/sport/> .
+@prefix vgo: <http://purl.org/net/videogameontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:mapping--1867330084> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select id, name, attackRange, mana, armor, health, movementSpeed, attackDamage, magicResist from champion"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "name";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :championName
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "attackRange";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :championRange
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "mana";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :championMana
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "armor";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :championArmor
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "health";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :championHealth
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "attackDamage";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :championAttackDamage
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "movementSpeed";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :championMovementSpeed
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "magicResist";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :championMagicResist
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Champion;
+      rr:template "http://www.semanticweb.org/MobaOntology#champion{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:mapping--838726084> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select id, name, type, description from ability"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "description";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :abilityDescription
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "name";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :abilityName
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "type";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :abilityType
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Ability;
+      rr:template "http://www.semanticweb.org/MobaOntology#ability{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:mapping--2045146532> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select champion.id as champid, ability.id as abilityid from champion join ability on champion.id = ability.champ_id"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:template "http://www.semanticweb.org/MobaOntology#ability{abilityid}";
+          rr:termType rr:IRI
+        ];
+      rr:predicate :hasAbility
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:template "http://www.semanticweb.org/MobaOntology#champion{champid}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-98fc28ffe0524494b3cec1e7809b707a> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select id, name, launchdate, description from game"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "name";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :gameName
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "launchdate";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :gameLaunchDate
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "description";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :gameDescription
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class vgo:Game;
+      rr:template "http://www.semanticweb.org/MobaOntology#game{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-25b235aea8294297b68d0012d24ec244> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select champion.id as champid, game.id as gameid from champion join game on champion.game_id = game.id"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:template "http://www.semanticweb.org/MobaOntology#game{gameid}";
+          rr:termType rr:IRI
+        ];
+      rr:predicate :isPlayableOf
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:template "http://www.semanticweb.org/MobaOntology#champion{champid}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-6e5a35b4d0fd439b8a09f0eb3b4526a3> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select id, name from team"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "name";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :teamName
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class :Team;
+      rr:template "http://www.semanticweb.org/MobaOntology#team{id}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-4395cab4355e42bcab602d925f1637ef> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select team.id as teamid, game.id as gameid from team join game on team.game_id = game.id"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:template "http://www.semanticweb.org/MobaOntology#game{gameid}";
+          rr:termType rr:IRI
+        ];
+      rr:predicate :isTeamOf
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:template "http://www.semanticweb.org/MobaOntology#team{teamid}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-28a4f272af6e42738bd6a7cb265c5e60-ec4d152d-3956-4dca-9b2a-91aab8b794a8>
+  a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select player.nickname as playerNickname, team.id as teamid from player join team on player.team_id = team.id"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "playerNickname";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :hasNickname
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class vgo:Player;
+      rr:template "http://www.semanticweb.org/MobaOntology#player{playerNickname}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-28a4f272af6e42738bd6a7cb265c5e60-3b63f525-1b41-4d44-b63f-6b1d0581a9a9>
+  a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select player.nickname as playerNickname, team.id as teamid from player join team on player.team_id = team.id"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:template "http://www.semanticweb.org/MobaOntology#player{playerNickname}";
+          rr:termType rr:IRI
+        ];
+      rr:predicate :hasMember
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:template "http://www.semanticweb.org/MobaOntology#team{teamid}";
+      rr:termType rr:IRI
+    ] .
+
+<urn:MAPID-c83525b0850e48fa9d356e3aa3d5da23> a rr:TriplesMap;
+  rr:logicalTable [ a rr:R2RMLView;
+      rr:sqlQuery "select competition.id as compid, competition.country, competition.name, competition.startDate, competition.enddate, competition.organizer, competition.sponsor, competition.prizePool, game.id as gameid from competition join game on competition.discipline = game.id"
+    ];
+  rr:predicateObjectMap [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "prizePool";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :competitionPrizePool
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:template "http://www.semanticweb.org/MobaOntology#game{gameid}";
+          rr:termType rr:IRI
+        ];
+      rr:predicate :hasDiscipline
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "country";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :competitionCountry
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "name";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :competitionName
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "startDate";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :competitionStartDate
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "endDate";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :competitionEndDate
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "organizer";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :competitionOrganizer
+    ], [ a rr:PredicateObjectMap;
+      rr:objectMap [ a rr:ObjectMap, rr:TermMap;
+          rr:column "sponsor";
+          rr:termType rr:Literal
+        ];
+      rr:predicate :competitionSponsor
+    ];
+  rr:subjectMap [ a rr:SubjectMap, rr:TermMap;
+      rr:class sport:Competition;
+      rr:template "http://www.semanticweb.org/MobaOntology#competition{compid}";
+      rr:termType rr:IRI
+    ] .
