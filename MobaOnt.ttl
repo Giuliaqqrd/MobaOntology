@@ -199,6 +199,12 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
              rdfs:range :Location .
 
 
+###  http://www.semanticweb.org/MobaOntology#hasMap
+:hasMap rdf:type owl:ObjectProperty ;
+        rdfs:domain vgo:Game ;
+        rdfs:range :Map .
+
+
 ###  http://www.semanticweb.org/MobaOntology#hasMapArea
 :hasMapArea rdf:type owl:ObjectProperty ;
             rdfs:domain :Map ;

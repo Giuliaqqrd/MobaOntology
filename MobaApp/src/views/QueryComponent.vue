@@ -1,6 +1,9 @@
 <template>
   <div>
     <textarea v-model="sparqlQuery" rows="5" cols="50"></textarea>
+    <label>
+      <input type="checkbox" v-model="infer" /> Infer
+    </label>
     <button @click="executeQuery">Esegui Query</button>
     <div v-if="queryResult">
       <!-- Visualizza i risultati della query -->
@@ -18,12 +21,13 @@ import { ref } from 'vue';
 import { executeSparqlQuery } from '@/services/GraphDB';
 
 const sparqlQuery = ref('');
+const infer = ref(false);
 const queryResult = ref(null);
 const error = ref(null);
 
 const executeQuery = async () => {
   try {
-    queryResult.value = await executeSparqlQuery(sparqlQuery.value);
+    queryResult.value = await executeSparqlQuery(sparqlQuery.value, infer.value);
     error.value = null;
   } catch (err) {
     queryResult.value = null;
