@@ -14,6 +14,7 @@
 @prefix sport: <https://www.bbc.co.uk/ontologies/sport/> .
 @prefix dctype: <http://purl.org/dc/dcmitype/> .
 @prefix schema: <https://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dbpedia-owl: <http://dbpedia.org/ontology/> .
 @base <http://www.semanticweb.org/MobaOntology#> .
 
@@ -23,6 +24,7 @@
                                            dc:date "2024-06-18"@en ;
                                            dc:description "An ontology for representing concepts and entities in Multiplayer Online Battle Arena (MOBA) games."@en ;
                                            dc:title "MOBA Game Ontology"@en ;
+                                           dcterms:license "http://creativecommons.org/licenses/by/4.0/"@en ;
                                            vann:preferredNamespacePrefix "moba" ;
                                            vann:preferredNamespaceUri "http://www.semanticweb.org/MobaOntology#" ;
                                            rdfs:label "MOBA Ontology"@en .
@@ -49,6 +51,10 @@ dc:description rdf:type owl:AnnotationProperty .
 
 ###  http://purl.org/dc/elements/1.1/title
 dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/vocab/vann/preferredNamespacePrefix
@@ -87,6 +93,7 @@ inno:hasDeveloped rdf:type owl:ObjectProperty ;
 ###  http://purl.org/net/videogameontology#hasPlayingArea
 vgo:hasPlayingArea rdf:type owl:ObjectProperty ;
                    owl:equivalentProperty :hasMapArea ;
+                   owl:inverseOf :isMapAreaOf ;
                    rdfs:domain :Map ;
                    rdfs:range :MapArea ;
                    rdfs:label "vgo:hasPlayingArea"@en .
@@ -121,6 +128,8 @@ vgo:ownsCharacter rdf:type owl:ObjectProperty ;
 ###  http://purl.org/net/videogameontology#ownsItem
 vgo:ownsItem rdf:type owl:ObjectProperty ;
              owl:equivalentProperty :suitableItem ;
+             rdfs:domain :Champion ;
+             rdfs:range vgo:Item ;
              rdfs:label "vgo:ownsItem"@en .
 
 
@@ -193,6 +202,13 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#hasFeature
 :hasFeature rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasGameEvent
+:hasGameEvent rdf:type owl:ObjectProperty ;
+              owl:inverseOf :isGameEventOf ;
+              rdfs:domain vgo:Game ;
+              rdfs:range vgo:InstantaneousEvent .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasItemSet
@@ -320,9 +336,14 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                 rdfs:range sport:Competition .
 
 
+###  http://www.semanticweb.org/MobaOntology#isGameEventOf
+:isGameEventOf rdf:type owl:ObjectProperty ;
+               rdfs:domain vgo:InstantaneousEvent ;
+               rdfs:range vgo:Game .
+
+
 ###  http://www.semanticweb.org/MobaOntology#isHighestElo
-:isHighestElo rdf:type owl:ObjectProperty ,
-                       owl:SymmetricProperty ;
+:isHighestElo rdf:type owl:ObjectProperty ;
               rdfs:domain :Elite ;
               rdfs:range :Rank .
 
@@ -421,6 +442,8 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 ###  http://www.semanticweb.org/MobaOntology#isPlayedByTeam
 :isPlayedByTeam rdf:type owl:ObjectProperty ;
+                rdfs:domain vgo:Game ;
+                rdfs:range :Team ;
                 owl:propertyChainAxiom ( :hasMatch
                                          :includesTeam
                                        ) .
@@ -477,12 +500,6 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                    owl:TransitiveProperty ;
           rdfs:domain :Rank ;
           rdfs:range :Rank .
-
-
-###  http://www.semanticweb.org/MobaOntology#referredTo
-:referredTo rdf:type owl:ObjectProperty ;
-            rdfs:domain vgo:InstantaneousEvent ;
-            rdfs:range vgo:Game .
 
 
 ###  http://www.semanticweb.org/MobaOntology#suitableItem
@@ -703,6 +720,7 @@ vgo:username rdf:type owl:DatatypeProperty ;
 :hasFoundationDate rdf:type owl:DatatypeProperty ,
                             owl:FunctionalProperty ;
                    rdfs:domain :SoftwareHouse ;
+                   rdfs:range xsd:integer ;
                    rdfs:comment "Specifies the date when a software development company (SoftwareHouse) was founded. This property records the foundation date of the company."@en ;
                    rdfs:label "hasFoundationDate"@en .
 
@@ -877,7 +895,7 @@ vgo:InAppPurchaseEvent rdf:type owl:Class ;
 ###  http://purl.org/net/videogameontology#InstantaneousEvent
 vgo:InstantaneousEvent rdf:type owl:Class ;
                        owl:equivalentClass [ rdf:type owl:Restriction ;
-                                             owl:onProperty :referredTo ;
+                                             owl:onProperty :isGameEventOf ;
                                              owl:someValuesFrom vgo:Game
                                            ] ;
                        rdfs:comment "The vgo:InstantaneousEvent class describes an event that happens during the gameplay at a certain moment in time. This can be a player gaining an achievement, killing an enemy or making an In-app purchase."@en ;
@@ -2435,7 +2453,7 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
 
 ###  http://www.semanticweb.org/MobaOntology#Team1Victory
 :Team1Victory rdf:type owl:NamedIndividual ;
-              :referredTo :LeagueOfLegends ;
+              :isGameEventOf :LeagueOfLegends ;
               rdfs:comment "Match score of Team1."@en ;
               rdfs:label "Team1Victory"@en .
 
