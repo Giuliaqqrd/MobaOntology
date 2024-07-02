@@ -220,7 +220,10 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMechanic
-:hasMechanic rdf:type owl:ObjectProperty .
+:hasMechanic rdf:type owl:ObjectProperty ;
+             owl:inverseOf :isMechanicOf ;
+             rdfs:domain vgo:Game ;
+             rdfs:range :Mechanic .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMember
@@ -243,6 +246,13 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 :hasOutcome rdf:type owl:ObjectProperty ;
             owl:inverseOf :isOutcomeOf ;
             rdfs:range :GameOutcome .
+
+
+###  http://www.semanticweb.org/MobaOntology#hasPOV
+:hasPOV rdf:type owl:ObjectProperty ;
+        owl:inverseOf :isPOVOf ;
+        rdfs:domain vgo:Game ;
+        rdfs:range :PointOfView .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasRank
@@ -323,6 +333,12 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                rdfs:range vgo:Game .
 
 
+###  http://www.semanticweb.org/MobaOntology#isMechanicOf
+:isMechanicOf rdf:type owl:ObjectProperty ;
+              rdfs:domain :Mechanic ;
+              rdfs:range vgo:Game .
+
+
 ###  http://www.semanticweb.org/MobaOntology#isMemberOf
 :isMemberOf rdf:type owl:ObjectProperty ;
             rdfs:domain vgo:Player ;
@@ -356,6 +372,12 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                  rdfs:label "isOwnedByPlayer"@en .
 
 
+###  http://www.semanticweb.org/MobaOntology#isPOVOf
+:isPOVOf rdf:type owl:ObjectProperty ;
+         rdfs:domain :PointOfView ;
+         rdfs:range vgo:Game .
+
+
 ###  http://www.semanticweb.org/MobaOntology#isPlatformOf
 :isPlatformOf rdf:type owl:ObjectProperty ;
               rdfs:domain :Platform ;
@@ -383,6 +405,14 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
           rdfs:range :Champion .
 
 
+###  http://www.semanticweb.org/MobaOntology#isTeamOf
+:isTeamOf rdf:type owl:ObjectProperty ;
+          rdfs:domain :Team ;
+          rdfs:range vgo:Game ;
+          rdfs:comment "Specify that a Team belongs to a certain Game."@en ;
+          rdfs:label "isTeamOf"@en .
+
+
 ###  http://www.semanticweb.org/MobaOntology#locatedIn
 :locatedIn rdf:type owl:ObjectProperty ;
            rdfs:domain :Creature ;
@@ -400,6 +430,12 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/MobaOntology#precedes
 :precedes rdf:type owl:ObjectProperty ,
                    owl:TransitiveProperty .
+
+
+###  http://www.semanticweb.org/MobaOntology#referredTo
+:referredTo rdf:type owl:ObjectProperty ;
+            rdfs:domain vgo:InstantaneousEvent ;
+            rdfs:range vgo:Game .
 
 
 ###  http://www.semanticweb.org/MobaOntology#suitableItem
@@ -741,6 +777,18 @@ vgo:GainEvent rdf:type owl:Class ;
 
 ###  http://purl.org/net/videogameontology#Game
 vgo:Game rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasDeveloper ;
+                           owl:someValuesFrom :Developer
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasMechanic ;
+                           owl:someValuesFrom :Mechanic
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasPOV ;
+                           owl:someValuesFrom :PointOfView
+                         ] ;
          rdfs:comment "The vgo:Game class describes a Game Product that can be played by a player."@en ;
          rdfs:label "Game"@en .
 
@@ -773,12 +821,20 @@ vgo:InAppPurchaseEvent rdf:type owl:Class ;
 
 ###  http://purl.org/net/videogameontology#InstantaneousEvent
 vgo:InstantaneousEvent rdf:type owl:Class ;
+                       owl:equivalentClass [ rdf:type owl:Restriction ;
+                                             owl:onProperty :referredTo ;
+                                             owl:someValuesFrom vgo:Game
+                                           ] ;
                        rdfs:comment "The vgo:InstantaneousEvent class describes an event that happens during the gameplay at a certain moment in time. This can be a player gaining an achievement, killing an enemy or making an In-app purchase."@en ;
                        rdfs:label "InstantaneousEvent"@en .
 
 
 ###  http://purl.org/net/videogameontology#Item
 vgo:Item rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty vgo:isItemInGame ;
+                               owl:someValuesFrom vgo:Game
+                             ] ;
          rdfs:comment "A vgo:Item portrays any item that exists in a game. The item can either be just visual part of the game or a concrete usable item. As an example an item could be a drinkable potion, a magical sword or just a flower pot."@en ;
          rdfs:label "Item"@en .
 
@@ -822,11 +878,14 @@ vgo:PlayerEvent rdf:type owl:Class ;
 
 ###  http://purl.org/net/videogameontology#PlayingArea
 vgo:PlayingArea rdf:type owl:Class ;
+                owl:equivalentClass :Map ;
                 rdfs:label "vgo:PlayingArea"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Ability
-:Ability rdf:type owl:Class .
+:Ability rdf:type owl:Class ;
+         rdfs:comment "A distinct skill or power that a character can use in a MOBA game, typically to influence the game by affecting other characters or the environment."@en ;
+         rdfs:label "Ability"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#AmateurCompetition
@@ -851,7 +910,9 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Base
 :Base rdf:type owl:Class ;
-      rdfs:subClassOf :MapArea .
+      rdfs:subClassOf :MapArea ;
+      rdfs:comment "A team's primary structure or headquarters in a MOBA game, typically containing spawn points, core objectives, and defensive structures."@en ;
+      rdfs:label "Base"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Build
@@ -893,22 +954,30 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#CompositeItem
 :CompositeItem rdf:type owl:Class ;
-               rdfs:subClassOf :NonConsumableItem .
+               rdfs:subClassOf :NonConsumableItem ;
+               rdfs:comment "An item in a MOBA game that is created by combining two or more other items, typically providing enhanced benefits or effects."@en ;
+               rdfs:label "CompositeItem"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#ConsumableItem
 :ConsumableItem rdf:type owl:Class ;
-                rdfs:subClassOf vgo:Item .
+                rdfs:subClassOf vgo:Item ;
+                rdfs:comment "An item in a MOBA game that can be used by a character and is typically consumed upon use, providing temporary benefits or effects."@en ;
+                rdfs:label "ConsumableItem"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#ControlElement
 :ControlElement rdf:type owl:Class ;
-                rdfs:subClassOf :MapElement .
+                rdfs:subClassOf :MapElement ;
+                rdfs:comment "An element within a MOBA game that players interact with to exert control over the game environment, such as objectives, or map areas."@en ;
+                rdfs:label "ControlElement"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Creature
 :Creature rdf:type owl:Class ;
-          rdfs:subClassOf :NonPlayableCharacter .
+          rdfs:subClassOf :NonPlayableCharacter ;
+          rdfs:comment "A non-player character (NPC) in a MOBA game that interacts with player characters in various ways."@en ;
+          rdfs:label "Creature"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Developer
@@ -920,7 +989,9 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Draft
 :Draft rdf:type owl:Class ;
-       rdfs:subClassOf :Mechanic .
+       rdfs:subClassOf :Mechanic ;
+       rdfs:comment "A game mechanic in a MOBA where players select characters or items before the match begins, often involving strategic choices and counter-picks."@en ;
+       rdfs:label "Draft"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Elite
@@ -936,17 +1007,23 @@ vgo:PlayingArea rdf:type owl:Class ;
                                                 ) ;
                              rdf:type owl:Class
                            ] ;
-       rdfs:subClassOf :Rank .
+       rdfs:subClassOf :Rank ;
+       rdfs:comment "A Elite rank in a MOBA game representing players with the highest ELO ratings, typically following the High rank and considered to be among the top tier."@en ;
+       rdfs:label "Elite"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#EpicCreature
 :EpicCreature rdf:type owl:Class ;
-              rdfs:subClassOf :Creature .
+              rdfs:subClassOf :Creature ;
+              rdfs:comment "powerful creature in a MOBA game that provides significant advantages when defeated by a team."@en ;
+              rdfs:label "EpicCreature"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#FirstPerson
 :FirstPerson rdf:type owl:Class ;
-             rdfs:subClassOf :PersonPOV .
+             rdfs:subClassOf :PersonPOV ;
+             rdfs:comment "A perspective in which events are described or experienced from the viewpoint of the first person, typically involving the use of 'I' or 'we'."@en ;
+             rdfs:label "First Person"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#FreeToPlay
@@ -990,32 +1067,44 @@ vgo:PlayingArea rdf:type owl:Class ;
                             owl:onProperty :precedes ;
                             owl:someValuesFrom :Elite
                           ] ;
-      rdfs:subClassOf :Rank .
+      rdfs:subClassOf :Rank ;
+      rdfs:comment "A high skill level or position within a ranking system in a MOBA game, indicating advanced or top-tier performance."@en ;
+      rdfs:label "High"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Inventory
 :Inventory rdf:type owl:Class ;
-           rdfs:subClassOf :Mechanic .
+           rdfs:subClassOf :Mechanic ;
+           rdfs:comment "A collection of items or resources that a player can possess or manage within a MOBA game, typically affecting character abilities or gameplay."@en ;
+           rdfs:label "Inventory"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Isometric
 :Isometric rdf:type owl:Class ;
-           rdfs:subClassOf :PointOfView .
+           rdfs:subClassOf :PointOfView ;
+           rdfs:comment "A graphical projection used in MOBA games where the game world is viewed from a fixed angle, typically allowing for a broad view of the battlefield."@en ;
+           rdfs:label "Isometric"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Jungle
 :Jungle rdf:type owl:Class ;
-        rdfs:subClassOf :MapArea .
+        rdfs:subClassOf :MapArea ;
+        rdfs:comment "An area of the game map in a MOBA that contains neutral creatures, buffs, and alternative pathways, providing strategic advantages."@en ;
+        rdfs:label "Jungle"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#JungleCreature
 :JungleCreature rdf:type owl:Class ;
-                rdfs:subClassOf :NeutralCreature .
+                rdfs:subClassOf :NeutralCreature ;
+                rdfs:comment "A creature found in the jungle area of a MOBA map, often providing buffs or other benefits when defeated."@en ;
+                rdfs:label "JungleCreature"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Lane
 :Lane rdf:type owl:Class ;
-      rdfs:subClassOf :MapArea .
+      rdfs:subClassOf :MapArea ;
+      rdfs:comment "A designated path or route on the game map in a MOBA, typically used by minions and players to advance toward objectives."@en ;
+      rdfs:label "Lane"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Location
@@ -1026,7 +1115,9 @@ vgo:PlayingArea rdf:type owl:Class ;
                                             :Europa
                                             :World
                                           )
-                              ] .
+                              ] ;
+          rdfs:comment "A geographic place or area in the real world, which can include countries, cities, landmarks, or other defined regions."@en ;
+          rdfs:label "Location"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Low
@@ -1035,11 +1126,15 @@ vgo:PlayingArea rdf:type owl:Class ;
                            owl:onProperty :precedes ;
                            owl:someValuesFrom :Medium
                          ] ;
-     rdfs:subClassOf :Rank .
+     rdfs:subClassOf :Rank ;
+     rdfs:comment "A low skill level or position within a ranking system in a MOBA game, indicating beginner or below-average performance."@en ;
+     rdfs:label "Low"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Map
-:Map rdf:type owl:Class .
+:Map rdf:type owl:Class ;
+     rdfs:comment "A virtual environment in a MOBA game where players compete, including various locations, lanes, objectives, and terrain features."@en ;
+     rdfs:label "Map"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#MapArea
@@ -1047,16 +1142,22 @@ vgo:PlayingArea rdf:type owl:Class ;
          owl:equivalentClass [ rdf:type owl:Restriction ;
                                owl:onProperty :hasMapElement ;
                                owl:someValuesFrom :MapElement
-                             ] .
+                             ] ;
+         rdfs:comment "A defined region or section within the game map of a MOBA, typically containing objectives, pathways, or specific gameplay features."@en ;
+         rdfs:label "MapArea"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#MapElement
-:MapElement rdf:type owl:Class .
+:MapElement rdf:type owl:Class ;
+            rdfs:comment "An element of a Map in a MOBA game."@en ;
+            rdfs:label "MapElement"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#MapObjectiveCreature
 :MapObjectiveCreature rdf:type owl:Class ;
-                      rdfs:subClassOf :Creature .
+                      rdfs:subClassOf :Creature ;
+                      rdfs:comment "A creature in a MOBA game that is associated with specific objectives on the game map."@en ;
+                      rdfs:label "MapObjectiveCreature"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Match
@@ -1081,7 +1182,9 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#Mechanic
-:Mechanic rdf:type owl:Class .
+:Mechanic rdf:type owl:Class ;
+          rdfs:comment "A fundamental rule, system, or interaction mechanism that governs gameplay in a MOBA, such as abilities, movement, or objectives."@en ;
+          rdfs:label "Mechanic"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Medium
@@ -1090,12 +1193,16 @@ vgo:PlayingArea rdf:type owl:Class ;
                               owl:onProperty :precedes ;
                               owl:someValuesFrom :High
                             ] ;
-        rdfs:subClassOf :Rank .
+        rdfs:subClassOf :Rank ;
+        rdfs:comment "A moderate skill level or position within a ranking system in a MOBA game, indicating average or intermediate performance."@en ;
+        rdfs:label "Medium"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Minion
 :Minion rdf:type owl:Class ;
-        rdfs:subClassOf :Creature .
+        rdfs:subClassOf :Creature ;
+        rdfs:comment "A weaker creature in a MOBA game that typically spawns in waves and assists player characters by attacking enemy structures and characters."@en ;
+        rdfs:label "Minion"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#MondialChampionship
@@ -1146,17 +1253,23 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#NeutralCreature
 :NeutralCreature rdf:type owl:Class ;
-                 rdfs:subClassOf :Creature .
+                 rdfs:subClassOf :Creature ;
+                 rdfs:comment "A creature in a MOBA game that is not allied with any team and can be defeated by either team for rewards."@en ;
+                 rdfs:label "NeutralCreature"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#NeutralElement
 :NeutralElement rdf:type owl:Class ;
-                rdfs:subClassOf :MapElement .
+                rdfs:subClassOf :MapElement ;
+                rdfs:comment "An element in a MOBA game that is not affiliated with any specific team, often providing buffs, rewards, or strategic advantages when controlled."@en ;
+                rdfs:label "NeutralElement"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#NonConsumableItem
 :NonConsumableItem rdf:type owl:Class ;
-                   rdfs:subClassOf vgo:Item .
+                   rdfs:subClassOf vgo:Item ;
+                   rdfs:comment "An item in a MOBA game that provides lasting benefits or effects and is not consumed upon use."@en ;
+                   rdfs:label "NonConsumableItem"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#NonPlayableCharacter
@@ -1228,7 +1341,9 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#PersonPOV
 :PersonPOV rdf:type owl:Class ;
-           rdfs:subClassOf :PointOfView .
+           rdfs:subClassOf :PointOfView ;
+           rdfs:comment "A perspective in which events are described or experienced from the viewpoint of a person or character, influencing narrative and gameplay in MOBA."@en ;
+           rdfs:label "PersonPOV"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Platform
@@ -1250,11 +1365,15 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#PointAndClick
 :PointAndClick rdf:type owl:Class ;
-               rdfs:subClassOf :Mechanic .
+               rdfs:subClassOf :Mechanic ;
+               rdfs:comment "A control scheme or gameplay mechanic in a MOBA where players interact with the game environment using mouse clicks to move, attack, or use abilities."@en ;
+               rdfs:label "PointAndClick"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#PointOfView
-:PointOfView rdf:type owl:Class .
+:PointOfView rdf:type owl:Class ;
+             rdfs:comment "The perspective or viewpoint from which the game is observed or played in a MOBA, influencing the player's interaction and perception of the game environment."@en ;
+             rdfs:label "PointOfView"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Rank
@@ -1310,7 +1429,9 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Resources
 :Resources rdf:type owl:Class ;
-           rdfs:subClassOf :Mechanic .
+           rdfs:subClassOf :Mechanic ;
+           rdfs:comment "In-game assets such as currency, mana, or other quantifiable units that players collect, manage, and use to accomplish objectives in a MOBA."@en ;
+           rdfs:label "Resources"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Role
@@ -1323,7 +1444,9 @@ vgo:PlayingArea rdf:type owl:Class ;
                                         :Support
                                         :Tank
                                       )
-                          ] .
+                          ] ;
+      rdfs:comment "A predefined archetype or character class in a MOBA game that defines the primary function, abilities, and playstyle of a character, such as assassin, mage, tank, support, etc."@en ;
+      rdfs:label "Role"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SingleDeveloper
@@ -1369,7 +1492,9 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#SpecialCreature
 :SpecialCreature rdf:type owl:Class ;
-                 rdfs:subClassOf :NeutralCreature .
+                 rdfs:subClassOf :NeutralCreature ;
+                 rdfs:comment "A unique creature in a MOBA game that offers special rewards or effects, often tied to specific game events or conditions."@en ;
+                 rdfs:label "SpecialCreature"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SpecialEvents
@@ -1381,7 +1506,9 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#StructuralElement
 :StructuralElement rdf:type owl:Class ;
-                   rdfs:subClassOf :MapElement .
+                   rdfs:subClassOf :MapElement ;
+                   rdfs:comment "An element in a MOBA game that includes buildings, towers, walls, or other structures that affect gameplay and provide strategic importance."@en ;
+                   rdfs:label "StructuralElement"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Team
@@ -1398,7 +1525,9 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#ThirdPerson
 :ThirdPerson rdf:type owl:Class ;
-             rdfs:subClassOf :PersonPOV .
+             rdfs:subClassOf :PersonPOV ;
+             rdfs:comment "A perspective in which events are described or experienced from the viewpoint of an external observer or a detached character."@en ;
+             rdfs:label "ThirdPerson"@en .
 
 
 ###  http://xmlns.com/foaf/0.1/Agent
@@ -1410,12 +1539,16 @@ foaf:Agent rdf:type owl:Class ;
 ###  http://xmlns.com/foaf/0.1/Organization
 foaf:Organization rdf:type owl:Class ;
                   rdfs:subClassOf :Developer ;
-                  owl:disjointWith foaf:Person .
+                  owl:disjointWith foaf:Person ;
+                  rdfs:comment "This is a more 'solid' class than Group, which allows for more ad-hoc collections of individuals. These terms, like the corresponding natural language concepts, have some overlap, but different emphasis."@en ;
+                  rdfs:label "foaf:Organization"@en .
 
 
 ###  http://xmlns.com/foaf/0.1/Person
 foaf:Person rdf:type owl:Class ;
-            rdfs:subClassOf :Developer .
+            rdfs:subClassOf :Developer ;
+            rdfs:comment "The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF."@en ;
+            rdfs:label "foaf:Person"@en .
 
 
 ###  https://www.bbc.co.uk/ontologies/sport/Competition
@@ -1452,11 +1585,15 @@ sport:Competition rdf:type owl:Class ;
 
 
 ###  http://www.semanticweb.org/MobaOntology#America
-:America rdf:type owl:NamedIndividual .
+:America rdf:type owl:NamedIndividual ;
+         rdfs:comment "The continent or region encompassing North and South America."@en ;
+         rdfs:label "America"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Asia
-:Asia rdf:type owl:NamedIndividual .
+:Asia rdf:type owl:NamedIndividual ;
+      rdfs:comment "The continent or region encompassing Asia."@en ;
+      rdfs:label "Asia"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Assassin
@@ -1468,7 +1605,10 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Blind
 :Blind rdf:type owl:NamedIndividual ,
-                :Draft .
+                :Draft ;
+       :isMechanicOf :LeagueOfLegends ;
+       rdfs:comment "A game mode in which draft picks are made without seeing the opposing team's selections."@en ;
+       rdfs:label "Blind"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#BlueSentinel
@@ -1479,12 +1619,16 @@ sport:Competition rdf:type owl:Class ;
               :creatureGivesExperience 200 ;
               :creatureGivesGold 100 ;
               :creatureHasBuff "Mana Regeneration" ;
-              :creatureName "Blue Sentinel (Gromp)" .
+              :creatureName "Blue Sentinel (Gromp)" ;
+              rdfs:comment "A neutral creature in a MOBA game that provides a buff to the team that defeats it, typically enhancing mana regeneration."@en ;
+              rdfs:label "BlueSentinel"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Bronze
 :Bronze rdf:type owl:NamedIndividual ;
-        :precedes :Silver .
+        :precedes :Silver ;
+        rdfs:comment "A lower tier rank in a competitive system, often indicating beginners or players with lower skill levels."@en ;
+        rdfs:label "Bronze"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Bruiser
@@ -1502,7 +1646,9 @@ sport:Competition rdf:type owl:Class ;
               :creatureGivesExperience 29 ;
               :creatureGivesGold 14 ;
               :creatureName "Caster Minion" ;
-              :creatureRequiresGroup "false"^^xsd:boolean .
+              :creatureRequiresGroup "false"^^xsd:boolean ;
+              rdfs:comment "A type of minion in a MOBA game with ranged attacks, typically dealing magical damage and supporting allied minions in pushing lanes."@en ;
+              rdfs:label "CasterMinion"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#CaulfieldWarhammer
@@ -1510,7 +1656,9 @@ sport:Competition rdf:type owl:Class ;
                     :hasComponent :LongSword ;
                     :itemCost 1100 ;
                     :itemEffect "The Brutalizer's stats (old item that has been removed) has been split across two items. Its armor penetration went to Serrated Dirk Serrated Dirk and its cooldown reduction to Caulfield's Warhammer Caulfield's Warhammer." ;
-                    :itemName "Caulfield's Warhammer" .
+                    :itemName "Caulfield's Warhammer" ;
+                    rdfs:comment "CaulfieldWarhammer"@en ,
+                                 "Composite item in LeagueOfLegends."@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Charm
@@ -1518,28 +1666,36 @@ sport:Competition rdf:type owl:Class ;
        :abilityCooldown 12 ;
        :abilityDescription "Ahri blows forth a kiss in the target direction that deals magic damage to the first enemy hit, Knockdown icon knocking them down and Charm icon charming and Slow icon slowing them by 65% for a duration." ;
        :abilityName "Charm" ;
-       :abilityType "basic" .
+       :abilityType "basic" ;
+       rdfs:comment "Ability of Ahri, champion of League Of Legends"@en ;
+       rdfs:label "Charm"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#CompetitorsLoLItalianTournamentSpring2024
 :CompetitorsLoLItalianTournamentSpring2024 rdf:type owl:NamedIndividual ;
                                            :hasCompetitor :Team1 ,
                                                           :Team2 ,
-                                                          :Team3 .
+                                                          :Team3 ;
+                                           rdfs:comment "Group of competitors of Lol italian Tournament Spring"@en ;
+                                           rdfs:label "CompetitorsLoLItalianTournamentSpring2024"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#CompetitorsNorthAmericanChallengersLeagueSummer2024
 :CompetitorsNorthAmericanChallengersLeagueSummer2024 rdf:type owl:NamedIndividual ;
                                                      :hasCompetitor :Team1 ,
                                                                     :Team2 ,
-                                                                    :Team3 .
+                                                                    :Team3 ;
+                                                     rdfs:comment "Group of competitors of NA Challengers League Summer"@en ;
+                                                     rdfs:label "CompetitorsNorthAmericanChallengersLeagueSummer2024"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#CompetitorsWorldChampionship2023
 :CompetitorsWorldChampionship2023 rdf:type owl:NamedIndividual ;
                                   :hasCompetitor :Team1 ,
                                                  :Team2 ,
-                                                 :Team3 .
+                                                 :Team3 ;
+                                  rdfs:comment "Group of competitors of World Championshio 2023"@en ;
+                                  rdfs:label "CompetitorsWorldChampionship2023"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Courage
@@ -1547,7 +1703,9 @@ sport:Competition rdf:type owl:Class ;
          :abilityCooldown 23 ;
          :abilityDescription "For each stack, Garen gains Armor icon 0.2 bonus armor and Magic resistance icon 0.2 bonus magic resistance, up to a maximum of 30 bonus resistances each. After reaching maximum stacks, Garen gains 10% bonus armor and 10% bonus magic resistance." ;
          :abilityName "Courage" ;
-         :abilityType "basic" .
+         :abilityType "basic" ;
+         rdfs:comment "Garen's Ability."@en ;
+         rdfs:label "Courage"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#DecisiveStrike
@@ -1556,7 +1714,9 @@ sport:Competition rdf:type owl:Class ;
                 :abilityDescription """Garen Remove Scurvy cleanses himself of all Slow icon slows and gains Movement speed icon 35% bonus movement speed for a duration.
 Additionally, Garen empowers his next basic attack within 4.5 seconds to have an Relentless Force 2 uncancellable windup, Bear Stance lunge at the target, deal bonus physical damage, and Silence icon silence them for 1.5 seconds.""" ;
                 :abilityName "Decisive Strike" ;
-                :abilityType "basic" .
+                :abilityType "basic" ;
+                rdfs:comment "Garen's ability."@en ;
+                rdfs:label "DecisiveStrike"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#DemacianJustice
@@ -1564,7 +1724,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                  :abilityCooldown 120 ;
                  :abilityDescription "Garen calls upon the might of Demacia onto the target enemy Champion icon champion, dealing them Hybrid penetration icon true damage as well as True Sight icon revealing them for 1 second at the start of the cast time." ;
                  :abilityName "Demacian Justice" ;
-                 :abilityType "ultimate" .
+                 :abilityType "ultimate" ;
+                 rdfs:comment "Garen's ability."@en ;
+                 rdfs:label "DemacianJustice"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Developer1
@@ -1577,7 +1739,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 ###  http://www.semanticweb.org/MobaOntology#Diamond
 :Diamond rdf:type owl:NamedIndividual ;
          :follows :Gold ;
-         :isHighestElo :Rank .
+         :isHighestElo :Rank ;
+         rdfs:comment "Elite rank of League Of Legends."@en ;
+         rdfs:label "Diamond"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Dota2
@@ -1594,11 +1758,15 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 :EssenceTheft rdf:type owl:NamedIndividual ;
               :abilityDescription "Ahri generates a stack of Essence Fragment whenever she kills a Minion icon minion or Monster icon monster. At 9 stacks, she consumes them to Heal power icon heal herself for 35 − 95 (based on level) (+ 20% AP)." ;
               :abilityName "Essence Theft" ;
-              :abilityType "passive" .
+              :abilityType "passive" ;
+              rdfs:comment "Ahri's ability."@en ;
+              rdfs:label "EssenceTheft"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Europa
-:Europa rdf:type owl:NamedIndividual .
+:Europa rdf:type owl:NamedIndividual ;
+        rdfs:comment "Country or region of tournaments."@en ;
+        rdfs:label "Europa"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#FlameChompers
@@ -1606,7 +1774,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                :abilityCooldown 20 ;
                :abilityDescription "Jinx tosses out 3 Chompers centered at the target location, landing after 0.4 seconds, arming after 0.5 seconds, and exploding after 5 seconds to deal magic damage to nearby enemies." ;
                :abilityName "Flame Chompers!" ;
-               :abilityType "basic" .
+               :abilityType "basic" ;
+               rdfs:comment "Jinx's ability."@en ;
+               rdfs:label "FlameChompers"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#FoxFire
@@ -1614,19 +1784,27 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
          :abilityCooldown 9 ;
          :abilityDescription "Ahri gains Movement speed icon 40% bonus movement speed that decays over 2 seconds and conjures three flames which orbit her clockwise for up to 2.5 seconds. After 0.25 seconds of the cast, each flame targets a Sight icon visible enemy based on priority, or after 0.4 seconds, simply targets the closest visible enemy in range. Each flame deals magic damage, with subsequent flames against a target dealing 30% damage." ;
          :abilityName "Fox-Fire" ;
-         :abilityType "basic" .
+         :abilityType "basic" ;
+         rdfs:comment "Ahri's ability."@en ;
+         rdfs:label "FoxFire"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GameBoost
-:GameBoost rdf:type owl:NamedIndividual .
+:GameBoost rdf:type owl:NamedIndividual ;
+           rdfs:comment "An item or feature in a game that temporarily enhances a player's performance, abilities, or progression speed."@en ;
+           rdfs:label "GameBoost"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GameCoin
-:GameCoin rdf:type owl:NamedIndividual .
+:GameCoin rdf:type owl:NamedIndividual ;
+          rdfs:comment "A virtual currency used within a game to purchase items, upgrades, or cosmetic enhancements."@en ;
+          rdfs:label "GameCoin"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GameSkin
-:GameSkin rdf:type owl:NamedIndividual .
+:GameSkin rdf:type owl:NamedIndividual ;
+          rdfs:comment "A cosmetic item in a game that changes the appearance of a character, weapon, or other in-game object."@en ;
+          rdfs:label "GameSkin"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Garen
@@ -1654,31 +1832,40 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 ###  http://www.semanticweb.org/MobaOntology#GarenBuild
 :GarenBuild rdf:type owl:NamedIndividual ;
             :hasItemSet :LongSword ,
-                        :Shojin .
+                        :Shojin ;
+            rdfs:comment "Item Set Of Garen"@en ;
+            rdfs:label "GarenBuild"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GeneralMatch
 :GeneralMatch rdf:type owl:NamedIndividual ;
-              :hasOutcome :Victory .
+              :hasOutcome :Victory ;
+              rdfs:comment "General match in a moba Game"@en ;
+              rdfs:label "GeneralMatch"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#GetExcited
 :GetExcited rdf:type owl:NamedIndividual ;
             :abilityDescription "Whenever Jinx scores a Damage rating takedown against an enemy Champion, epic Monster, Turret, or inhibitor within 3 seconds of damaging them, she gains Movement speed icon 175% bonus movement speed decaying over 6 seconds." ;
             :abilityName "Get Excited!" ;
-            :abilityType "passive" .
+            :abilityType "passive" ;
+            rdfs:comment "Jinx's ability."@en ;
+            rdfs:label "GetExicited"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Gold
 :Gold rdf:type owl:NamedIndividual ;
-      :precedes :Diamond .
+      :precedes :Diamond ;
+      rdfs:comment "High rank elo."@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#InAppPurchaseEvent
 :InAppPurchaseEvent rdf:type owl:NamedIndividual ;
                     vgo:purchasesGameOffering :GameBoost ,
                                               :GameCoin ,
-                                              :GameSkin .
+                                              :GameSkin ;
+                    rdfs:comment "An event within a mobile application or game where a user makes a purchase of virtual goods, items, or upgrades using real-world currency."@en ;
+                    rdfs:label "InAppPurchaseEvent"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#InGamePurchase
@@ -1697,7 +1884,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                :creatureGivesGold 100 ;
                :creatureHasBuff "Infernal Buff (Increased Attack Damage and Ability Power)" ;
                :creatureName "Infernal Drake" ;
-               :creatureRequiresGroup "true"^^xsd:boolean .
+               :creatureRequiresGroup "true"^^xsd:boolean ;
+               rdfs:comment "Epic Monster of League Of Legends."@en ;
+               rdfs:label "InfernalDrake"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Jinx
@@ -1715,7 +1904,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
       :championMagicResist 52 ;
       :championMana 1110 ;
       :championMovementSpeed 325 ;
-      :championRange "ranged" .
+      :championRange "ranged" ;
+      rdfs:comment "inx is a champion in the game League of Legends known for her chaotic and explosive abilities, specializing in ranged attacks and area of effect damage."@en ;
+      rdfs:label "Jinx"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Judgment
@@ -1723,7 +1914,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
           :abilityCooldown 9 ;
           :abilityDescription "Garen rapidly spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times over 3 seconds, becoming Ghost ghosted and unable to basic attack and dealing physical damage to nearby enemies periodically. Judgment can be recast after 1 second for its duration, and does so automatically after it ends." ;
           :abilityName "Judgment" ;
-          :abilityType "basic" .
+          :abilityType "basic" ;
+          rdfs:comment "Garen's ability."@en ;
+          rdfs:label "Judgement"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#LeagueOfLegends
@@ -1751,7 +1944,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                                 :competitionSponsor "Intel" ,
                                                     "Kit Kat" ;
                                 :competitionStartDate "2024-01-25"^^xsd:date ;
-                                :isOfficialCompetition "true"^^xsd:boolean .
+                                :isOfficialCompetition "true"^^xsd:boolean ;
+                                rdfs:comment "Regional Championship of League Of Legends"@en ;
+                                rdfs:label "LoLItalianTournamentSpring2024"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#LongSword
@@ -1759,7 +1954,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
            vgo:isItemInGame :LeagueOfLegends ;
            :itemCost 350 ;
            :itemEffect "Long Sword is the basic item from which the gold value for the stat attack damage is derived (approximately 35 Gold 35 per point of attack damage)." ;
-           :itemName "LongSword" .
+           :itemName "LongSword" ;
+           rdfs:comment "Basic Item of League Of Legends."@en ;
+           rdfs:label "LongSword"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Mage
@@ -1784,7 +1981,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
              :creatureGivesExperience 59 ;
              :creatureGivesGold 21 ;
              :creatureName "Melee Minion" ;
-             :creatureRequiresGroup "false"^^xsd:boolean .
+             :creatureRequiresGroup "false"^^xsd:boolean ;
+             rdfs:comment "A type of minion in a MOBA game that engages in close combat with enemy units and structures, typically dealing physical damage."@en ;
+             rdfs:label "MeleeMinion"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#NormalMatch
@@ -1792,7 +1991,6 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                       [ rdf:type owl:Class ;
                         owl:complementOf :RankedMatch
                       ] ;
-             :hasMechanic :Blind ;
              :hasOutcome :Team1Victory ;
              :includesTeam :Team1 ,
                            :Team2 ;
@@ -1810,7 +2008,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                                           :competitionOrganizer "Riot Gamers" ;
                                           :competitionPrizePool 100000 ;
                                           :competitionStartDate "2024-06-15"^^xsd:date ;
-                                          :isOfficialCompetition "true"^^xsd:boolean .
+                                          :isOfficialCompetition "true"^^xsd:boolean ;
+                                          rdfs:comment "Regional NA competition."@en ;
+                                          rdfs:label "NorthAmericanChallengersLeagueSummer2024"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#OceanDrake
@@ -1822,7 +2022,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
             :creatureGivesGold 100 ;
             :creatureHasBuff "Ocean Buff (Regeneration of Health and Mana)" ;
             :creatureName "Ocean Drake" ;
-            :creatureRequiresGroup "true"^^xsd:boolean .
+            :creatureRequiresGroup "true"^^xsd:boolean ;
+            rdfs:comment "Epic Monster of League Of Legends."@en ;
+            rdfs:label "OceanDrake"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#OrbofDeception
@@ -1830,7 +2032,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                 :abilityCooldown 7 ;
                 :abilityDescription "Ahri sends her orb in the target direction that deals magic damage to enemies hit. At maximum range, the orb homes back to her to deal the same in Hybrid penetration icon true damage to enemies hit." ;
                 :abilityName "Orb of Deception" ;
-                :abilityType "basic" .
+                :abilityType "basic" ;
+                rdfs:comment "Ahri's ability."@en ;
+                rdfs:label "OrbofDeception"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#PC
@@ -1844,12 +2048,16 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
               :abilityCooldown 5 ;
               :abilityDescription "Garen Health regeneration icon regenerates 1.5% − 10.1% (based on level) of his Health icon maximum health every 5 seconds." ;
               :abilityName "Perseverance" ;
-              :abilityType "passive" .
+              :abilityType "passive" ;
+              rdfs:comment "Garen's ability."@en ;
+              rdfs:label "Perseverance"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#PickAndBan
 :PickAndBan rdf:type owl:NamedIndividual ,
-                     :Draft .
+                     :Draft ;
+            rdfs:comment "The phase in a MOBA game where teams alternately pick and ban characters or champions from being used in the upcoming match."@en ;
+            rdfs:label "PickAndBan"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player1
@@ -1861,72 +2069,100 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#Player10
 :Player10 rdf:type owl:NamedIndividual ;
-          :hasNickname "Rekkles" .
+          :hasNickname "Rekkles" ;
+          rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+          rdfs:label "Player10"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player11
 :Player11 rdf:type owl:NamedIndividual ;
-          :hasNickname "Wixxi" .
+          :hasNickname "Wixxi" ;
+          rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+          rdfs:label "Player11"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player12
 :Player12 rdf:type owl:NamedIndividual ;
-          :hasNickname "Shiazuri" .
+          :hasNickname "Shiazuri" ;
+          rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+          rdfs:label "Player12"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player13
 :Player13 rdf:type owl:NamedIndividual ;
-          :hasNickname "Onat" .
+          :hasNickname "Onat" ;
+          rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+          rdfs:label "Player13"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player14
 :Player14 rdf:type owl:NamedIndividual ;
-          :hasNickname "Zamudo" .
+          :hasNickname "Zamudo" ;
+          rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+          rdfs:label "Player14"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player15
 :Player15 rdf:type owl:NamedIndividual ;
-          :hasNickname "Rovex" .
+          :hasNickname "Rovex" ;
+          rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+          rdfs:label "Player15"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player2
 :Player2 rdf:type owl:NamedIndividual ;
-         :hasNickname "Terenas" .
+         :hasNickname "Terenas" ;
+         rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+         rdfs:label "Player2"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player3
 :Player3 rdf:type owl:NamedIndividual ;
-         :hasNickname "PaoloCannone" .
+         :hasNickname "PaoloCannone" ;
+         rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+         rdfs:label "Player3"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player4
 :Player4 rdf:type owl:NamedIndividual ;
-         :hasNickname "Julieqqrd" .
+         :hasNickname "Julieqqrd" ;
+         rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+         rdfs:label "Player4"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player5
 :Player5 rdf:type owl:NamedIndividual ;
-         :hasNickname "FragolaQT" .
+         :hasNickname "FragolaQT" ;
+         rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+         rdfs:label "Player5"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player6
 :Player6 rdf:type owl:NamedIndividual ;
-         :hasNickname "Apecarroramarro" .
+         :hasNickname "Apecarroramarro" ;
+         rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+         rdfs:label "Player6"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player7
 :Player7 rdf:type owl:NamedIndividual ;
-         :hasNickname "Uni" .
+         :hasNickname "Uni" ;
+         rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+         rdfs:label "Player7"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player8
 :Player8 rdf:type owl:NamedIndividual ;
-         :hasNickname "Acefos" .
+         :hasNickname "Acefos" ;
+         rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+         rdfs:label "Player8"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Player9
 :Player9 rdf:type owl:NamedIndividual ;
-         :hasNickname "Jun" .
+         :hasNickname "Jun" ;
+         rdfs:comment "Is an individual player. This player is identified by their in-game nickname and is associated with various game characters and achievements."@en ;
+         rdfs:label "Player9"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Playstation
@@ -1957,7 +2193,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
                 :creatureGivesGold 100 ;
                 :creatureHasBuff "Burn Damage and Slow" ;
                 :creatureName "Red Brambleback (Krug)" ;
-                :creatureRequiresGroup "false"^^xsd:boolean .
+                :creatureRequiresGroup "false"^^xsd:boolean ;
+                rdfs:comment "Jungle Creature of League Of Legends."@en ;
+                rdfs:label "RedBrambleback"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#RiotGames
@@ -1973,7 +2211,9 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
         :hasComponent :CaulfieldWarhammer ;
         :itemCost 3100 ;
         :itemEffect "Dealing ability damage with a champion ability grants a stack for 6 seconds, stacking up to 4 times and up to 1 per cast instance per second and every second for damage over time abilities. For each stack, your ability damage and proc damage dealt by abilities gain 3% increased damage, for a total increase of 12% at maximum stacks." ;
-        :itemName "Spear of Shojin" .
+        :itemName "Spear of Shojin" ;
+        rdfs:comment "Composite item of League of Legends."@en ;
+        rdfs:label "Shojin"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SiegeMinion
@@ -1984,13 +2224,17 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
              :creatureGivesExperience 92 ;
              :creatureGivesGold 60 ;
              :creatureName "Siege Minion" ;
-             :creatureRequiresGroup "false"^^xsd:boolean .
+             :creatureRequiresGroup "false"^^xsd:boolean ;
+             rdfs:comment "A type of minion in a MOBA game that deals increased damage to structures, specializing in sieging enemy defenses."@en ;
+             rdfs:label "SiegeMinion"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Silver
 :Silver rdf:type owl:NamedIndividual ;
         :follows :Bronze ;
-        :precedes :Gold .
+        :precedes :Gold ;
+        rdfs:comment "Medium rank in a MOBA game."@en ;
+        rdfs:label "Silver"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SpiritRush
@@ -2000,7 +2244,16 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 Spirit Rush can be recast twice more within 15 seconds of the activation at no additional cost, with a 1-second static cooldown between casts. Consuming a champion's essence with Essence Theft Essence Theft while Spirit Rush is active extends the recast duration by and up to 10 seconds, and grants an additional recast, storing up to 3 recasts at a time.""" ;
             :abilityName "Spirit Rush" ;
-            :abilityType "ultimate" .
+            :abilityType "ultimate" ;
+            rdfs:comment "Ahri's ability."@en ;
+            rdfs:label "SpiritRush"@en .
+
+
+###  http://www.semanticweb.org/MobaOntology#StandardIsometric
+:StandardIsometric rdf:type owl:NamedIndividual ;
+                   :isPOVOf :LeagueOfLegends ;
+                   rdfs:comment "A common isometric perspective used in games, including MOBAs, where the game world is viewed from a fixed angle that combines top-down and side views, providing a broad perspective of the environment."@en ;
+                   rdfs:label "StandardIsometric"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Subscription
@@ -2018,43 +2271,57 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                           :SummonerRiftTopLane ;
               :mapDescription "The newest and most venerated battleground is known as Summoner's Rift. Traverse down on of three different paths in order to attack your enemy at their weakest point. Work with your allies to siege the enemy base and destroy their Nexus!" ;
               :mapGameplay "The objective of Summoner's Rift is simple – destroy the enemy nexus. In order to do this, champions must traverse down one of three different paths (or lanes) in order to attack their enemy at their weakest points they can exploit. Both teams have their lanes defended by numerous turrets; each turret grows in strength the closer it gets to its respective nexus and each turret must be eliminated in order to gain access to the next turret in that lane. Cooperating with fellow summoners is an absolute requirement for success, as it is easy for a champion to find themselves ambushed by enemies in the lanes of the Rift." ;
-              :mapName "Summoner's Rift" .
+              :mapName "Summoner's Rift" ;
+              rdfs:comment "ummoner's Rift is the primary battlefield in the game League of Legends, featuring three lanes, jungle areas, and objectives such as turrets, inhibitors, and the Nexus."@en ;
+              rdfs:label "SummonerRift"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftBotLane
 :SummonerRiftBotLane rdf:type owl:NamedIndividual ;
                      :hasMapElement :SummonerRiftInnerTurret ,
                                     :SummonerRiftOuterTurret ;
-                     :laneDescription "The bot lane is situated at the bottom of the map, parallel to the top lane. It is a strategic environment that involves cooperation between two players, typically an ADC (Attack Damage Carry) and a support. This lane features a combination of defensive towers and enemy attacks, making it critical for map control and protecting the elemental dragon in the lower jungle." .
+                     :laneDescription "The bot lane is situated at the bottom of the map, parallel to the top lane. It is a strategic environment that involves cooperation between two players, typically an ADC (Attack Damage Carry) and a support. This lane features a combination of defensive towers and enemy attacks, making it critical for map control and protecting the elemental dragon in the lower jungle." ;
+                     rdfs:comment "The bottom lane on Summoner's Rift in League of Legends, where champions typically engage in 2v2 or 1v2 matchups and focus on pushing towards the enemy base."@en ;
+                     rdfs:label "SummonerRiftBotLane"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftInnerTurret
 :SummonerRiftInnerTurret rdf:type owl:NamedIndividual ,
                                   :StructuralElement ;
-                         owl:differentFrom :SummonerRiftOuterTurret .
+                         owl:differentFrom :SummonerRiftOuterTurret ;
+                         rdfs:comment "An inner turret located on Summoner's Rift in League of Legends, providing defense and strategic control over key areas of the map."@en ;
+                         rdfs:label "SummonerRiftInnerTurret"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftJungle
 :SummonerRiftJungle rdf:type owl:NamedIndividual ;
-                    :laneDescription "The jungle consists of the parts of the map between the lanes proper, excluding the teams' bases, characterized by the lack of vision or dense Fog of War. Neutral—not aggressive unless attacked—creeps called Monster icon monsters live in the jungle, and a monster or group of monsters at a certain location of the map is called a camp." .
+                    :laneDescription "The jungle consists of the parts of the map between the lanes proper, excluding the teams' bases, characterized by the lack of vision or dense Fog of War. Neutral—not aggressive unless attacked—creeps called Monster icon monsters live in the jungle, and a monster or group of monsters at a certain location of the map is called a camp." ;
+                    rdfs:comment "The jungle area on Summoner's Rift in League of Legends, consisting of neutral monster camps, buffs, and paths between lanes."@en ;
+                    rdfs:label "SummonerRiftJungle"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftMidLane
 :SummonerRiftMidLane rdf:type owl:NamedIndividual ;
                      :hasMapElement :SummonerRiftInnerTurret ,
                                     :SummonerRiftOuterTurret ;
-                     :laneDescription "The mid lane is located centrally on the map, directly connecting the bases of both teams. It is typically the shortest path among the three main lanes and often serves as the focal point for combat actions and strategic movements. The mid lane is usually dominated by magic-based champions or assassins who can deal high burst damage quickly. This lane is crucial for controlling game flow and supporting other lanes with swift movements and targeted attacks." .
+                     :laneDescription "The mid lane is located centrally on the map, directly connecting the bases of both teams. It is typically the shortest path among the three main lanes and often serves as the focal point for combat actions and strategic movements. The mid lane is usually dominated by magic-based champions or assassins who can deal high burst damage quickly. This lane is crucial for controlling game flow and supporting other lanes with swift movements and targeted attacks." ;
+                     rdfs:comment "The middle lane on Summoner's Rift in League of Legends, where champions typically engage in 1v1 or 2v2 matchups and focus on controlling the central area of the map."@en ;
+                     rdfs:label "SummonerRiftMidLane"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftOuterTurret
-:SummonerRiftOuterTurret rdf:type owl:NamedIndividual .
+:SummonerRiftOuterTurret rdf:type owl:NamedIndividual ;
+                         rdfs:comment "An outer turret located on Summoner's Rift in League of Legends, providing defense and strategic control near the lanes."@en ;
+                         rdfs:label "SummonerRiftOuterTurret"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SummonerRiftTopLane
 :SummonerRiftTopLane rdf:type owl:NamedIndividual ;
                      :hasMapElement :SummonerRiftInnerTurret ,
                                     :SummonerRiftOuterTurret ;
-                     :laneDescription "The top lane is one of the three main paths on the map, situated at the top relative to each team's base. It is characterized by a long, narrow terrain with towers positioned to defend access to the base. The top lane is known for being a battleground for durable champions and melee fighters. Common champions in this lane include fighters or tanks, capable of enduring heavy damage and engaging in direct combat." .
+                     :laneDescription "The top lane is one of the three main paths on the map, situated at the top relative to each team's base. It is characterized by a long, narrow terrain with towers positioned to defend access to the base. The top lane is known for being a battleground for durable champions and melee fighters. Common champions in this lane include fighters or tanks, capable of enduring heavy damage and engaging in direct combat." ;
+                     rdfs:comment "The top lane on Summoner's Rift in League of Legends, where champions typically engage in 1v1 matchups and focus on solo lane control and split pushing."@en ;
+                     rdfs:label "SummonerRiftTopLane"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SuperMegaDeathRocket
@@ -2062,7 +2329,9 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                       :abilityCooldown 85 ;
                       :abilityDescription "Jinx fires a massive rocket in the target direction, briefly granting Sight of its surroundings and exploding upon colliding with an enemy champion. The explosion deals physical damage to nearby enemies and grants Sight of the area for 2 seconds." ;
                       :abilityName "Super Mega Death Rocket!" ;
-                      :abilityType "ultimate" .
+                      :abilityType "ultimate" ;
+                      rdfs:comment "Jinx's ability."@en ;
+                      rdfs:label "SuperMegaDeathRocket"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#SuperMinion
@@ -2073,7 +2342,9 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
              :creatureGivesExperience 97 ;
              :creatureGivesGold 60 ;
              :creatureName "Super Minion" ;
-             :creatureRequiresGroup "false"^^xsd:boolean .
+             :creatureRequiresGroup "false"^^xsd:boolean ;
+             rdfs:comment "A powerful type of minion in a MOBA game that is stronger than regular minions, dealing increased damage and having more health."@en ;
+             rdfs:label "SuperMinion"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Support
@@ -2088,7 +2359,9 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
             :abilityCooldown 1 ;
             :abilityDescription "Jinx switches between Pow-Pow Pow-Pow, her minigun, and Fishbones Fishbones, her rocket launcher." ;
             :abilityName "Switcheroo!" ;
-            :abilityType "basic" .
+            :abilityType "basic" ;
+            rdfs:comment "Jinx's ability."@en ;
+            rdfs:label "Switcheroo"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Tank
@@ -2106,11 +2379,16 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                   :Player3 ,
                   :Player4 ,
                   :Player5 ;
-       :teamName "SKT" .
+       :teamName "SKT" ;
+       rdfs:comment "Group of player which play in a competition."@en ;
+       rdfs:label "Team1"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Team1Victory
-:Team1Victory rdf:type owl:NamedIndividual .
+:Team1Victory rdf:type owl:NamedIndividual ;
+              :referredTo :LeagueOfLegends ;
+              rdfs:comment "Match score of Team1."@en ;
+              rdfs:label "Team1Victory"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Team2
@@ -2120,7 +2398,9 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                   :Player7 ,
                   :Player8 ,
                   :Player9 ;
-       :teamName "SSG" .
+       :teamName "SSG" ;
+       rdfs:comment "Group of player which play in a competition."@en ;
+       rdfs:label "Team2"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Team3
@@ -2130,15 +2410,21 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                   :Player13 ,
                   :Player14 ,
                   :Player15 ;
-       :teamName "FNAtic" .
+       :teamName "FNAtic" ;
+       rdfs:comment "Group of player which play in a competition."@en ;
+       rdfs:label "Team3"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Victory
-:Victory rdf:type owl:NamedIndividual .
+:Victory rdf:type owl:NamedIndividual ;
+         rdfs:comment "Outcome of a match."@en ;
+         rdfs:label "Victory"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#World
-:World rdf:type owl:NamedIndividual .
+:World rdf:type owl:NamedIndividual ;
+       rdfs:comment "Represents the location of a global competition in a MOBA game, where top teams from around the world compete for the title of world champion."@en ;
+       rdfs:label "World"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#WorldChampionship2023
@@ -2160,7 +2446,9 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
                                            "Secretlab" ,
                                            "Verizon" ;
                        :competitionStartDate "2023-10-10"^^xsd:date ;
-                       :isOfficialCompetition "true"^^xsd:boolean .
+                       :isOfficialCompetition "true"^^xsd:boolean ;
+                       rdfs:comment "World Championship 2023."@en ;
+                       rdfs:label "WorldChampionship2023"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#XBOX
@@ -2174,7 +2462,25 @@ Spirit Rush can be recast twice more within 15 seconds of the activation at no a
      :abilityCooldown 5 ;
      :abilityDescription "Jinx fires a shock blast in the target direction that deals physical damage to the first enemy it hits and Reveal reveals and Slow slows them for 2 seconds." ;
      :abilityName "Zap!" ;
-     :abilityType "basic" .
+     :abilityType "basic" ;
+     rdfs:comment "Jinx's ability."@en ;
+     rdfs:label "Zap"@en .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+:NormalMatch rdfs:comment "A standard game mode in a MOBA where players participate without their performance affecting their ranking or matchmaking."@en ;
+             rdfs:label "NormalMatch"@en .
+
+
+:Rank rdfs:comment "A classification indicating a player's skill level or position within a ranking system in a MOBA game."@en ;
+      rdfs:label "Rank"@en .
+
+
+:RankedMatch rdfs:comment "A competitive game mode in a MOBA where players' performance affects their ranking or matchmaking, often leading to skill-based matchmaking and rankings."@en ;
+             rdfs:label "RankedMatch"@en .
 
 
 #################################################################
