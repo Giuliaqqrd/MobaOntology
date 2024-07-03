@@ -1,0 +1,63 @@
+[PrefixDeclaration]
+:		http://www.semanticweb.org/MobaOntology#
+dc:		http://purl.org/dc/elements/1.1/
+owl:		http://www.w3.org/2002/07/owl#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+vgo:		http://purl.org/net/videogameontology#
+xml:		http://www.w3.org/XML/1998/namespace
+xsd:		http://www.w3.org/2001/XMLSchema#
+foaf:		http://xmlns.com/foaf/0.1/
+inno:		http://purl.org/innovation/ns#
+obda:		https://w3id.org/obda/vocabulary#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+skos:		http://www.w3.org/2004/02/skos/core#
+vann:		http://purl.org/vocab/vann/
+event:		http://purl.org/NET/c4dm/event.owl#
+sport:		https://www.bbc.co.uk/ontologies/sport/
+dctype:		http://purl.org/dc/dcmitype/
+schema:		https://schema.org/
+dcterms:		http://purl.org/dc/terms/
+dbpedia-owl:	http://dbpedia.org/ontology/
+
+[MappingDeclaration] @collection [[
+mappingId	mapping--1542249324
+target		:ability{id} a :Ability ; :abilityDescription {description} ; :abilityName {name} ; :abilityType {type} . 
+source		select id, name, type, description from ability
+
+mappingId	mapping-1400269271
+target		:game{id} a vgo:Game ; :gameName {name} ; :gameLaunchDate {launchdate} ; :gameDescription {description} . 
+source		select id, name, launchdate, description from game
+
+mappingId	mapping--1309570022
+target		:champion{id} a :Champion ; :championArmor {armor} ; :championHealth {health} ; :championName {name} ; :championMagicResist {magicResist} ; :championMana {mana} ; :championAttackDamage {attackDamage} ; :championRange {attackRange} ; :championMovementSpeed {movementSpeed} . 
+source		select id, name, attackRange, mana, armor, health, movementSpeed, attackDamage, magicResist from champion
+
+mappingId	mapping--595502187
+target		:champion{champid} :isPlayableOf :game{gameid} . 
+source		select champion.id as champid, game.id as gameid from champion join game on champion.game_id = game.id
+
+mappingId	mapping--1572052152
+target		:competition{compid} a sport:Competition ; :competitionCountry {country} ; :competitionSponsor {sponsor} ; :competitionName {name} ; :competitionPrizePool {prizePool} ; :competitionEndDate {endDate} ; :hasDiscipline :game{gameid} ; :competitionOrganizer {organizer} ; :competitionStartDate {startDate} . 
+source		select competition.id as compid, competition.country, competition.name, competition.startDate, competition.enddate, competition.organizer, competition.sponsor, competition.prizePool, game.id as gameid from competition join game on competition.discipline = game.id
+
+mappingId	mapping-1979885253
+target		:team{id} a :Team ; :teamName {name} . 
+source		select id, name from team
+
+mappingId	mapping-481569339
+target		:player{playerNickname} a vgo:Player ; :hasNickname {playerNickname} . :team{teamid} :hasMember :player{playerNickname} . 
+source		select player.nickname as playerNickname, team.id as teamid from player join team on player.team_id = team.id
+
+mappingId	mapping--1071342351
+target		:team{teamid} :isTeamOf :game{gameid} . 
+source		select team.id as teamid, game.id as gameid from team join game on team.game_id = game.id
+
+mappingId	mapping--417763612
+target		:champion{champid} :hasAbility :ability{abilityid} . 
+source		select champion.id as champid, ability.id as abilityid from champion join ability on champion.id = ability.champ_id
+
+mappingId	MAPID-2cc7e6a5545c4f87abe266daa14ecc02
+target		:competitors{competitorsid} a :Competitors . :competition{competitionid} :hasCompetitor :competitors{competitorsid} . 
+source		select competitors.id as competitorsid, competition.id as competitionid from competitors join competition on competitors.competition_id = competition.id
+]]
+

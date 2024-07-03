@@ -7,6 +7,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix inno: <http://purl.org/innovation/ns#> .
+@prefix obda: <https://w3id.org/obda/vocabulary#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -19,6 +20,7 @@
 @base <http://www.semanticweb.org/MobaOntology#> .
 
 <http://www.semanticweb.org/MobaOntology> rdf:type owl:Ontology ;
+                                           owl:imports <http://www.ontologydesignpatterns.org/cp/owl/list.owl> ;
                                            dc:creator "Giulia Coucourde"@en ,
                                                       "Laurentiu Jr Marius Zaharia"@en ;
                                            dc:date "2024-06-18"@en ;
@@ -142,6 +144,14 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                           rdfs:range vgo:GameProduct ;
                           rdfs:comment "The vgo:purchasesGameOffering property aseerts a vgo:InAppPurchaseEvent to a specific vgo:GameProduct. This property describes what is purchased by the In-app purchase event that the player has done."@en ;
                           rdfs:label "purchasesGameOffering"@en .
+
+
+###  http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember
+<http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#hasMember> owl:equivalentProperty :hasItemSet .
+
+
+###  http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf
+<http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl#isMemberOf> owl:equivalentProperty :isItemSetOf .
 
 
 ###  http://www.semanticweb.org/MobaOntology#availableOnPlatform
@@ -587,15 +597,6 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
               rdfs:label "ownsChampion"@en .
 
 
-###  http://www.semanticweb.org/MobaOntology#precedes
-:precedes rdf:type owl:ObjectProperty ,
-                   owl:TransitiveProperty ;
-          rdfs:domain :Rank ;
-          rdfs:range :Rank ;
-          rdfs:comment "Specifies a precedence relationship between ranks."@en ;
-          rdfs:label "precedes"@en .
-
-
 ###  http://www.semanticweb.org/MobaOntology#suitableItem
 :suitableItem rdf:type owl:ObjectProperty ;
               rdfs:domain :Champion ;
@@ -987,12 +988,6 @@ passive factors, products, and a location in space/time."""@en ;
             rdfs:label "Event"@en .
 
 
-###  http://purl.org/dc/dcmitype/Collection
-dctype:Collection rdf:type owl:Class ;
-                  rdfs:comment "A collection is described as a group; its parts may also be separately described."@en ;
-                  rdfs:label "Collection"@en .
-
-
 ###  http://purl.org/net/videogameontology#Character
 vgo:Character rdf:type owl:Class ;
               rdfs:comment "A vgo:Character is any actor that can exists in a game. A character can be a human-like creature as seen traditionally in video games. However, a character could also be a car, a paddle in game of Pong or spaceship of a space shooter game. This is often contextually related to the gameplay of a certain game. A character can be either controller by a player or by a computer."@en ;
@@ -1062,7 +1057,8 @@ vgo:InstantaneousEvent rdf:type owl:Class ;
 
 ###  http://purl.org/net/videogameontology#Item
 vgo:Item rdf:type owl:Class ;
-         owl:equivalentClass [ rdf:type owl:Restriction ;
+         owl:equivalentClass <http://www.ontologydesignpatterns.org/cp/owl/bag.owl#Item> ,
+                             [ rdf:type owl:Restriction ;
                                owl:onProperty vgo:isItemInGame ;
                                owl:someValuesFrom vgo:Game
                              ] ;
@@ -1114,6 +1110,10 @@ vgo:PlayingArea rdf:type owl:Class ;
                 rdfs:label "vgo:PlayingArea"@en .
 
 
+###  http://www.ontologydesignpatterns.org/cp/owl/bag.owl#Bag
+<http://www.ontologydesignpatterns.org/cp/owl/bag.owl#Bag> owl:equivalentClass :Build .
+
+
 ###  http://www.semanticweb.org/MobaOntology#Ability
 :Ability rdf:type owl:Class ;
          rdfs:comment "A distinct skill or power that a character can use in a MOBA game, typically to influence the game by affecting other characters or the environment."@en ;
@@ -1153,7 +1153,6 @@ vgo:PlayingArea rdf:type owl:Class ;
                              owl:onProperty :hasItemSet ;
                              owl:someValuesFrom vgo:Item
                            ] ;
-       rdfs:subClassOf dctype:Collection ;
        rdfs:comment "Build is a subclass of Collection representing a set or collection of item combinations created by players in a game. These builds are typically optimized for specific roles or playstyles, such as offensive, defensive, or support."@en ;
        rdfs:label "Build"@en .
 
@@ -1179,7 +1178,6 @@ vgo:PlayingArea rdf:type owl:Class ;
                                    owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
                                    owl:onClass :Team
                                  ] ;
-             rdfs:subClassOf dctype:Collection ;
              rdfs:comment "Specifiy a collection of teams."@en ;
              rdfs:label "Competitors"@en .
 
@@ -1229,6 +1227,10 @@ vgo:PlayingArea rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Elite
 :Elite rdf:type owl:Class ;
+       owl:equivalentClass [ rdf:type owl:Restriction ;
+                             owl:onProperty :isHighestElo ;
+                             owl:someValuesFrom :Rank
+                           ] ;
        rdfs:subClassOf :Rank ;
        rdfs:comment "A Elite rank in a MOBA game representing players with the highest ELO ratings, typically following the High rank and considered to be among the top tier."@en ;
        rdfs:label "Elite"@en .
@@ -1286,7 +1288,7 @@ vgo:PlayingArea rdf:type owl:Class ;
 ###  http://www.semanticweb.org/MobaOntology#High
 :High rdf:type owl:Class ;
       owl:equivalentClass [ rdf:type owl:Restriction ;
-                            owl:onProperty :precedes ;
+                            owl:onProperty <http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#precedes> ;
                             owl:someValuesFrom :Elite
                           ] ;
       rdfs:subClassOf :Rank ;
@@ -1346,7 +1348,7 @@ vgo:PlayingArea rdf:type owl:Class ;
 ###  http://www.semanticweb.org/MobaOntology#Low
 :Low rdf:type owl:Class ;
      owl:equivalentClass [ rdf:type owl:Restriction ;
-                           owl:onProperty :precedes ;
+                           owl:onProperty <http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#precedes> ;
                            owl:someValuesFrom :Medium
                          ] ;
      rdfs:subClassOf :Rank ;
@@ -1417,7 +1419,7 @@ vgo:PlayingArea rdf:type owl:Class ;
 ###  http://www.semanticweb.org/MobaOntology#Medium
 :Medium rdf:type owl:Class ;
         owl:equivalentClass [ rdf:type owl:Restriction ;
-                              owl:onProperty :precedes ;
+                              owl:onProperty <http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#precedes> ;
                               owl:someValuesFrom :High
                             ] ;
         rdfs:subClassOf :Rank ;
@@ -1745,7 +1747,6 @@ vgo:PlayingArea rdf:type owl:Class ;
                             owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
                             owl:onClass vgo:Player
                           ] ;
-      rdfs:subClassOf dctype:Collection ;
       rdfs:comment "A collection of players which play for the same team."@en ;
       rdfs:label "Team"@en .
 
@@ -1853,7 +1854,7 @@ sport:Competition rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/MobaOntology#Bronze
 :Bronze rdf:type owl:NamedIndividual ;
-        :precedes :Silver ;
+        <http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#precedes> :Silver ;
         rdfs:comment "A lower tier rank in a competitive system, often indicating beginners or players with lower skill levels."@en ;
         rdfs:label "Bronze"@en .
 
@@ -1965,6 +1966,7 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#Diamond
 :Diamond rdf:type owl:NamedIndividual ;
+         <http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#follows> :Gold ;
          :isHighestElo :Rank ;
          rdfs:comment "Elite rank of League Of Legends."@en ;
          rdfs:label "Diamond"@en .
@@ -2081,7 +2083,6 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#Gold
 :Gold rdf:type owl:NamedIndividual ;
-      :precedes :Diamond ;
       rdfs:comment "High rank elo."@en ;
       rdfs:label "Gold"@en .
 
@@ -2394,6 +2395,7 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#Playstation
 :Playstation rdf:type owl:NamedIndividual ;
+             :isPlatformOf :Dota2 ;
              rdfs:comment "Playstation represents Sony's gaming console as a gaming platform."@en ;
              rdfs:label "Playstation"@en .
 
@@ -2458,7 +2460,7 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 
 ###  http://www.semanticweb.org/MobaOntology#Silver
 :Silver rdf:type owl:NamedIndividual ;
-        :precedes :Gold ;
+        <http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#precedes> :Gold ;
         rdfs:comment "Medium rank in a MOBA game."@en ;
         rdfs:label "Silver"@en .
 

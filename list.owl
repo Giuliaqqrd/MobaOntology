@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.ontologydesignpatterns.org/cp/owl/list.owl#"
+     xml:base="http://www.ontologydesignpatterns.org/cp/owl/list.owl"
+     xmlns:bag="http://www.ontologydesignpatterns.org/cp/owl/bag.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:sequence="http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#"
+     xmlns:cpannotationschema="http://www.ontologydesignpatterns.org/schemas/cpannotationschema.owl#">
+    <owl:Ontology rdf:about="http://www.ontologydesignpatterns.org/cp/owl/list.owl">
+        <owl:imports rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/bag.owl"/>
+        <owl:imports rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/sequence.owl"/>
+        <cpannotationschema:coversRequirements>What are the items (elements) in this list?</cpannotationschema:coversRequirements>
+        <cpannotationschema:coversRequirements>What is the first/last item in this list?</cpannotationschema:coversRequirements>
+        <cpannotationschema:coversRequirements>What is the length (size) of this list?</cpannotationschema:coversRequirements>
+        <cpannotationschema:coversRequirements>What it the next/previous item in the list?</cpannotationschema:coversRequirements>
+        <cpannotationschema:coversRequirements>What resource does this list item contain?</cpannotationschema:coversRequirements>
+        <cpannotationschema:extractedFrom>http://swan.mindinformatics.org/ontologies/1.2/collections.owl</cpannotationschema:extractedFrom>
+        <cpannotationschema:hasAuthor>PaoloCiccarese</cpannotationschema:hasAuthor>
+        <cpannotationschema:hasComponent>http://www.ontologydesignpatterns.org/cp/owl/collectionentity.owl</cpannotationschema:hasComponent>
+        <cpannotationschema:hasComponent>http://www.ontologydesignpatterns.org/cp/owl/sequence.owl</cpannotationschema:hasComponent>
+        <cpannotationschema:hasIntent>To represent ordered collections, i.e. lists.</cpannotationschema:hasIntent>
+        <cpannotationschema:isSpecializationOf>http://www.ontologydesignpatterns.org/cp/owl/sequence.owl</cpannotationschema:isSpecializationOf>
+        <cpannotationschema:reengineeredFrom>http://swan.mindinformatics.org/ontologies/1.2/collections.owl</cpannotationschema:reengineeredFrom>
+        <cpannotationschema:relatedCPs>http://www.ontologydesignpatterns.org/cp/owl/bag.owl</cpannotationschema:relatedCPs>
+        <cpannotationschema:relatedCPs>http://www.ontologydesignpatterns.org/cp/owl/set.owl</cpannotationschema:relatedCPs>
+        <owl:versionInfo>Created with TopBraid Composer</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.ontologydesignpatterns.org/cp/owl/list.owl#firstItemOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.ontologydesignpatterns.org/cp/owl/list.owl#firstItemOf">
+        <rdfs:subPropertyOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/bag.owl#itemOf"/>
+        <owl:inverseOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/list.owl#hasFirstItem"/>
+        <rdfs:label>first item of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ontologydesignpatterns.org/cp/owl/list.owl#hasFirstItem -->
+
+    <owl:ObjectProperty rdf:about="http://www.ontologydesignpatterns.org/cp/owl/list.owl#hasFirstItem">
+        <rdfs:subPropertyOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/bag.owl#hasItem"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:comment>first item - The link to the first item of the list</rdfs:comment>
+        <rdfs:label>has first item</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ontologydesignpatterns.org/cp/owl/list.owl#hasLastItem -->
+
+    <owl:ObjectProperty rdf:about="http://www.ontologydesignpatterns.org/cp/owl/list.owl#hasLastItem">
+        <rdfs:subPropertyOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/bag.owl#hasItem"/>
+        <owl:inverseOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/list.owl#lastItemOf"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:comment>last item - The link to the last item of the list</rdfs:comment>
+        <rdfs:label>has last item</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ontologydesignpatterns.org/cp/owl/list.owl#lastItemOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.ontologydesignpatterns.org/cp/owl/list.owl#lastItemOf">
+        <rdfs:subPropertyOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/bag.owl#itemOf"/>
+        <rdfs:label>last item of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ontologydesignpatterns.org/cp/owl/list.owl#nextItem -->
+
+    <owl:ObjectProperty rdf:about="http://www.ontologydesignpatterns.org/cp/owl/list.owl#nextItem">
+        <rdfs:subPropertyOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#directlyFollows"/>
+        <owl:inverseOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/list.owl#previousItem"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:comment>next item - The link to the next item in a list (ordered collection)</rdfs:comment>
+        <rdfs:label>next item</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ontologydesignpatterns.org/cp/owl/list.owl#previousItem -->
+
+    <owl:ObjectProperty rdf:about="http://www.ontologydesignpatterns.org/cp/owl/list.owl#previousItem">
+        <rdfs:subPropertyOf rdf:resource="http://www.ontologydesignpatterns.org/cp/owl/sequence.owl#directlyPrecedes"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:comment>previous item - The link to the previous item in a list (ordered collection)</rdfs:comment>
+        <rdfs:label>previous item</rdfs:label>
+    </owl:ObjectProperty>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
