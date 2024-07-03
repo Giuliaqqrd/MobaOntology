@@ -96,6 +96,7 @@ vgo:hasPlayingArea rdf:type owl:ObjectProperty ;
                    owl:inverseOf :isMapAreaOf ;
                    rdfs:domain :Map ;
                    rdfs:range :MapArea ;
+                   rdfs:comment "The vgo:hasPlayingArea property asserts a gaming area to a specific game. In every game, the gameplay takes place in some Playing area."@en ;
                    rdfs:label "vgo:hasPlayingArea"@en .
 
 
@@ -130,6 +131,7 @@ vgo:ownsItem rdf:type owl:ObjectProperty ;
              owl:equivalentProperty :suitableItem ;
              rdfs:domain :Champion ;
              rdfs:range vgo:Item ;
+             rdfs:comment "The vgo:ownsItem describes ownership of an item. A vgo:Item is always owned by a certain vgo:Character. A vgo:Character can own multiple vgo:Items and this relationship is used to keep track of the characterâ€™s owned items. Even though players may lose items, the vgo:ownsItem connection is still held with the item. This approach allows to keep track of characterâ€™s history of owned items."@en ;
              rdfs:label "vgo:ownsItem"@en .
 
 
@@ -137,7 +139,9 @@ vgo:ownsItem rdf:type owl:ObjectProperty ;
 vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                           owl:inverseOf :isPurchasedInGame ;
                           rdfs:domain vgo:InAppPurchaseEvent ;
-                          rdfs:range vgo:GameProduct .
+                          rdfs:range vgo:GameProduct ;
+                          rdfs:comment "The vgo:purchasesGameOffering property aseerts a vgo:InAppPurchaseEvent to a specific vgo:GameProduct. This property describes what is purchased by the In-app purchase event that the player has done."@en ;
+                          rdfs:label "purchasesGameOffering"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#availableOnPlatform
@@ -155,26 +159,34 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                  rdfs:range :MapElement ;
                  owl:propertyChainAxiom ( :hasMapArea
                                           :hasMapElement
-                                        ) .
+                                        ) ;
+                 rdfs:comment "This property indicates that a map contains a specific element within its structure. It links a map to its constituent elements, utilizing a property chain to connect through map areas and elements."@en ;
+                 rdfs:label "containsElement"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasAbility
 :hasAbility rdf:type owl:ObjectProperty ;
             owl:inverseOf :isAbilityOf ;
             rdfs:domain :Champion ;
-            rdfs:range :Ability .
+            rdfs:range :Ability ;
+            rdfs:comment "This property links a champion to its abilities, indicating that the champion possesses certain skills or powers. The inverse of this property is 'isAbilityOf', which connects an ability back to the champion that possesses it."@en ;
+            rdfs:label "hasAbility"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasBuild
 :hasBuild rdf:type owl:ObjectProperty ;
           owl:inverseOf :isBuildOf ;
           rdfs:domain :Champion ;
-          rdfs:range :Build .
+          rdfs:range :Build ;
+          rdfs:comment "This property links a champion to its build, indicating the specific set of items and skills that are used to enhance the champion's performance. The inverse of this property is 'isBuildOf', which connects a build back to the champion that utilizes it."@en ;
+          rdfs:label "hasBuild"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasCompetitor
 :hasCompetitor rdf:type owl:ObjectProperty ;
-               owl:inverseOf :isCompetitorOf .
+               owl:inverseOf :isCompetitorOf ;
+               rdfs:comment "This property indicates a competitive relationship between two entities, showing that one entity is a competitor of the other. The inverse of this property is 'isCompetitorOf', which links back to the original entity."@en ;
+               rdfs:label "hasCompetitor"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasComponent
@@ -182,7 +194,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
               owl:inverseOf :isComponentOf ;
               rdf:type owl:TransitiveProperty ;
               rdfs:domain :CompositeItem ;
-              rdfs:range vgo:Item .
+              rdfs:range vgo:Item ;
+              rdfs:comment "This property links a composite item to its components, indicating that the composite item is made up of these smaller items. The inverse of this property is 'isComponentOf', which connects a component back to the composite item it belongs to."@en ;
+              rdfs:label "hasComponent"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasDeveloper
@@ -197,53 +211,69 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 :hasDiscipline rdf:type owl:ObjectProperty ;
                owl:inverseOf :isDisciplineOf ;
                rdfs:domain sport:Competition ;
-               rdfs:range vgo:Game .
+               rdfs:range vgo:Game ;
+               rdfs:comment "Relates a competition to the specific discipline or game associated with it."@en ;
+               rdfs:label "hasDiscipline"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasFeature
-:hasFeature rdf:type owl:ObjectProperty .
+:hasFeature rdf:type owl:ObjectProperty ;
+            rdfs:comment "Relates an entity to a specific feature or attribute it possesses."@en ;
+            rdfs:label "hasFeature"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasGameEvent
 :hasGameEvent rdf:type owl:ObjectProperty ;
               owl:inverseOf :isGameEventOf ;
               rdfs:domain vgo:Game ;
-              rdfs:range vgo:InstantaneousEvent .
+              rdfs:range vgo:InstantaneousEvent ;
+              rdfs:comment "Relates a video game to an instantaneous event occurring within the game."@en ;
+              rdfs:label "hasGameEvent"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasItemSet
 :hasItemSet rdf:type owl:ObjectProperty ;
             owl:inverseOf :isItemSetOf ;
             rdfs:domain :Build ;
-            rdfs:range vgo:Item .
+            rdfs:range vgo:Item ;
+            rdfs:comment "Relates a build configuration to the set of items it includes."@en ;
+            rdfs:label "hasItemSet"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasLocation
 :hasLocation rdf:type owl:ObjectProperty ;
              owl:inverseOf :isLocationOf ;
              rdfs:domain sport:Competition ;
-             rdfs:range :Location .
+             rdfs:range :Location ;
+             rdfs:comment "Links a competition to its associated location."@en ;
+             rdfs:label "hasLocation"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMapArea
 :hasMapArea rdf:type owl:ObjectProperty ;
             owl:inverseOf :isMapAreaOf ;
             rdfs:domain :Map ;
-            rdfs:range :MapArea .
+            rdfs:range :MapArea ;
+            rdfs:comment "Relates a map to a specific area or region within it."@en ;
+            rdfs:label "hasMapArea"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMapElement
 :hasMapElement rdf:type owl:ObjectProperty ;
                owl:inverseOf :isMapElementOf ;
                rdfs:domain :MapArea ;
-               rdfs:range :MapElement .
+               rdfs:range :MapElement ;
+               rdfs:comment "Establishes a relationship between a map area and an element within it."@en ;
+               rdfs:label "hasMapElement"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMatch
 :hasMatch rdf:type owl:ObjectProperty ;
           owl:inverseOf :isMatchInGame ;
           rdfs:domain vgo:Game ;
-          rdfs:range :Match .
+          rdfs:range :Match ;
+          rdfs:comment "Relates a video game to a specific match or gameplay session within it."@en ;
+          rdfs:label "hasMatch"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMechanic
@@ -251,14 +281,18 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf :hasFeature ;
              owl:inverseOf :isMechanicOf ;
              rdfs:domain vgo:Game ;
-             rdfs:range :Mechanic .
+             rdfs:range :Mechanic ;
+             rdfs:comment "Relates a video game to a specific game mechanic it employs."@en ;
+             rdfs:label "hasMechanic"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMember
 :hasMember rdf:type owl:ObjectProperty ;
            owl:inverseOf :isMemberOf ;
            rdfs:domain :Team ;
-           rdfs:range vgo:Player .
+           rdfs:range vgo:Player ;
+           rdfs:comment "Relates a team to its member players."@en ;
+           rdfs:label "hasMember"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasMonetization
@@ -274,7 +308,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 :hasOutcome rdf:type owl:ObjectProperty ;
             owl:inverseOf :isOutcomeOf ;
             rdfs:domain :Match ;
-            rdfs:range :GameOutcome .
+            rdfs:range :GameOutcome ;
+            rdfs:comment "Relates a match to its outcome or result."@en ;
+            rdfs:label "hasOutcome"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasPOV
@@ -282,118 +318,156 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
         rdfs:subPropertyOf :hasFeature ;
         owl:inverseOf :isPOVOf ;
         rdfs:domain vgo:Game ;
-        rdfs:range :PointOfView .
+        rdfs:range :PointOfView ;
+        rdfs:comment "Relates a video game to a specific point of view (POV) it employs."@en ;
+        rdfs:label "hasPOV"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasRank
 :hasRank rdf:type owl:ObjectProperty ;
          owl:inverseOf :isRankOf ;
          rdfs:domain :RankedMatch ;
-         rdfs:range :Rank .
+         rdfs:range :Rank ;
+         rdfs:comment "Relates a ranked match to its rank or position."@en ;
+         rdfs:label "hasRank"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasRole
 :hasRole rdf:type owl:ObjectProperty ;
          owl:inverseOf :isRoleOf ;
          rdfs:domain :Champion ;
-         rdfs:range :Role .
+         rdfs:range :Role ;
+         rdfs:comment "Relates a champion (character) to the role it fulfills within the game."@en ;
+         rdfs:label "hasRole"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#includesTeam
 :includesTeam rdf:type owl:ObjectProperty ;
               owl:inverseOf :isTeamInMatch ;
               rdfs:domain :Match ;
-              rdfs:range :Team .
+              rdfs:range :Team ;
+              rdfs:comment "Specifies that a match includes a specific team as one of its participants."@en ;
+              rdfs:label "includesTeam"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isAbilityOf
 :isAbilityOf rdf:type owl:ObjectProperty ,
                       owl:FunctionalProperty ;
              rdfs:domain :Ability ;
-             rdfs:range :Champion .
+             rdfs:range :Champion ;
+             rdfs:comment "Specifies that an ability belongs to a specific champion (character) in the game."@en ;
+             rdfs:label "isAbilityOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isBuildOf
 :isBuildOf rdf:type owl:ObjectProperty ;
            rdfs:domain :Build ;
-           rdfs:range :Champion .
+           rdfs:range :Champion ;
+           rdfs:comment "Specifies that a build configuration belongs to a specific champion (character) in the game."@en ;
+           rdfs:label "isBuildOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isCompetitorOf
-:isCompetitorOf rdf:type owl:ObjectProperty .
+:isCompetitorOf rdf:type owl:ObjectProperty ;
+                rdfs:comment "Specifies a relationship where one entity is a competitor of another."@en ;
+                rdfs:label "isCompetitorOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isComponentOf
 :isComponentOf rdf:type owl:ObjectProperty ,
                         owl:TransitiveProperty ;
                rdfs:domain vgo:Item ;
-               rdfs:range :CompositeItem .
+               rdfs:range :CompositeItem ;
+               rdfs:comment "Specifies that an item is a component of a composite item."@en ;
+               rdfs:label "isComponentOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isDisciplineOf
 :isDisciplineOf rdf:type owl:ObjectProperty ;
                 rdfs:domain vgo:Game ;
-                rdfs:range sport:Competition .
+                rdfs:range sport:Competition ;
+                rdfs:comment "Relates a game to the discipline or competition it is a part of."@en ;
+                rdfs:label "isDisciplineOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isGameEventOf
 :isGameEventOf rdf:type owl:ObjectProperty ;
                rdfs:domain vgo:InstantaneousEvent ;
-               rdfs:range vgo:Game .
+               rdfs:range vgo:Game ;
+               rdfs:comment "Relates an instantaneous event within a game to the game it occurred in."@en ;
+               rdfs:label "isGameEventOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isHighestElo
 :isHighestElo rdf:type owl:ObjectProperty ;
               rdfs:domain :Elite ;
-              rdfs:range :Rank .
+              rdfs:range :Rank ;
+              rdfs:comment "Relates an elite entity to its highest achieved rank or position."@en ;
+              rdfs:label "isHighestElo"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isItemSetOf
 :isItemSetOf rdf:type owl:ObjectProperty ;
              rdfs:domain vgo:Item ;
-             rdfs:range :Build .
+             rdfs:range :Build ;
+             rdfs:comment "Specifies that an item belongs to a specific build configuration."@en ;
+             rdfs:label "isItemSetOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isLocationOf
 :isLocationOf rdf:type owl:ObjectProperty ;
               rdfs:domain :Location ;
-              rdfs:range sport:Competition .
+              rdfs:range sport:Competition ;
+              rdfs:comment "Associates a location with the sports competitions held there."@en ;
+              rdfs:label "isLocationOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isMapAreaOf
 :isMapAreaOf rdf:type owl:ObjectProperty ;
              rdfs:domain :MapArea ;
-             rdfs:range :Map .
+             rdfs:range :Map ;
+             rdfs:comment "Specifies the map to which a specific area or region belongs."@en ;
+             rdfs:label "isMapAreaOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isMapElementOf
 :isMapElementOf rdf:type owl:ObjectProperty ;
                 rdfs:domain :MapElement ;
-                rdfs:range :MapArea .
+                rdfs:range :MapArea ;
+                rdfs:comment "Specifies the map area to which a specific element belongs."@en ;
+                rdfs:label "isMapElementOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isMatchInGame
 :isMatchInGame rdf:type owl:ObjectProperty ;
                rdfs:domain :Match ;
-               rdfs:range vgo:Game .
+               rdfs:range vgo:Game ;
+               rdfs:comment "Associates a match with the video game in which it occurs."@en ;
+               rdfs:label "isMatchInGame"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isMechanicOf
 :isMechanicOf rdf:type owl:ObjectProperty ;
               rdfs:domain :Mechanic ;
-              rdfs:range vgo:Game .
+              rdfs:range vgo:Game ;
+              rdfs:comment "Specifies the video game to which a specific game mechanic belongs."@en ;
+              rdfs:label "isMechanicOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isMemberOf
 :isMemberOf rdf:type owl:ObjectProperty ;
             rdfs:domain vgo:Player ;
-            rdfs:range :Team .
+            rdfs:range :Team ;
+            rdfs:comment "Specifies the team to which a player belongs."@en ;
+            rdfs:label "isMemberOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isMonetizationOf
 :isMonetizationOf rdf:type owl:ObjectProperty ;
                   rdfs:domain :MonetizationModel ;
-                  rdfs:range vgo:Game .
+                  rdfs:range vgo:Game ;
+                  rdfs:comment "Specifies the video game associated with a particular monetization model."@en ;
+                  rdfs:label "isMonetizationOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isNonPlayableOf
@@ -407,7 +481,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/MobaOntology#isOutcomeOf
 :isOutcomeOf rdf:type owl:ObjectProperty ;
              rdfs:domain :GameOutcome ;
-             rdfs:range :Match .
+             rdfs:range :Match ;
+             rdfs:comment "Associates a game outcome with the match it resulted from."@en ;
+             rdfs:label "isOutcomeOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isOwnedByPlayer
@@ -423,13 +499,17 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 :isPOVOf rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf owl:topObjectProperty ;
          rdfs:domain :PointOfView ;
-         rdfs:range vgo:Game .
+         rdfs:range vgo:Game ;
+         rdfs:comment "Specifies the video game associated with a particular point of view (POV)."@en ;
+         rdfs:label "isPOVOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isPlatformOf
 :isPlatformOf rdf:type owl:ObjectProperty ;
               rdfs:domain :Platform ;
-              rdfs:range vgo:Game .
+              rdfs:range vgo:Game ;
+              rdfs:comment "Specifies the video game associated with a particular platform."@en ;
+              rdfs:label "isPlatformOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isPlayableOf
@@ -446,31 +526,41 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
                 rdfs:range :Team ;
                 owl:propertyChainAxiom ( :hasMatch
                                          :includesTeam
-                                       ) .
+                                       ) ;
+                rdfs:comment "Specifies the team that plays in a particular game, derived from the match and team inclusion."@en ;
+                rdfs:label "isPlayedByTeam"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isPurchasedInGame
 :isPurchasedInGame rdf:type owl:ObjectProperty ;
                    rdfs:domain vgo:GameProduct ;
-                   rdfs:range vgo:InAppPurchaseEvent .
+                   rdfs:range vgo:InAppPurchaseEvent ;
+                   rdfs:comment "Specifies that a game product is purchased through an in-app purchase event within a specific video game."@en ;
+                   rdfs:label "isPurchasedInGame"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isRankOf
 :isRankOf rdf:type owl:ObjectProperty ;
           rdfs:domain :Rank ;
-          rdfs:range :RankedMatch .
+          rdfs:range :RankedMatch ;
+          rdfs:comment "Specifies the ranked match associated with a particular rank."@en ;
+          rdfs:label "isRankOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isRoleOf
 :isRoleOf rdf:type owl:ObjectProperty ;
           rdfs:domain :Role ;
-          rdfs:range :Champion .
+          rdfs:range :Champion ;
+          rdfs:comment "Specifies the champion (character) associated with a particular role."@en ;
+          rdfs:label "isRoleOf"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isTeamInMatch
 :isTeamInMatch rdf:type owl:ObjectProperty ;
                rdfs:domain :Team ;
-               rdfs:range :Match .
+               rdfs:range :Match ;
+               rdfs:comment "Specifies the match in which a team participates."@en ;
+               rdfs:label "isTeamInMatch"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#isTeamOf
@@ -484,7 +574,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 ###  http://www.semanticweb.org/MobaOntology#locatedInMap
 :locatedInMap rdf:type owl:ObjectProperty ;
               rdfs:domain :Creature ;
-              rdfs:range :MapArea .
+              rdfs:range :MapArea ;
+              rdfs:comment "Specifies the map area where a creature is located."@en ;
+              rdfs:label "locatedInMap"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#ownsChampion
@@ -499,7 +591,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
 :precedes rdf:type owl:ObjectProperty ,
                    owl:TransitiveProperty ;
           rdfs:domain :Rank ;
-          rdfs:range :Rank .
+          rdfs:range :Rank ;
+          rdfs:comment "Specifies a precedence relationship between ranks."@en ;
+          rdfs:label "precedes"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#suitableItem
@@ -508,7 +602,9 @@ vgo:purchasesGameOffering rdf:type owl:ObjectProperty ;
               rdfs:range vgo:Item ;
               owl:propertyChainAxiom ( :hasBuild
                                        :hasItemSet
-                                     ) .
+                                     ) ;
+              rdfs:comment "Specifies items that are suitable for a specific champion based on their build and item sets."@en ;
+              rdfs:label "suitableItem"@en .
 
 
 #################################################################
@@ -527,25 +623,33 @@ vgo:username rdf:type owl:DatatypeProperty ;
 ###  http://www.semanticweb.org/MobaOntology#abilityCooldown
 :abilityCooldown rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Ability ;
-                 rdfs:range xsd:integer .
+                 rdfs:range xsd:integer ;
+                 rdfs:comment "Specifies the cooldown time in seconds for an ability of a champion."@en ;
+                 rdfs:label "abilityCooldown"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#abilityDescription
 :abilityDescription rdf:type owl:DatatypeProperty ;
                     rdfs:domain :Ability ;
-                    rdfs:range xsd:string .
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Specifies the cooldown time in seconds for an ability of a champion."@en ;
+                    rdfs:label "abilityDescription"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#abilityName
 :abilityName rdf:type owl:DatatypeProperty ;
              rdfs:domain :Ability ;
-             rdfs:range xsd:string .
+             rdfs:range xsd:string ;
+             rdfs:comment "Specifies the name of an ability associated with a champion."@en ;
+             rdfs:label "abilityName"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#abilityType
 :abilityType rdf:type owl:DatatypeProperty ;
              rdfs:domain :Ability ;
-             rdfs:range xsd:string .
+             rdfs:range xsd:string ;
+             rdfs:comment "Specifies the type of an ability associated with a champion."@en ;
+             rdfs:label "abilityType"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#championArmor
@@ -623,97 +727,129 @@ vgo:username rdf:type owl:DatatypeProperty ;
 ###  http://www.semanticweb.org/MobaOntology#competitionCountry
 :competitionCountry rdf:type owl:DatatypeProperty ;
                     rdfs:domain sport:Competition ;
-                    rdfs:range xsd:string .
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Specifies the country associated with a competition."@en ;
+                    rdfs:label "competitionCountry"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#competitionEndDate
 :competitionEndDate rdf:type owl:DatatypeProperty ;
                     rdfs:domain sport:Competition ;
-                    rdfs:range xsd:date .
+                    rdfs:range xsd:date ;
+                    rdfs:comment "Specifies the end date of a competition."@en ;
+                    rdfs:label "competitionEndDate"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#competitionName
 :competitionName rdf:type owl:DatatypeProperty ;
                  rdfs:domain sport:Competition ;
-                 rdfs:range xsd:string .
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Specifies the name of a competition."@en ;
+                 rdfs:label "competitionName"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#competitionOrganizer
 :competitionOrganizer rdf:type owl:DatatypeProperty ;
                       rdfs:domain sport:Competition ;
-                      rdfs:range xsd:string .
+                      rdfs:range xsd:string ;
+                      rdfs:comment "Specifies the organizer of the competition."@en ;
+                      rdfs:label "competitionOrganizer"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#competitionPrizePool
 :competitionPrizePool rdf:type owl:DatatypeProperty ;
                       rdfs:domain sport:Competition ;
-                      rdfs:range xsd:integer .
+                      rdfs:range xsd:integer ;
+                      rdfs:comment "Specifies the prize pool amount for the competition."@en ;
+                      rdfs:label "competitionPrizePool"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#competitionSponsor
 :competitionSponsor rdf:type owl:DatatypeProperty ;
                     rdfs:domain sport:Competition ;
-                    rdfs:range xsd:string .
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Specifies the sponsor of the competition."@en ;
+                    rdfs:label "competitionSponsor"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#competitionStartDate
 :competitionStartDate rdf:type owl:DatatypeProperty ;
                       rdfs:domain sport:Competition ;
-                      rdfs:range xsd:date .
+                      rdfs:range xsd:date ;
+                      rdfs:comment "Specifies the start date of the competition."@en ;
+                      rdfs:label "competitionStartDate"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#creatureDescription
 :creatureDescription rdf:type owl:DatatypeProperty ;
                      rdfs:domain :Creature ;
-                     rdfs:range xsd:string .
+                     rdfs:range xsd:string ;
+                     rdfs:comment "Specifies the description of a creature."@en ;
+                     rdfs:label "creatureDescription"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#creatureGivesExperience
 :creatureGivesExperience rdf:type owl:DatatypeProperty ;
                          rdfs:domain :Creature ;
-                         rdfs:range xsd:integer .
+                         rdfs:range xsd:integer ;
+                         rdfs:comment "Specifies the amount of experience points given by a creature."@en ;
+                         rdfs:label "creatureGivesExperience"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#creatureGivesGold
 :creatureGivesGold rdf:type owl:DatatypeProperty ;
                    rdfs:domain :Creature ;
-                   rdfs:range xsd:integer .
+                   rdfs:range xsd:integer ;
+                   rdfs:comment "Specifies the amount of gold given by a creature."@en ;
+                   rdfs:label "creatureGivesGold"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#creatureHasBuff
 :creatureHasBuff rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Creature ;
-                 rdfs:range xsd:string .
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Specifies the buff possessed by a creature."@en ;
+                 rdfs:label "creatureHasBuff"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#creatureName
 :creatureName rdf:type owl:DatatypeProperty ;
               rdfs:domain :Creature ;
-              rdfs:range xsd:string .
+              rdfs:range xsd:string ;
+              rdfs:comment "Specifies the name of a creature."@en ;
+              rdfs:label "creatureName"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#creatureRequiresGroup
 :creatureRequiresGroup rdf:type owl:DatatypeProperty ;
                        rdfs:domain :Creature ;
-                       rdfs:range xsd:boolean .
+                       rdfs:range xsd:boolean ;
+                       rdfs:comment "Specifies whether a creature requires a group to defeat."@en ;
+                       rdfs:label "creatureRequiresGroup"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#gameDescription
 :gameDescription rdf:type owl:DatatypeProperty ;
                  rdfs:domain vgo:Game ;
-                 rdfs:range xsd:string .
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Specifies the description of a video game."@en ;
+                 rdfs:label "gameDescription"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#gameLaunchDate
 :gameLaunchDate rdf:type owl:DatatypeProperty ;
                 rdfs:domain vgo:Game ;
-                rdfs:range xsd:date .
+                rdfs:range xsd:date ;
+                rdfs:comment "Specifies the launch date of a video game."@en ;
+                rdfs:label "gameLaunchDate"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#gameName
 :gameName rdf:type owl:DatatypeProperty ;
           rdfs:domain vgo:Game ;
-          rdfs:range xsd:string .
+          rdfs:range xsd:string ;
+          rdfs:comment "Specifies the name of a video game."@en ;
+          rdfs:label "gameName"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#hasFoundationDate
@@ -746,49 +882,65 @@ vgo:username rdf:type owl:DatatypeProperty ;
 ###  http://www.semanticweb.org/MobaOntology#isOfficialCompetition
 :isOfficialCompetition rdf:type owl:DatatypeProperty ;
                        rdfs:domain sport:Competition ;
-                       rdfs:range xsd:boolean .
+                       rdfs:range xsd:boolean ;
+                       rdfs:comment "Specifies whether a competition is officially recognized."@en ;
+                       rdfs:label "isOfficialCompetition"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#itemCost
 :itemCost rdf:type owl:DatatypeProperty ;
           rdfs:domain vgo:Item ;
-          rdfs:range xsd:integer .
+          rdfs:range xsd:integer ;
+          rdfs:comment "Specifies the cost of an in-game item."@en ;
+          rdfs:label "itemCost"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#itemEffect
 :itemEffect rdf:type owl:DatatypeProperty ;
             rdfs:domain vgo:Item ;
-            rdfs:range xsd:string .
+            rdfs:range xsd:string ;
+            rdfs:comment "Specifies the effect or benefits provided by an in-game item."@en ;
+            rdfs:label "itemEffect"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#itemName
 :itemName rdf:type owl:DatatypeProperty ;
           rdfs:domain vgo:Item ;
-          rdfs:range xsd:string .
+          rdfs:range xsd:string ;
+          rdfs:comment "Specifies the name of an in-game item."@en ;
+          rdfs:label "itemName"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#laneDescription
 :laneDescription rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Lane ;
-                 rdfs:range xsd:string .
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Specifies the description of a lane in the game."@en ;
+                 rdfs:label "laneDescription"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#mapDescription
 :mapDescription rdf:type owl:DatatypeProperty ;
                 rdfs:domain :Map ;
-                rdfs:range xsd:string .
+                rdfs:range xsd:string ;
+                rdfs:comment "Specifies the description of a map in the game."@en ;
+                rdfs:label "mapDescription"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#mapGameplay
 :mapGameplay rdf:type owl:DatatypeProperty ;
              rdfs:domain :Map ;
-             rdfs:range xsd:string .
+             rdfs:range xsd:string ;
+             rdfs:comment "Specifies the gameplay characteristics of a map in the game."@en ;
+             rdfs:label "mapGameplay"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#mapName
 :mapName rdf:type owl:DatatypeProperty ;
          rdfs:domain :Map ;
-         rdfs:range xsd:string .
+         rdfs:range xsd:string ;
+         rdfs:comment "Specifies the name of a map in the game."@en ;
+         rdfs:label "mapName"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#priceToPlay
@@ -802,19 +954,25 @@ vgo:username rdf:type owl:DatatypeProperty ;
 ###  http://www.semanticweb.org/MobaOntology#roleDescription
 :roleDescription rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Role ;
-                 rdfs:range xsd:string .
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Specifies the description of a role played by a champion."@en ;
+                 rdfs:label "roleDescription"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#teamName
 :teamName rdf:type owl:DatatypeProperty ;
           rdfs:domain :Team ;
-          rdfs:range xsd:string .
+          rdfs:range xsd:string ;
+          rdfs:comment "Specifies the name of a team."@en ;
+          rdfs:label "teamName"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#winRate
 :winRate rdf:type owl:DatatypeProperty ;
          rdfs:domain vgo:Player ;
-         rdfs:range xsd:integer .
+         rdfs:range xsd:integer ;
+         rdfs:comment "Specifies the win rate percentage of a player."@en ;
+         rdfs:label "winRate"@en .
 
 
 #################################################################
@@ -1725,8 +1883,8 @@ sport:Competition rdf:type owl:Class ;
                     :itemCost 1100 ;
                     :itemEffect "The Brutalizer's stats (old item that has been removed) has been split across two items. Its armor penetration went to Serrated Dirk Serrated Dirk and its cooldown reduction to Caulfield's Warhammer Caulfield's Warhammer." ;
                     :itemName "Caulfield's Warhammer" ;
-                    rdfs:comment "CaulfieldWarhammer"@en ,
-                                 "Composite item in LeagueOfLegends."@en .
+                    rdfs:comment "Composite item in LeagueOfLegends."@en ;
+                    rdfs:label "CaulfieldWarhammer"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#Charm
@@ -1923,7 +2081,8 @@ Additionally, Garen empowers his next basic attack within 4.5 seconds to have an
 ###  http://www.semanticweb.org/MobaOntology#Gold
 :Gold rdf:type owl:NamedIndividual ;
       :precedes :Diamond ;
-      rdfs:comment "High rank elo."@en .
+      rdfs:comment "High rank elo."@en ;
+      rdfs:label "Gold"@en .
 
 
 ###  http://www.semanticweb.org/MobaOntology#InAppPurchaseEvent
